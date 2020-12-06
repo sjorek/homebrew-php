@@ -4,7 +4,7 @@ class ComposerPhp72 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 3
+  revision 4
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -28,7 +28,7 @@ class ComposerPhp72 < Formula
   end
 
   def install
-    (lib/"composer.php").write <<~EOS
+    (lib/"#{name}.php").write <<~EOS
       #!#{php_binary_from_formula_name}
       <?php
       // #{name}
@@ -40,11 +40,11 @@ class ComposerPhp72 < Formula
           putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
       }
       
-      require_once 'phar://#{lib}/composer.phar/bin/composer';
+      require_once 'phar://#{lib}/#{name}.phar/bin/composer';
     EOS
 
-    lib.install "composer.phar"
-    bin.install_symlink "#{lib}/composer.php" => "#{name}"
+    lib.install "composer.phar" => "#{name}.phar"
+    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
 
   test do
