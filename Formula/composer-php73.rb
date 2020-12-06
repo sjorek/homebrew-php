@@ -1,10 +1,10 @@
-class ComposerPhp73AT1 < Formula
+class ComposerPhp73 < Formula
   desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  #revision 1
+  revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -29,7 +29,7 @@ class ComposerPhp73AT1 < Formula
 
   def install
     (lib/"composer.php").write <<~EOS
-      #!#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php
+      #!#{php_binary_from_formula_name}
       <?php
       // #{name}
       

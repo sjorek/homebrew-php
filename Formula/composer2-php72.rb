@@ -1,14 +1,14 @@
-class ComposerPhp72AT1 < Formula
+class Composer2Php72 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/download/2.0.8/composer.phar"
   sha256 "2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538"
   license "MIT"
-  #revision 1
+  revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^1\.[\d.]+$/i)
+    regex(/^2\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -29,7 +29,7 @@ class ComposerPhp72AT1 < Formula
 
   def install
     (lib/"composer.php").write <<~EOS
-      #!#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php
+      #!#{php_binary_from_formula_name}
       <?php
       // #{name}
       
