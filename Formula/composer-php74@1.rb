@@ -1,4 +1,4 @@
-class ComposerPhp80AT1 < Formula
+class ComposerPhp74AT1 < Formula
   desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/download/1.10.19/composer.phar"
@@ -17,7 +17,7 @@ class ComposerPhp80AT1 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
-  depends_on "php@8.0"
+  depends_on "php@7.4"
 
   def php_version_from_formula_name
     "#{name}".split("@", 2).first.gsub(/^composer-php/, "").split("").join(".")
