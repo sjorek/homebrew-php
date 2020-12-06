@@ -4,6 +4,7 @@ class ComposerAT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
+  revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -14,10 +15,11 @@ class ComposerAT1 < Formula
 
   keg_only :versioned_formula
 
-  deprecate! date: "2022-11-28", because: :versioned_formula
+  #deprecate! date: "2022-11-28", because: :versioned_formula
 
   def install
-    bin.install "composer.phar" => "composer"
+    lib.install "composer.phar"
+    bin.install_symlink "#{lib}/composer.phar" => "composer"
   end
 
   test do
