@@ -4,11 +4,11 @@ class ComposerAT2 < Formula
   url "https://getcomposer.org/download/2.0.8/composer.phar"
   sha256 "2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538"
   license "MIT"
-  revision 3
+  revision 5
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^#{Regexp.escape("#{composer_version_from_formula_name}")}\.[\d.]+$/i)
+    regex(/^2\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -16,10 +16,6 @@ class ComposerAT2 < Formula
   keg_only :versioned_formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
-
-  def composer_version_from_formula_name
-    "#{name}".split("@", 2).last
-  end
 
   def install
     lib.install "composer.phar"

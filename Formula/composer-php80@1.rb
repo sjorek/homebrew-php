@@ -4,11 +4,11 @@ class ComposerPhp80AT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^#{Regexp.escape("#{composer_version_from_formula_name}")}\.[\d.]+$/i)
+    regex(/^1\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -16,9 +16,8 @@ class ComposerPhp80AT1 < Formula
   keg_only :versioned_formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
-  
-  depends_on "php@#{php_version_from_formula_name}"
-  depends_on "composer@#{composer_version_from_formula_name}"
+
+  depends_on "php@8.0"
 
   def php_version_from_formula_name
     "#{name}".split("@", 2).first.gsub(/^composer-php/, "").split("").join(".")
