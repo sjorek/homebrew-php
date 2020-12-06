@@ -1,5 +1,5 @@
 class ComposerAT1 < Formula
-  desc "Dependency Manager for PHP"
+  desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
