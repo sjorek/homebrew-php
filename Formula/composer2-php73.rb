@@ -4,7 +4,7 @@ class Composer2Php73 < Formula
   url "https://getcomposer.org/download/2.0.8/composer.phar"
   sha256 "2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538"
   license "MIT"
-  revision 4
+  revision 5
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -20,7 +20,7 @@ class Composer2Php73 < Formula
   depends_on "php@7.3"
 
   def php_version_from_formula_name
-    "#{name}".gsub(/^composer-php/, "").split("").join(".")
+    "#{name}".gsub(/^composer2-php/, "").split("").join(".")
   end
 
   def php_binary_from_formula_name
