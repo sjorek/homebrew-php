@@ -4,7 +4,7 @@ class ComposerPhp80AT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 3
+  revision 6
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -73,7 +73,7 @@ class ComposerPhp80AT1 < Formula
             "HelloWorld": "src/"
           }
         },
-        "scripts" {
+        "scripts": {
           "test": "@php tests/test.php"
         }
       }
@@ -102,8 +102,8 @@ class ComposerPhp80AT1 < Formula
       echo Greetings::sayHelloWorld();
     EOS
 
-    system "#{bin}/composer", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
-      shell_output("#{bin}/composer run-script test")
+    system "#{bin}/#{composer_name_from_formula_name}", "install"
+    assert_match /^HelloHomebrew from version #{php_version_from_formula_name}$/,
+      shell_output("#{bin}/#{composer_name_from_formula_name} -v run-script test")
   end
 end
