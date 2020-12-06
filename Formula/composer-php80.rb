@@ -4,7 +4,7 @@ class ComposerPhp80 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -13,7 +13,7 @@ class ComposerPhp80 < Formula
 
   bottle :unneeded
 
-  keg_only :versioned_formula
+  #keg_only :versioned_formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
