@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "caskroom/cask": {
-        "revision": "657c1d349045e1f1d64dd824617a5d374cfb3f0f"
+        "revision": "7fb0b13a525611c3f271a784cab58d66650ddff8"
       },
       "drud/ddev": {
         "revision": "6a80778bcaf8fee43730379dd4f8e7a72e15c297"
@@ -11,29 +11,25 @@
         "revision": "6fa389091d1b7450df0701d6a0d20e862bda6507"
       },
       "homebrew/cask": {
-        "revision": "657c1d349045e1f1d64dd824617a5d374cfb3f0f"
+        "revision": "7fb0b13a525611c3f271a784cab58d66650ddff8"
       },
       "homebrew/cask-drivers": {
-        "revision": "19276e3bd0a5e8131ec3eed4e298119adc73cdc6"
+        "revision": "1b57691ded666500de59aafba3139c78d1cdb547"
       },
       "homebrew/cask-versions": {
-        "revision": "667552d795f882cf89af49226d32e56d6b00e7c5"
+        "revision": "9a102ab66f4cd998ca270ea599f9fcae9739e2fb"
       },
       "homebrew/core": {
-        "revision": "9b78f78d5fe064f53c69e322e02509d60e3afec1"
+        "revision": "4b82c9d05300c9eb77fc551dc0a93a2e8afa3fdc"
       },
       "sjorek/php": {
-        "revision": "1de896aa1792bba7a14ae03e25fe57a3a28ec766",
+        "revision": "685d2cf56a0253950414fb1d6d84cc2763835d8c",
         "options": {
           "clone_target": "file:///Users/stephan.jorek/Documents/Brandung/Workspace/homebrew-php/.git"
         }
       }
     },
     "brew": {
-      "brew-cask-completion": {
-        "version": "2.1_1",
-        "bottle": false
-      },
       "composer": {
         "version": "2.0.8",
         "bottle": false
@@ -254,6 +250,7 @@
           }
         }
       },
+      "php@8.0": null,
       "rancher-cli": {
         "version": "2.4.9",
         "bottle": {
@@ -279,42 +276,17 @@
           }
         }
       },
-      "rancher-compose": {
-        "version": "0.12.5",
-        "bottle": {
-          "cellar": ":any_skip_relocation",
-          "prefix": "/usr/local",
-          "files": {
-            "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.catalina.bottle.tar.gz",
-              "sha256": "50da809ea2a33343eda8099715391efc6c730b6996476d7c5366fba0d52ab853"
-            },
-            "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.mojave.bottle.tar.gz",
-              "sha256": "bf318932b401481ee6e3a94c82c617b21e558406ebef9739c1c7bb42441e9eda"
-            },
-            "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.high_sierra.bottle.tar.gz",
-              "sha256": "63f6da5eb59cb86c8f84975b3d3ee41f0bfc1456b239d1a6cc06a648d57e1967"
-            },
-            "sierra": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.sierra.bottle.tar.gz",
-              "sha256": "08f3fad4e6c1df545dd908b61afe47ed489e682ad2cadab384066237498a2a04"
-            },
-            "el_capitan": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.el_capitan.bottle.tar.gz",
-              "sha256": "8503ea7d7ca208ca7fe8d0c0b81f9ab9b69d926c58f856ac9de4f9f3600cde17"
-            },
-            "yosemite": {
-              "url": "https://homebrew.bintray.com/bottles/rancher-compose-0.12.5.yosemite.bottle.tar.gz",
-              "sha256": "23291133a0a775210ae1244ae594931ce04fab8e7c0a37ba90431d61d869317b"
-            }
-          }
-        }
-      },
       "drud/ddev/ddev": null,
       "sjorek/php/composer@1": null,
-      "sjorek/php/composer@2": null
+      "sjorek/php/composer@2": null,
+      "sjorek/php/composer-php72": null,
+      "sjorek/php/composer-php73": null,
+      "sjorek/php/composer-php74": null,
+      "sjorek/php/composer-php80": null,
+      "sjorek/php/composer2-php72": null,
+      "sjorek/php/composer2-php73": null,
+      "sjorek/php/composer2-php74": null,
+      "sjorek/php/composer2-php80": null
     },
     "cask": {
       "browserstacklocal": {
@@ -340,9 +312,9 @@
   "system": {
     "macos": {
       "mojave": {
-        "HOMEBREW_VERSION": "2.6.0-96-gf901b57",
+        "HOMEBREW_VERSION": "2.6.0-104-g24f7898",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "9b78f78d5fe064f53c69e322e02509d60e3afec1",
+        "Homebrew/homebrew-core": "4b82c9d05300c9eb77fc551dc0a93a2e8afa3fdc",
         "CLT": "11.0.0.0.1.1559496560",
         "Xcode": "11.3.1",
         "macOS": "10.14.6"

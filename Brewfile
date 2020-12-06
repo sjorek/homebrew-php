@@ -36,16 +36,32 @@ brew "php@7.2"
 brew "php@7.3"
 # General-purpose scripting language
 brew "php@7.4"
+# General-purpose scripting language
+brew "php@8.0"
 # Unified tool to manage your Rancher server
 brew "rancher-cli"
-# Docker Compose compatible client to deploy to Rancher
-brew "rancher-compose"
 # ddev: a local development environment management system
 brew "drud/ddev/ddev"
-# Dependency Manager for PHP
+# Dependency Manager for PHP - Version 1.x
 brew "sjorek/php/composer@1"
-# Dependency Manager for PHP
+# Dependency Manager for PHP - Version 2.x
 brew "sjorek/php/composer@2"
+# Dependency Manager for PHP - Version 1.x
+brew "sjorek/php/composer-php72"
+# Dependency Manager for PHP - Version 1.x
+brew "sjorek/php/composer-php73"
+# Dependency Manager for PHP - Version 1.x
+brew "sjorek/php/composer-php74"
+# Dependency Manager for PHP - Version 1.x
+brew "sjorek/php/composer-php80"
+# Dependency Manager for PHP - Version 2.x
+brew "sjorek/php/composer2-php72"
+# Dependency Manager for PHP - Version 2.x
+brew "sjorek/php/composer2-php73"
+# Dependency Manager for PHP - Version 2.x
+brew "sjorek/php/composer2-php74"
+# Dependency Manager for PHP - Version 2.x
+brew "sjorek/php/composer2-php80"
 
 cask "browserstacklocal"
 cask "docker"
