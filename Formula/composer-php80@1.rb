@@ -4,7 +4,7 @@ class ComposerPhp80AT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -27,10 +27,6 @@ class ComposerPhp80AT1 < Formula
     "#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php"
   end
 
-  def composer_home_from_formula_name
-    ".#{name}".split("@", 2).first.gsub(/-/, "/")
-  end
-
   def composer_name_from_formula_name
     "#{name}".split("@", 2).first
   end
@@ -46,7 +42,7 @@ class ComposerPhp80AT1 < Formula
       // #{name}
       
       if (false === getenv('COMPOSER_HOME')) {
-          putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/#{composer_home_from_formula_name}');
+          putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{composer_name_from_formula_name}');
       }
       if (false === getenv('COMPOSER_CACHE_DIR')) {
           putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
