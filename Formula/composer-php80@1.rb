@@ -4,11 +4,11 @@ class ComposerPhp80AT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  #revision 1
+  revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^#{Regexp.escape(composer_version_from_formula_name)}\.[\d.]+$/i)
+    regex(/^#{Regexp.escape("#{composer_version_from_formula_name}")}\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -71,7 +71,7 @@ class ComposerPhp80AT1 < Formula
           }
         ],
         "require": {
-          "php": "~#{php_version_formula_name}.0"
+          "php": "~#{php_version_from_formula_name}.0"
         },
         "autoload": {
           "psr-0": {
@@ -108,7 +108,7 @@ class ComposerPhp80AT1 < Formula
     EOS
 
     system "#{bin}/composer", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape(php_version_formula_name)}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
       shell_output("#{bin}/composer run-script test")
   end
 end
