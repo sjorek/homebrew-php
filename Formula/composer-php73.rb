@@ -4,7 +4,7 @@ class ComposerPhp73AT1 < Formula
   url "https://getcomposer.org/download/1.10.19/composer.phar"
   sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
   license "MIT"
-  revision 7
+  #revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -20,19 +20,11 @@ class ComposerPhp73AT1 < Formula
   depends_on "php@7.3"
 
   def php_version_from_formula_name
-    "#{name}".split("@", 2).first.gsub(/^composer-php/, "").split("").join(".")
+    "#{name}".gsub(/^composer-php/, "").split("").join(".")
   end
 
   def php_binary_from_formula_name
     "#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php"
-  end
-
-  def composer_name_from_formula_name
-    "#{name}".split("@", 2).first
-  end
-
-  def composer_version_from_formula_name
-    "#{name}".split("@", 2).last
   end
 
   def install
@@ -42,7 +34,7 @@ class ComposerPhp73AT1 < Formula
       // #{name}
       
       if (false === getenv('COMPOSER_HOME')) {
-          putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{composer_name_from_formula_name}');
+          putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
       }
       if (false === getenv('COMPOSER_CACHE_DIR')) {
           putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
@@ -52,7 +44,7 @@ class ComposerPhp73AT1 < Formula
     EOS
 
     lib.install "composer.phar"
-    bin.install_symlink "#{lib}/composer.php" => "#{composer_name_from_formula_name}"
+    bin.install_symlink "#{lib}/composer.php" => "#{name}"
   end
 
   test do
@@ -102,8 +94,8 @@ class ComposerPhp73AT1 < Formula
       echo Greetings::sayHelloWorld();
     EOS
 
-    system "#{bin}/#{composer_name_from_formula_name}", "install"
+    system "#{bin}/#{name}", "install"
     assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
-      shell_output("#{bin}/#{composer_name_from_formula_name} -v run-script test")
+      shell_output("#{bin}/#{name} -v run-script test")
   end
 end

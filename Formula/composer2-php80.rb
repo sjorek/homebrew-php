@@ -1,8 +1,8 @@
-class ComposerPhp74AT1 < Formula
-  desc "Dependency Manager for PHP - Version 1.x"
+class ComposerPhp80AT1 < Formula
+  desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/1.10.19/composer.phar"
-  sha256 "688bf8f868643b420dded326614fcdf969572ac8ad7fbbb92c28a631157d39e8"
+  url "https://getcomposer.org/download/2.0.8/composer.phar"
+  sha256 "2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538"
   license "MIT"
   #revision 1
 
@@ -17,7 +17,7 @@ class ComposerPhp74AT1 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
-  depends_on "php@7.4"
+  depends_on "php@8.0"
 
   def php_version_from_formula_name
     "#{name}".gsub(/^composer-php/, "").split("").join(".")
