@@ -55,6 +55,7 @@ $ brew install commposer…
 ## Want more?
 
 There is a [virtual-environment composer-plugin](https://sjorek.github.io/composer-virtual-environment-plugin/)
-complementing these composer formulae.
+complementing these composer formulae. Are you preferring [macports](https://www.macports.org)? The look at the
+alternative [macports-php](https://sjorek.github.io/macports-php/) project.
 
 Cheers!
