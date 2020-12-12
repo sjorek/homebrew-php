@@ -3,10 +3,6 @@ os: osx
 language: generic
 #language: shell
 
-cache:
-  directories:
-  - $HOME/.macports-ci-ccache
-
 env:
   global:
   - BREW="brew"
@@ -98,9 +94,6 @@ script:
 # - if [[ $DEBUG = true ]]; then
 #     $BREW -v uninstall ${BREW_TAP}/${BREW_NAME};
 #   fi
-
-after_script:
-- ./macports-ci ccache --save
 
 notifications:
   email:
