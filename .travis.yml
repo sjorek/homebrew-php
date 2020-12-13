@@ -1,6 +1,5 @@
 language: generic
 
-
 jobs:
   include:
     - &OSX_LATEST
@@ -22,12 +21,12 @@ jobs:
       - if [ -n "${BREW_CASK}" ]; then
           brew install --cask ${BREW_CASK};
         fi
-      
+
       before_script:
       - $BREW --version
       - echo "installing ${BREW_TAP}/${BREW_NAME}"
       - travis_retry travis_wait 30 $BREW install ${BREW_TAP}/${BREW_NAME}
-      
+
       script:
       - if [[ $BREW_LIVECHECK = true ]] && [[ 0 = $(( $TRAVIS_BUILD_NUMBER % $BREW_LIVECHECK_INTERVAL )) ]]; then
           $BREW -v livecheck ${BREW_TAP}/${BREW_NAME};
