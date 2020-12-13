@@ -1,7 +1,12 @@
-os: osx
-
 language: generic
-#language: shell
+
+
+jobs:
+  include:
+    - os: osx
+      osx_image: xcode12
+    - os: osx
+      osx_image: xcode11
 
 env:
   global:
