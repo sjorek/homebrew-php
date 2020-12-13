@@ -20,48 +20,35 @@ env:
   - >
     BREW_NAME="composer@1"
     BREW_LIVECHECK=true
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME%@1} --version && (${BREW_NAME%@1} diagnose || true)"
   - >
     BREW_NAME="composer@2"
     BREW_LIVECHECK=true
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME%@2} --version && (${BREW_NAME%@2} diagnose || true)"
   - >
     BREW_NAME="composer-php72"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer-php73"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer-php74"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer-php80"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer2-php72"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer2-php73"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer2-php74"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer2-php80"
-    BREW_TEST=true
-#    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
+    TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
   - >
     BREW_NAME="composer-bash-completion"
-    BREW_TEST=true
     BREW_LIVECHECK=true
 
 install:
