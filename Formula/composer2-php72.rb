@@ -31,8 +31,8 @@ class Composer2Php72 < Formula
     system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
     inreplace "#{name}.php" do |s|
-        s.gsub /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
-        s.gsub /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_HOME')) {
               putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
           }
@@ -40,8 +40,8 @@ class Composer2Php72 < Formula
               putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
           }
         EOS
-        s.gsub /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
-        s.gsub /^__HALT_COMPILER.*/, ""
+        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
+        s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
     lib.install "#{name}.php" => "#{name}.php"
