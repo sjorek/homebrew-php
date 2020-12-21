@@ -4,7 +4,7 @@ class Composer2Php72 < Formula
   url "https://getcomposer.org/download/2.0.8/composer.phar"
   sha256 "2021f0d52b446e0efe3c548cc058ab5671fa38cdbcf814e7911c7e9d71d61538"
   license "MIT"
-  revision 5
+  revision 6
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -28,21 +28,23 @@ class Composer2Php72 < Formula
   end
 
   def install
-    (lib/"#{name}.php").write <<~EOS
-      #!#{php_binary_from_formula_name}
-      <?php
-      // #{name}
-      
-      if (false === getenv('COMPOSER_HOME')) {
-          putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
-      }
-      if (false === getenv('COMPOSER_CACHE_DIR')) {
-          putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
-      }
-      
-      require_once 'phar://#{lib}/#{name}.phar/bin/composer';
-    EOS
+    system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
+    inreplace "#{name}.php" do |s|
+        s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+          if (false === getenv('COMPOSER_HOME')) {
+              putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
+          }
+          if (false === getenv('COMPOSER_CACHE_DIR')) {
+              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
+          }
+        EOS
+        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
+        s.gsub! /^__HALT_COMPILER.*/, ""
+    end
+
+    lib.install "#{name}.php" => "#{name}.php"
     lib.install "composer.phar" => "#{name}.phar"
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
