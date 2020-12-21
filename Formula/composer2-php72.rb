@@ -28,7 +28,7 @@ class Composer2Php72 < Formula
   end
 
   def install
-    (lib/"#{name}.php").write shell_output("#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();'")
+    system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >lib/#{name}.php"
 
     inreplace lib/"#{name}.php" do |s|
         s.gsub /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
