@@ -17,7 +17,7 @@ class Composer2Php72 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
-  depends_on "php@#{php_version_from_formula_name}"
+  depends_on "php@7.2"
 
   def php_version_from_formula_name
     "#{name}".gsub(/^composer2-php/, "").split("").join(".")
