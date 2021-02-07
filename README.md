@@ -18,16 +18,17 @@ $ brew install commposer…
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.19
-    composer-php72                 1.10.19
-    composer-php73                 1.10.19
-    composer-php74                 1.10.19
-    composer-php80                 1.10.19
+    composer@1                     1.10.20
+    composer-php72                 1.10.20
+    composer-php73                 1.10.20
+    composer-php74                 1.10.20
+    composer-php80                 1.10.20
 
-    composer@2                     2.0.8
-    composer2-php72                2.0.8
-    composer2-php73                2.0.8
-    composer2-php80                2.0.8
+    composer@2                     2.0.9
+    composer2-php72                2.0.9
+    composer2-php73                2.0.9
+    composer2-php74                2.0.9
+    composer2-php80                2.0.9
 
     composer-bash-completion       0.2.0
 
@@ -55,7 +56,7 @@ $ brew install commposer…
 ## Want more?
 
 There is a [virtual-environment composer-plugin](https://sjorek.github.io/composer-virtual-environment-plugin/)
-complementing these composer formulae. Are you preferring [macports](https://www.macports.org)? The look at the
-alternative [macports-php](https://sjorek.github.io/macports-php/) project.
+complementing these composer formulae. Are you preferring [macports](https://www.macports.org)? Then take a look
+at the alternative [macports-php](https://sjorek.github.io/macports-php/) project.
 
 Cheers!
