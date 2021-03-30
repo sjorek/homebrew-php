@@ -24,11 +24,11 @@ $ brew install commposer…
     composer-php74                 1.10.20
     composer-php80                 1.10.20
 
-    composer@2                     2.0.9
-    composer2-php72                2.0.9
-    composer2-php73                2.0.9
-    composer2-php74                2.0.9
-    composer2-php80                2.0.9
+    composer@2                     2.0.11
+    composer2-php72                2.0.11
+    composer2-php73                2.0.11
+    composer2-php74                2.0.11
+    composer2-php80                2.0.11
 
     composer-bash-completion       0.2.0
 
