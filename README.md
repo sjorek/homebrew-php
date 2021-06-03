@@ -18,17 +18,17 @@ $ brew install commposer…
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.20
-    composer-php72                 1.10.20
-    composer-php73                 1.10.20
-    composer-php74                 1.10.20
-    composer-php80                 1.10.20
+    composer@1                     1.10.22
+    composer-php72                 1.10.22
+    composer-php73                 1.10.22
+    composer-php74                 1.10.22
+    composer-php80                 1.10.22
 
-    composer@2                     2.0.11
-    composer2-php72                2.0.11
-    composer2-php73                2.0.11
-    composer2-php74                2.0.11
-    composer2-php80                2.0.11
+    composer@2                     2.0.14
+    composer2-php72                2.0.14
+    composer2-php73                2.0.14
+    composer2-php74                2.0.14
+    composer2-php80                2.0.14
 
     composer-bash-completion       0.2.0
 
