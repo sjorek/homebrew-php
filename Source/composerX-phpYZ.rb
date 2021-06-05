@@ -38,6 +38,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
         if (false === getenv('COMPOSER_HOME')) {
             putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
         }
+
         if (false === getenv('COMPOSER_CACHE_DIR')) {
             putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
         }

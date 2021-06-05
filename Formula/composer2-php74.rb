@@ -5,7 +5,7 @@ class Composer2Php74 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.1"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -38,6 +38,7 @@ class Composer2Php74 < Formula
         if (false === getenv('COMPOSER_HOME')) {
             putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
         }
+
         if (false === getenv('COMPOSER_CACHE_DIR')) {
             putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
         }
