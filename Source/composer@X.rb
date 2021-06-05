@@ -2,7 +2,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
   desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
-  sha384 "COMPOSER_SETUP_SHA384SUM"
+  sha256 "COMPOSER_SETUP_SHA256"
   license "MIT"
   version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
   revision FORMULA_REVISION
@@ -20,22 +20,31 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
 
   def install
 
-    php = '/usr/bin/env php'
+    php_binary      = '/usr/bin/env php'
+    composer_php    = "#{buildpath}/composer.php"
+    composer_phar   = "#{buildpath}/composer.phar"
+    composer_setup  = "#{buildpath}/composer-setup.php"
 
-    mv "installer" "composer-setup.php"
+    mv "installer" composer_setup
 
-    setup_check = shell_output("#{php} composer-setup.php --check --no-ansi")
+    composer_setup_sha384 = shell_output("#{php_binary} -r 'echo hash_file(\"sha384\", \"#{composer_setup}\");'")
+    assert_equal "COMPOSER_SETUP_SHA384", composer_setup_sha384
+
+    setup_check = shell_output("#{php_binary} #{composer_setup} --check --no-ansi")
     assert_equal "All settings correct for using Composer", setup_check
 
-    system "#{php} composer-setup.php --install-dir=. --version=#{version} --no-ansi --quiet"
+    system "#{php_binary} #{composer_setup} --install-dir=. --version=#{version} --no-ansi --quiet"
 
-    composer_sha256 = shell_output("#{php} -r 'echo hash_file(\"sha256\", \"composer.phar\");'")
-    assert_equal "COMPOSER_PHAR_SHA256SUM", composer_sha256
+    composer_version = shell_output("#{php_binary} #{composer_phar} --version --no-ansi")
+    assert_match /^Composer version #{Regexp.escape(version)} /, composer_version
+
+    composer_phar_sha256 = shell_output("#{php_binary} -r 'echo hash_file(\"sha256\", \"composer.phar\");'")
+    assert_equal "COMPOSER_PHAR_SHA256", composer_phar_sha256
 
     if COMPOSER_VERSION_MAJOR == 1 then
-      system "#{php} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >composer.php"
+      system "#{php_binary} -r '\$p = new Phar(\"./#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
-      inreplace "composer.php" do |s|
+      inreplace composer_php do |s|
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
@@ -46,13 +55,13 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
         s.gsub! /^__HALT_COMPILER.*/, ""
       end
 
-      lib.install "composer.phar"
-      lib.install "composer.php"
-      lib.install "composer-setup.php"
+      lib.install composer_phar
+      lib.install composer_php
+      lib.install composer_setup
       bin.install_symlink "#{lib}/composer.php" => "composer"
     else
-      lib.install "composer.phar"
-      lib.install "composer-setup.php"
+      lib.install composer_phar
+      lib.install composer_setup
       bin.install_symlink "#{lib}/composer.phar" => "composer"
     end
   end
