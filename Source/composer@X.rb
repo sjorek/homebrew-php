@@ -1,15 +1,15 @@
-class ComposerAT1 < Formula
-  desc "Dependency Manager for PHP - Version 1.x"
+class ComposerATCOMPOSER_VERSION_MAJOR < Formula
+  desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
-  sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
+  sha256 "COMPOSER_SETUP_SHA256"
   license "MIT"
-  version "1.10.22"
-  revision 9
+  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
+  revision FORMULA_REVISION
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^1\.[\d.]+$/i)
+    regex(/^COMPOSER_VERSION_MAJOR\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -28,7 +28,7 @@ class ComposerAT1 < Formula
     mv "installer", composer_setup
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
@@ -39,9 +39,9 @@ class ComposerAT1 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "6127ae192d3b56cd6758c7c72fe2ac6868ecc835dae1451a004aca10ab1e0700" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
-    if 1 == 1 then
+    if COMPOSER_VERSION_MAJOR == 1 then
       system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
       inreplace composer_php do |s|
@@ -117,17 +117,17 @@ class ComposerAT1 < Formula
 
     s = <<~EOS
       Hint: “#{name}” is meant to be used in conjunction with
-      one or all of the sjorek/php/composer1-php* formulae.
+      one or all of the sjorek/php/composerCOMPOSER_VERSION_MAJOR-php* formulae.
 
-      To install all composer version 1 formulae at once run:
-        brew install sjorek/php/composer1-php{72,73,74,80}
+      To install all composer version COMPOSER_VERSION_MAJOR formulae at once run:
+        brew install sjorek/php/composerCOMPOSER_VERSION_MAJOR-php{72,73,74,80}
 
       To install all composer formulae at once run:
         brew install sjorek/php/composer{1,2}-php{72,73,74,80}
 
     EOS
 
-    if 1 == 1 then
+    if COMPOSER_VERSION_MAJOR == 1 then
       s += <<~EOS
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:

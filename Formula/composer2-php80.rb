@@ -1,10 +1,11 @@
 class Composer2Php80 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/2.0.14/composer.phar"
-  sha256 "29454b41558968ca634bf5e2d4d07ff2275d91b637a76d7a05e6747d36dd3473"
+  url "file:///dev/null"
+  sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  revision 0
+  version "2.1.1"
+  revision 10
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -18,34 +19,46 @@ class Composer2Php80 < Formula
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
   depends_on "php@8.0"
-
-  def php_version_from_formula_name
-    "#{name}".gsub(/^composer2-php/, "").split("").join(".")
-  end
-
-  def php_binary_from_formula_name
-    "#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php"
-  end
+  depends_on "sjorek/php/composer@2"
 
   def install
-    system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
-    inreplace "#{name}.php" do |s|
-        s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-          if (false === getenv('COMPOSER_HOME')) {
-              putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
-          }
-          if (false === getenv('COMPOSER_CACHE_DIR')) {
-              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
-          }
-        EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
+    composer_php    = "#{buildpath}/#{name}.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
+
+    composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
+    fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
+
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
+    fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
+
+    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
+    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
+
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
+    fail "invalid checksum for composer.phar" unless "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce" == composer_phar_sha256
+
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+
+    inreplace composer_php do |s|
+      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (false === getenv('COMPOSER_HOME')) {
+            putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
+        }
+
+        if (false === getenv('COMPOSER_CACHE_DIR')) {
+            # @see https://github.com/composer/composer/pull/9898
+            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
+        }
+      EOS
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
-    lib.install "#{name}.php" => "#{name}.php"
-    lib.install "composer.phar" => "#{name}.phar"
+    lib.install composer_php
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
 
@@ -60,7 +73,7 @@ class Composer2Php80 < Formula
           }
         ],
         "require": {
-          "php": "~#{php_version_from_formula_name}.0"
+          "php": "~8.0.0"
         },
         "autoload": {
           "psr-0": {
@@ -97,7 +110,49 @@ class Composer2Php80 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("8.0")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
+
+  def caveats
+    s = <<~EOS
+      When running “#{name}” the COMPOSER_* environment-variables are
+      adjusted per default:
+
+        COMPOSER_HOME=~/.composer/#{name}
+
+        # @see https://github.com/composer/composer/pull/9898
+        COMPOSER_CACHE_DIR=~/Library/Caches/composer
+
+      Of course, these variables can still be overriden by you.
+
+    EOS
+
+    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+      s += <<~EOS
+        ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
+        from “~/.composer/cache” to “~/Library/Caches/composer”.
+
+        If you want to remove the old cache directory, run:
+          rm -rf ~/.composer/cache
+
+      EOS
+    end
+
+    if /^composer1-/.match?(name) then
+      oldname = name.gsub(/^composer1-/, 'composer-')
+      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
+        s += <<~EOS
+          ATTENTION: The COMPOSER_HOME path-value has been renamed
+          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
+
+          Please update your composer-home path and run a diagnose afterwards:
+            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
+            #{name} diagnose
+
+        EOS
+      end
+    end
+  end
+
 end

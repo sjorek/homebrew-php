@@ -1,15 +1,15 @@
-class Composer2Php74 < Formula
-  desc "Dependency Manager for PHP - Version 2.x"
+class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Formula
+  desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.1.1"
-  revision 10
+  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
+  revision FORMULA_REVISION
 
   livecheck do
     url "https://github.com/composer/composer.git"
-    regex(/^2\.[\d.]+$/i)
+    regex(/^COMPOSER_VERSION_MAJOR\.[\d.]+$/i)
   end
 
   bottle :unneeded
@@ -18,18 +18,18 @@ class Composer2Php74 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
-  depends_on "php@7.4"
-  depends_on "sjorek/php/composer@2"
+  depends_on "php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
+  depends_on "sjorek/php/composer@COMPOSER_VERSION_MAJOR"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@7.4/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
@@ -38,7 +38,7 @@ class Composer2Php74 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -73,7 +73,7 @@ class Composer2Php74 < Formula
           }
         ],
         "require": {
-          "php": "~7.4.0"
+          "php": "~PHP_VERSION_MAJOR.PHP_VERSION_MINOR.0"
         },
         "autoload": {
           "psr-0": {
@@ -110,7 +110,7 @@ class Composer2Php74 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("7.4")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("PHP_VERSION_MAJOR.PHP_VERSION_MINOR")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 

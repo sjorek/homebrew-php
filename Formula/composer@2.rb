@@ -1,10 +1,11 @@
 class ComposerAT2 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/2.0.14/composer.phar"
-  sha256 "29454b41558968ca634bf5e2d4d07ff2275d91b637a76d7a05e6747d36dd3473"
+  url "https://getcomposer.org/installer"
+  sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
-  revision 0
+  version "2.1.1"
+  revision 9
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -18,8 +19,51 @@ class ComposerAT2 < Formula
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
   def install
-    lib.install "composer.phar"
-    bin.install_symlink "#{lib}/composer.phar" => "composer"
+
+    php_binary      = '/usr/bin/env php'
+    composer_php    = "#{buildpath}/composer.php"
+    composer_phar   = "#{buildpath}/composer.phar"
+    composer_setup  = "#{buildpath}/composer-setup.php"
+
+    mv "installer", composer_setup
+
+    composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
+    fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
+
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
+    fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
+
+    system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
+
+    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
+    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
+
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
+    fail "invalid checksum for composer.phar" unless "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce" == composer_phar_sha256
+
+    if 2 == 1 then
+      system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+
+      inreplace composer_php do |s|
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+          if (false === getenv('COMPOSER_CACHE_DIR')) {
+              # @see https://github.com/composer/composer/pull/9898
+              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
+          }
+        EOS
+        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
+        s.gsub! /^__HALT_COMPILER.*/, ""
+      end
+
+      lib.install composer_phar
+      lib.install composer_php
+      lib.install composer_setup
+      bin.install_symlink "#{lib}/composer.php" => "composer"
+    else
+      lib.install composer_phar
+      lib.install composer_setup
+      bin.install_symlink "#{lib}/composer.phar" => "composer"
+    end
   end
 
   test do
@@ -68,4 +112,45 @@ class ComposerAT2 < Formula
     system "#{bin}/composer", "install"
     assert_match /^HelloHomebrew$/, shell_output("php tests/test.php")
   end
+
+  def caveats
+
+    s = <<~EOS
+      Hint: “#{name}” is meant to be used in conjunction with
+      one or all of the sjorek/php/composer2-php* formulae.
+
+      To install all composer version 2 formulae at once run:
+        brew install sjorek/php/composer2-php{72,73,74,80}
+
+      To install all composer formulae at once run:
+        brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+
+    EOS
+
+    if 2 == 1 then
+      s += <<~EOS
+        When running “composer” the COMPOSER_* environment-variables are
+        adjusted per default:
+
+          # @see https://github.com/composer/composer/pull/9898
+          COMPOSER_CACHE_DIR=~/Library/Caches/composer
+
+        Of course, these variables can still be overriden by you.
+
+      EOS
+    end
+
+    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+      s += <<~EOS
+        ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
+        from “~/.composer/cache” to “~/Library/Caches/composer”.
+
+        If you want to remove the old cache directory, run:
+          rm -rf ~/.composer/cache
+
+      EOS
+    end
+    s
+  end
+
 end
