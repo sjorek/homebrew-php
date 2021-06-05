@@ -5,7 +5,7 @@ class Composer1Php74 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -30,10 +30,7 @@ class Composer1Php74 < Formula
   end
 
   def install
-    system "#{php_binary}",
-      "-r",
-      "'\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();'",
-      ">#{name}.php"
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
     inreplace "#{name}.php" do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"

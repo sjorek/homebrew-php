@@ -30,10 +30,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
   end
 
   def install
-    system "#{php_binary}",
-      "-r",
-      "'\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();'",
-      ">#{name}.php"
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
     inreplace "#{name}.php" do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
