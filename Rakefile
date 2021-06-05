@@ -77,17 +77,6 @@ def generate_composer_build_tasks composer_versions, build_targets
           formula  = File.read(t.name)
           revision = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
 
-          puts ""
-          puts "source    : #{t.source}"
-          puts "target    : #{t.name}"
-          puts "formula   : #{name}"
-          puts "version   : #{info['version']}"
-          puts "revision  : #{revision}"
-          puts "sha256sum : #{info['sha256sum']}"
-          puts "outdated? : #{outdated}"
-          puts "rebuild?  : #{rebuild}"
-          puts ""
-
           if outdated || rebuild then
 
             source = File.read(t.source)
@@ -101,15 +90,30 @@ def generate_composer_build_tasks composer_versions, build_targets
               .gsub(/FORMULA_REVISION/,       "#{revision}")
 
             if source != formula then
-              source = source.gsub(/^( +revision +)\d+$/, "\\1#{1 + revision}") if false == outdated
+              if false == outdated then
+                revision += 1
+                source = source.gsub(/^( +revision +)\d+$/, "\\1#{revision}")
+              end
               File.write(t.name, source)
-
-              readme = File.read('README.md').gsub(/^( +#{name} +)[0-9.]+$/, "\\1#{info['version']}")
-              File.write('README.md', readme)
-
-              sh "git add #{t.name} README.md"
+              sh "git add #{t.name}"
             end
+
+            readme = File.read('README.md').gsub(/^( +#{name} +)[0-9._]+$/, "\\1#{info['version']}_#{revision}")
+            File.write('README.md', readme)
+            sh "git add README.md"
           end
+
+          puts ""
+          puts "source    : #{t.source}"
+          puts "target    : #{t.name}"
+          puts "formula   : #{name}"
+          puts "version   : #{info['version']}"
+          puts "revision  : #{revision}"
+          puts "sha256sum : #{info['sha256sum']}"
+          puts "outdated? : #{outdated}"
+          puts "rebuild?  : #{rebuild}"
+          puts ""
+
         end
 
       }
