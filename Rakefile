@@ -21,6 +21,10 @@ task :build => FORMULAE
 
 directory "dist"
 
+file 'dist/composer-setup.sha384sum' => :dist do |t|
+    sh "curl -s -o #{t.name} https://composer.github.io/installer.sha384sum"
+end
+
 def generate_composer_build_tasks composer_versions, build_targets
 
   all_versions = if File.file?(VERSIONS) then JSON.parse(File.read(VERSIONS)) else [] end
@@ -65,29 +69,35 @@ def generate_composer_build_tasks composer_versions, build_targets
             .gsub(/X/,  composer_version)
             .gsub(/YZ/, php_version.split('.').slice(0,2).join())
 
-        sources = [build_target['source'], "dist/composer#{composer_version}.json"]
+        sources = [
+            build_target['source'],
+            "dist/composer#{composer_version}.json",
+            'dist/composer-setup.sha384sum'
+        ]
         sources.push(OUTDATED) if ARGV.include? 'outdated'
 
         file target => sources do |t|
 
-          name     = t.name.pathmap('%n')
-          info     = all_versions[composer_version]
-          outdated = outdated_versions.any? { |each| each["formula"] == name }
-          rebuild  = false == uptodate?(t.name, ['Rakefile', t.source])
-          formula  = File.read(t.name)
-          revision = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
+          name      = t.name.pathmap('%n')
+          formula   = File.read(t.name)
+          setup     = File.read(t.sources[2])
+          info      = all_versions[composer_version]
+          outdated  = outdated_versions.any? { |each| each["formula"] == name }
+          rebuild   = false == uptodate?(t.name, ['Rakefile', t.source])
+          revision  = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
 
           if outdated || rebuild then
 
             source = File.read(t.source)
-              .gsub(/COMPOSER_VERSION_MAJOR/, info['version'].split('.')[0])
-              .gsub(/COMPOSER_VERSION_MINOR/, info['version'].split('.')[1])
-              .gsub(/COMPOSER_VERSION_PATCH/, info['version'].split('.')[2])
-              .gsub(/COMPOSER_SHA256SUM/,     info['sha256sum'])
-              .gsub(/PHP_VERSION_MAJOR/,      php_version.split('.')[0])
-              .gsub(/PHP_VERSION_MINOR/,      php_version.split('.')[1])
-              .gsub(/PHP_VERSION_PATCH/,      php_version.split('.')[2])
-              .gsub(/FORMULA_REVISION/,       "#{revision}")
+              .gsub(/COMPOSER_VERSION_MAJOR/,   info['version'].split('.')[0])
+              .gsub(/COMPOSER_VERSION_MINOR/,   info['version'].split('.')[1])
+              .gsub(/COMPOSER_VERSION_PATCH/,   info['version'].split('.')[2])
+              .gsub(/COMPOSER_PHAR_SHA256SUM/,  info['sha256sum'])
+              .gsub(/COMPOSER_SETUP_SHA384SUM/, setup)
+              .gsub(/PHP_VERSION_MAJOR/,        php_version.split('.')[0])
+              .gsub(/PHP_VERSION_MINOR/,        php_version.split('.')[1])
+              .gsub(/PHP_VERSION_PATCH/,        php_version.split('.')[2])
+              .gsub(/FORMULA_REVISION/,         "#{revision}")
 
             if source != formula then
               if false == outdated then
