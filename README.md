@@ -18,17 +18,17 @@ $ brew install sjorek/php/composer{,1,2}-php{72,73,74,80}
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.22_0
-    composer1-php72                1.10.22_3
-    composer1-php73                1.10.22_3
-    composer1-php74                1.10.22_3
-    composer1-php80                1.10.22_3
+    composer@1                     1.10.22_1
+    composer1-php72                1.10.22_4
+    composer1-php73                1.10.22_4
+    composer1-php74                1.10.22_4
+    composer1-php80                1.10.22_4
 
-    composer@2                     2.1.1_0
-    composer2-php72                2.1.1_3
-    composer2-php73                2.1.1_3
-    composer2-php74                2.1.1_3
-    composer2-php80                2.1.1_3
+    composer@2                     2.1.1_1
+    composer2-php72                2.1.1_4
+    composer2-php73                2.1.1_4
+    composer2-php74                2.1.1_4
+    composer2-php80                2.1.1_4
 
     composer-bash-completion       0.2.0
 

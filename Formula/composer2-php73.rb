@@ -5,7 +5,7 @@ class Composer2Php73 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.1"
-  revision 3
+  revision 4
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -19,7 +19,7 @@ class Composer2Php73 < Formula
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
   depends_on "php@7.3"
-  depends_on "composer@2"
+  depends_on "sjorek/php/composer@2"
 
   def php_binary
     "#{HOMEBREW_PREFIX}/opt/php@7.3/bin/php"
@@ -29,7 +29,21 @@ class Composer2Php73 < Formula
     "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
   end
 
+  def composer_setup
+    "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
+  end
+
   def install
+
+    setup_check = shell_output("#{php_binary} #{composer_setup} --check --no-ansi")
+    assert_equal "All settings correct for using Composer", setup_check
+
+    composer_version = shell_output("#{php_binary} #{composer_phar} --version --no-ansi")
+    assert_match /^Composer version #{Regexp.escape(version)} /, composer_version
+
+    composer_sha256 = shell_output("#{php_binary} -r 'echo hash_file(\"sha256\", \"#{composer_phar}\");'")
+    assert_equal "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce", composer_sha256
+
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
 
     inreplace "#{name}.php" do |s|
@@ -40,14 +54,15 @@ class Composer2Php73 < Formula
         }
 
         if (false === getenv('COMPOSER_CACHE_DIR')) {
-            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
+            # @see https://github.com/composer/composer/pull/9898
+            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
         }
       EOS
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
-    lib.install "#{name}.php" => "#{name}.php"
+    lib.install "#{name}.php"
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
 
@@ -102,4 +117,51 @@ class Composer2Php73 < Formula
     assert_match /^HelloHomebrew from version #{Regexp.escape("7.3")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
+
+  def caveats
+    s = <<-EOS.undent
+
+      When running “#{name}” the COMPOSER_* environment-variables are
+      adjusted per default:
+
+        COMPOSER_HOME=~/.composer/#{name}
+
+        # @see https://github.com/composer/composer/pull/9898
+        COMPOSER_CACHE_DIR=~/Library/Caches/composer
+
+      Of course, these variables can still be overriden by you.
+
+    EOS
+
+    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+      s += <<-EOS.undent
+
+      ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
+      from “~/.composer/cache” to “~/Library/Caches/composer”.
+
+      If you want to remove the old cache directory, run:
+
+          rm -rf ~/.composer/cache
+
+      EOS
+    end
+
+    if /^composer1-/.match?(name) then
+      oldname = name.gsub(/^composer1-/, 'composer-')
+      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
+        s += <<-EOS.undent
+
+        ATTENTION: The COMPOSER_HOME path-value has been renamed
+        from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
+
+        Please update your composer-home path and run a diagnose afterwards:
+
+            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
+            #{name} diagnose
+
+        EOS
+      end
+    end
+  end
+
 end
