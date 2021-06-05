@@ -116,7 +116,6 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   def caveats
     s = <<~EOS
-
       When running “#{name}” the COMPOSER_* environment-variables are
       adjusted per default:
 
@@ -131,12 +130,10 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
+        ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
+        from “~/.composer/cache” to “~/Library/Caches/composer”.
 
-      ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-      from “~/.composer/cache” to “~/Library/Caches/composer”.
-
-      If you want to remove the old cache directory, run:
-
+        If you want to remove the old cache directory, run:
           rm -rf ~/.composer/cache
 
       EOS
@@ -146,12 +143,10 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
       oldname = name.gsub(/^composer1-/, 'composer-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
         s += <<~EOS
+          ATTENTION: The COMPOSER_HOME path-value has been renamed
+          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
 
-        ATTENTION: The COMPOSER_HOME path-value has been renamed
-        from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
-
-        Please update your composer-home path and run a diagnose afterwards:
-
+          Please update your composer-home path and run a diagnose afterwards:
             mv -v ~/.composer/#{oldname} ~/.composer/#{name}
             #{name} diagnose
 
