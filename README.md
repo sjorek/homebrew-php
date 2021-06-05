@@ -13,22 +13,22 @@ provides bash-completion for the latter.
 ```console
 $ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 $ brew tap sjorek/php
-$ brew install sjorek/php/composer{,1,2}-php{72,73,74,80}
+$ brew install sjorek/php/composer{1,2}-php{72,73,74,80}
 ```
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.22_7
     composer1-php72                1.10.22_9
     composer1-php73                1.10.22_9
     composer1-php74                1.10.22_9
     composer1-php80                1.10.22_9
+    composer@1                     1.10.22_8
 
-    composer@2                     2.1.1_7
     composer2-php72                2.1.1_9
     composer2-php73                2.1.1_9
     composer2-php74                2.1.1_9
     composer2-php80                2.1.1_9
+    composer@2                     2.1.1_8
 
     composer-bash-completion       0.2.0
 

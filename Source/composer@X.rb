@@ -114,8 +114,24 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
   end
 
   def caveats
+
+    s = <<~EOS
+
+        Hint: “#{name}” is meant to be used in conjunction with
+        one or all of the sjorek/php/composerCOMPOSER_VERSION_MAJOR-php* formulae.
+
+        To install all composer version COMPOSER_VERSION_MAJOR formulae at once run:
+
+            brew install sjorek/php/composerCOMPOSER_VERSION_MAJOR-php{72,73,74,80}
+
+        To install all composer formulae at once run:
+
+            brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+
+    EOS
+
     if COMPOSER_VERSION_MAJOR == 1 then
-      s = <<~EOS
+      s += <<~EOS
 
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:
@@ -140,6 +156,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
 
       EOS
     end
+    s
   end
 
 end

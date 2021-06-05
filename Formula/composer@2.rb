@@ -5,7 +5,7 @@ class ComposerAT2 < Formula
   sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
   version "2.1.1"
-  revision 7
+  revision 8
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -114,8 +114,24 @@ class ComposerAT2 < Formula
   end
 
   def caveats
+
+    s = <<~EOS
+
+        Hint: “#{name}” is meant to be used in conjunction with
+        one or all of the sjorek/php/composer2-php* formulae.
+
+        To install all composer version 2 formulae at once run:
+
+            brew install sjorek/php/composer2-php{72,73,74,80}
+
+        To install all composer formulae at once run:
+
+            brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+
+    EOS
+
     if 2 == 1 then
-      s = <<~EOS
+      s += <<~EOS
 
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:
@@ -140,6 +156,7 @@ class ComposerAT2 < Formula
 
       EOS
     end
+    s
   end
 
 end
