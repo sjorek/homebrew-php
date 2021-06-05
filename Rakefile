@@ -22,7 +22,7 @@ task :build => FORMULAE
 directory "dist"
 
 file 'dist/composer-setup.sha384' => :dist do |t|
-  sh "curl -s -o #{t.name} https://composer.github.io/installer.sha384"
+  sh "curl -s -o #{t.name} https://composer.github.io/installer.sig"
 end
 
 file 'dist/composer-setup.sha256' => :dist do |t|
