@@ -5,7 +5,7 @@ class Composer1Php74 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 7
+  revision 8
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -31,7 +31,7 @@ class Composer1Php74 < Formula
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
 
-    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`

@@ -30,7 +30,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
 
-    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     system "#{php_binary} #{composer_setup} --install-dir=. --version=#{version} --no-ansi --quiet"
