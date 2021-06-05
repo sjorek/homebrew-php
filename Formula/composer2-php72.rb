@@ -1,8 +1,8 @@
 class Composer2Php72 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/2.0.14/composer.phar"
-  sha256 "29454b41558968ca634bf5e2d4d07ff2275d91b637a76d7a05e6747d36dd3473"
+  url "https://getcomposer.org/download/2.1.1/composer.phar"
+  sha256 "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce"
   license "MIT"
   revision 0
 

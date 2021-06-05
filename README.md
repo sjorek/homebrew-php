@@ -24,11 +24,11 @@ $ brew install sjorek/php/composer{,1,2}-php{72,73,74,80}
     composer1-php74                1.10.22
     composer1-php80                1.10.22
 
-    composer@2                     2.0.14
-    composer2-php72                2.0.14
-    composer2-php73                2.0.14
-    composer2-php74                2.0.14
-    composer2-php80                2.0.14
+    composer@2                     2.1.1
+    composer2-php72                2.1.1
+    composer2-php73                2.1.1
+    composer2-php74                2.1.1
+    composer2-php80                2.1.1
 
     composer-bash-completion       0.2.0
 
