@@ -11,9 +11,9 @@ provides bash-completion for the latter.
 ## Example
 
 ```console
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+$ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 $ brew tap sjorek/php
-$ brew install commposer…
+$ brew install sjorek/php/composer{,2}-php{72,73,74,80}
 ```
 
 ## List of (currently) provided formulae
