@@ -20,7 +20,7 @@ class Composer2Php72 < Formula
   depends_on "php@7.2"
 
   def php_version_from_formula_name
-    "#{name}".gsub(/^composer2-php/, "").split("").join(".")
+    "#{name}".gsub(/^composer\d?-php/, "").split("").join(".")
   end
 
   def php_binary_from_formula_name
