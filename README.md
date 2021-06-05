@@ -13,16 +13,16 @@ provides bash-completion for the latter.
 ```console
 $ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 $ brew tap sjorek/php
-$ brew install sjorek/php/composer{,2}-php{72,73,74,80}
+$ brew install sjorek/php/composer{,1,2}-php{72,73,74,80}
 ```
 
 ## List of (currently) provided formulae
 
     composer@1                     1.10.22
-    composer-php72                 1.10.22
-    composer-php73                 1.10.22
-    composer-php74                 1.10.22
-    composer-php80                 1.10.22
+    composer1-php72                1.10.22
+    composer1-php73                1.10.22
+    composer1-php74                1.10.22
+    composer1-php80                1.10.22
 
     composer@2                     2.0.14
     composer2-php72                2.0.14
@@ -31,6 +31,13 @@ $ brew install sjorek/php/composer{,2}-php{72,73,74,80}
     composer2-php80                2.0.14
 
     composer-bash-completion       0.2.0
+
+## List of (currently) provided formulae aliases
+
+    composer-php72                 composer1-php72
+    composer-php73                 composer1-php73
+    composer-php74                 composer1-php74
+    composer-php80                 composer1-php80
 
 ## Links
 

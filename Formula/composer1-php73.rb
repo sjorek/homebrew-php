@@ -1,4 +1,4 @@
-class ComposerPhp74 < Formula
+class Composer1Php73 < Formula
   desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/download/1.10.22/composer.phar"
@@ -17,10 +17,10 @@ class ComposerPhp74 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
-  depends_on "php@7.4"
+  depends_on "php@7.3"
 
   def php_version_from_formula_name
-    "#{name}".gsub(/^composer-php/, "").split("").join(".")
+    "#{name}".gsub(/^composer1-php/, "").split("").join(".")
   end
 
   def php_binary_from_formula_name
