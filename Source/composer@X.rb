@@ -25,7 +25,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     composer_phar   = "#{buildpath}/composer.phar"
     composer_setup  = "#{buildpath}/composer-setup.php"
 
-    mv "installer" composer_setup
+    mv "installer", composer_setup
 
     composer_setup_sha384 = shell_output("#{php_binary} -r 'echo hash_file(\"sha384\", \"#{composer_setup}\");'")
     assert_equal "COMPOSER_SETUP_SHA384", composer_setup_sha384

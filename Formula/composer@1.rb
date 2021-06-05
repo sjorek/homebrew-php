@@ -5,7 +5,7 @@ class ComposerAT1 < Formula
   sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
   version "1.10.22"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -25,7 +25,7 @@ class ComposerAT1 < Formula
     composer_phar   = "#{buildpath}/composer.phar"
     composer_setup  = "#{buildpath}/composer-setup.php"
 
-    mv "installer" composer_setup
+    mv "installer", composer_setup
 
     composer_setup_sha384 = shell_output("#{php_binary} -r 'echo hash_file(\"sha384\", \"#{composer_setup}\");'")
     assert_equal "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3", composer_setup_sha384
