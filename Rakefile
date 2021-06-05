@@ -21,8 +21,12 @@ task :build => FORMULAE
 
 directory "dist"
 
-file 'dist/composer-setup.sha384sum' => :dist do |t|
-    sh "curl -s -o #{t.name} https://composer.github.io/installer.sha384sum"
+file 'dist/composer-setup.sha384' => :dist do |t|
+  sh "curl -s -o #{t.name} https://composer.github.io/installer.sha384"
+end
+
+file 'dist/composer-setup.sha256' => :dist do |t|
+  sh "php -r 'echo hash_file(\"sha256\", \"https://getcomposer.org/installer\");' >#{t.name}"
 end
 
 def generate_composer_build_tasks composer_versions, build_targets
@@ -50,13 +54,13 @@ def generate_composer_build_tasks composer_versions, build_targets
 
   composer_versions.map { |composer_version|
 
-    file "dist/composer#{composer_version}.sha256sum" => :dist do |t|
+    file "dist/composer#{composer_version}.sha256" => :dist do |t|
       sh "curl -s -o #{t.name} https://getcomposer.org/download/latest-#{composer_version}.x/composer.phar.sha256"
     end
 
-    file "dist/composer#{composer_version}.json" => [VERSIONS, "dist/composer#{composer_version}.sha256sum"] do |t|
+    file "dist/composer#{composer_version}.json" => [VERSIONS, "dist/composer#{composer_version}.sha256"] do |t|
       info = all_versions[composer_version][0];
-      info['sha256sum'] = File.read(t.sources[1])
+      info['sha256'] = File.read(t.sources[1])
       File.write(t.name, JSON.generate(info))
       all_versions[composer_version] = info
     end
@@ -72,19 +76,21 @@ def generate_composer_build_tasks composer_versions, build_targets
         sources = [
             build_target['source'],
             "dist/composer#{composer_version}.json",
-            'dist/composer-setup.sha384sum'
+            'dist/composer-setup.sha256',
+            'dist/composer-setup.sha384'
         ]
         sources.push(OUTDATED) if ARGV.include? 'outdated'
 
         file target => sources do |t|
 
-          name      = t.name.pathmap('%n')
-          formula   = File.read(t.name)
-          setup     = File.read(t.sources[2])
-          info      = all_versions[composer_version]
-          outdated  = outdated_versions.any? { |each| each["formula"] == name }
-          rebuild   = false == uptodate?(t.name, ['Rakefile', t.source])
-          revision  = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
+          name          = t.name.pathmap('%n')
+          formula       = File.read(t.name)
+          setup_sha256  = File.read(t.sources[2])
+          setup_sha384  = File.read(t.sources[3])
+          info          = all_versions[composer_version]
+          outdated      = outdated_versions.any? { |each| each["formula"] == name }
+          rebuild       = false == uptodate?(t.name, ['Rakefile', t.source])
+          revision      = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
 
           if outdated || rebuild then
 
@@ -92,8 +98,9 @@ def generate_composer_build_tasks composer_versions, build_targets
               .gsub(/COMPOSER_VERSION_MAJOR/,   info['version'].split('.')[0])
               .gsub(/COMPOSER_VERSION_MINOR/,   info['version'].split('.')[1])
               .gsub(/COMPOSER_VERSION_PATCH/,   info['version'].split('.')[2])
-              .gsub(/COMPOSER_PHAR_SHA256SUM/,  info['sha256sum'])
-              .gsub(/COMPOSER_SETUP_SHA384SUM/, setup)
+              .gsub(/COMPOSER_PHAR_SHA256/,     info['sha256'])
+              .gsub(/COMPOSER_SETUP_SHA256/,    setup_sha256)
+              .gsub(/COMPOSER_SETUP_SHA384/,    setup_sha384)
               .gsub(/PHP_VERSION_MAJOR/,        php_version.split('.')[0])
               .gsub(/PHP_VERSION_MINOR/,        php_version.split('.')[1])
               .gsub(/PHP_VERSION_PATCH/,        php_version.split('.')[2])
@@ -119,7 +126,7 @@ def generate_composer_build_tasks composer_versions, build_targets
           puts "formula   : #{name}"
           puts "version   : #{info['version']}"
           puts "revision  : #{revision}"
-          puts "sha256sum : #{info['sha256sum']}"
+          puts "sha256    : #{info['sha256']}"
           puts "outdated? : #{outdated}"
           puts "rebuild?  : #{rebuild}"
           puts ""
