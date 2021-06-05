@@ -29,16 +29,16 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    assert_equal "COMPOSER_SETUP_SHA384", composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`
-    assert_equal "All settings correct for using Composer", composer_setup_check
+    fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
-    assert_match /^Composer version #{Regexp.escape(version)}( |$)/, composer_version
+    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    assert_equal "COMPOSER_PHAR_SHA256", composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
