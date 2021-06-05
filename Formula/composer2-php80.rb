@@ -5,7 +5,7 @@ class Composer2Php80 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.1"
-  revision 8
+  revision 9
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -115,7 +115,7 @@ class Composer2Php80 < Formula
   end
 
   def caveats
-    s = <<-EOS.undent
+    s = <<~EOS
 
       When running “#{name}” the COMPOSER_* environment-variables are
       adjusted per default:
@@ -130,7 +130,7 @@ class Composer2Php80 < Formula
     EOS
 
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
-      s += <<-EOS.undent
+      s += <<~EOS
 
       ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
       from “~/.composer/cache” to “~/Library/Caches/composer”.
@@ -145,7 +145,7 @@ class Composer2Php80 < Formula
     if /^composer1-/.match?(name) then
       oldname = name.gsub(/^composer1-/, 'composer-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<-EOS.undent
+        s += <<~EOS
 
         ATTENTION: The COMPOSER_HOME path-value has been renamed
         from “~/.composer/#{oldname}” to “~/.composer/#{name}”!

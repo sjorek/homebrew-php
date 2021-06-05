@@ -5,7 +5,7 @@ class ComposerAT2 < Formula
   sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
   version "2.1.1"
-  revision 6
+  revision 7
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -33,7 +33,7 @@ class ComposerAT2 < Formula
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
-    system "#{php_binary} #{composer_setup} --install-dir=. --version=#{version} --no-ansi --quiet"
+    system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
@@ -115,7 +115,7 @@ class ComposerAT2 < Formula
 
   def caveats
     if 2 == 1 then
-      s = <<-EOS.undent
+      s = <<~EOS
 
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:
@@ -129,7 +129,7 @@ class ComposerAT2 < Formula
     end
 
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
-      s += <<-EOS.undent
+      s += <<~EOS
 
       ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
       from “~/.composer/cache” to “~/Library/Caches/composer”.

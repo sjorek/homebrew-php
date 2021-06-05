@@ -115,7 +115,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
   end
 
   def caveats
-    s = <<-EOS.undent
+    s = <<~EOS
 
       When running “#{name}” the COMPOSER_* environment-variables are
       adjusted per default:
@@ -130,7 +130,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     EOS
 
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
-      s += <<-EOS.undent
+      s += <<~EOS
 
       ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
       from “~/.composer/cache” to “~/Library/Caches/composer”.
@@ -145,7 +145,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     if /^composer1-/.match?(name) then
       oldname = name.gsub(/^composer1-/, 'composer-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<-EOS.undent
+        s += <<~EOS
 
         ATTENTION: The COMPOSER_HOME path-value has been renamed
         from “~/.composer/#{oldname}” to “~/.composer/#{name}”!

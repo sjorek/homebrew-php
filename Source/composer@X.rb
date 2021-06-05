@@ -33,7 +33,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
-    system "#{php_binary} #{composer_setup} --install-dir=. --version=#{version} --no-ansi --quiet"
+    system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
@@ -115,7 +115,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
 
   def caveats
     if COMPOSER_VERSION_MAJOR == 1 then
-      s = <<-EOS.undent
+      s = <<~EOS
 
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:
@@ -129,7 +129,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     end
 
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
-      s += <<-EOS.undent
+      s += <<~EOS
 
       ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
       from “~/.composer/cache” to “~/Library/Caches/composer”.
