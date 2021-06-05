@@ -1,10 +1,11 @@
 class Composer2Php74 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/2.1.1/composer.phar"
-  sha256 "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce"
+  url "file:///dev/null"
+  sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  revision 0
+  version "2.1.1"
+  revision 1
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -18,34 +19,37 @@ class Composer2Php74 < Formula
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
   depends_on "php@7.4"
+  depends_on "composer@2"
 
-  def php_version_from_formula_name
-    "#{name}".gsub(/^composer\d?-php/, "").split("").join(".")
+  def php_binary
+    "#{HOMEBREW_PREFIX}/opt/php@7.4/bin/php"
   end
 
-  def php_binary_from_formula_name
-    "#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php"
+  def composer_phar
+    "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
   end
 
   def install
-    system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
+    system "#{php_binary}",
+      "-r",
+      "'\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();'",
+      ">#{name}.php"
 
     inreplace "#{name}.php" do |s|
-        s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-          if (false === getenv('COMPOSER_HOME')) {
-              putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
-          }
-          if (false === getenv('COMPOSER_CACHE_DIR')) {
-              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
-          }
-        EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (false === getenv('COMPOSER_HOME')) {
+            putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
+        }
+        if (false === getenv('COMPOSER_CACHE_DIR')) {
+            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
+        }
+      EOS
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
     lib.install "#{name}.php" => "#{name}.php"
-    lib.install "composer.phar" => "#{name}.phar"
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
 
@@ -60,7 +64,7 @@ class Composer2Php74 < Formula
           }
         ],
         "require": {
-          "php": "~#{php_version_from_formula_name}.0"
+          "php": "~7.4.0"
         },
         "autoload": {
           "psr-0": {
@@ -97,7 +101,7 @@ class Composer2Php74 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("7.4")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 end

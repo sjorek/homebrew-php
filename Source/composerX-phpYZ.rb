@@ -1,9 +1,10 @@
 class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Formula
   desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
   homepage "https://getcomposer.org/"
-  url "https://getcomposer.org/download/COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH/composer.phar"
-  sha256 "COMPOSER_SHA256SUM"
+  url "file:///dev/null"
+  sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
+  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
   revision FORMULA_REVISION
 
   livecheck do
@@ -18,34 +19,37 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
   depends_on "php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
+  depends_on "composer@COMPOSER_VERSION_MAJOR"
 
-  def php_version_from_formula_name
-    "#{name}".gsub(/^composer\d?-php/, "").split("").join(".")
+  def php_binary
+    "#{HOMEBREW_PREFIX}/opt/php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR/bin/php"
   end
 
-  def php_binary_from_formula_name
-    "#{HOMEBREW_PREFIX}/opt/php@#{php_version_from_formula_name}/bin/php"
+  def composer_phar
+    "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
   end
 
   def install
-    system "#{php_binary_from_formula_name} -r '\$p = new Phar(\"./composer.phar\", 0, \"composer.phar\"); echo \$p->getStub();' >#{name}.php"
+    system "#{php_binary}",
+      "-r",
+      "'\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();'",
+      ">#{name}.php"
 
     inreplace "#{name}.php" do |s|
-        s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary_from_formula_name}"
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-          if (false === getenv('COMPOSER_HOME')) {
-              putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
-          }
-          if (false === getenv('COMPOSER_CACHE_DIR')) {
-              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
-          }
-        EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/#{name}.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (false === getenv('COMPOSER_HOME')) {
+            putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
+        }
+        if (false === getenv('COMPOSER_CACHE_DIR')) {
+            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/.composer/cache');
+        }
+      EOS
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
     lib.install "#{name}.php" => "#{name}.php"
-    lib.install "composer.phar" => "#{name}.phar"
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
   end
 
@@ -60,7 +64,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
           }
         ],
         "require": {
-          "php": "~#{php_version_from_formula_name}.0"
+          "php": "~PHP_VERSION_MAJOR.PHP_VERSION_MINOR.0"
         },
         "autoload": {
           "psr-0": {
@@ -97,7 +101,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("#{php_version_from_formula_name}")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("PHP_VERSION_MAJOR.PHP_VERSION_MINOR")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 end
