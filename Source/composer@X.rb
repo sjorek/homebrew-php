@@ -27,22 +27,22 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
 
     mv "installer", composer_setup
 
-    composer_setup_sha384 = shell_output("#{php_binary} -r 'echo hash_file(\"sha384\", \"#{composer_setup}\");'")
+    composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     assert_equal "COMPOSER_SETUP_SHA384", composer_setup_sha384
 
-    setup_check = shell_output("#{php_binary} #{composer_setup} --check --no-ansi")
-    assert_equal "All settings correct for using Composer", setup_check
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`
+    assert_equal "All settings correct for using Composer", composer_setup_check
 
     system "#{php_binary} #{composer_setup} --install-dir=. --version=#{version} --no-ansi --quiet"
 
-    composer_version = shell_output("#{php_binary} #{composer_phar} --version --no-ansi")
-    assert_match /^Composer version #{Regexp.escape(version)} /, composer_version
+    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
+    assert_match /^Composer version #{Regexp.escape(version)}( |$)/, composer_version
 
-    composer_phar_sha256 = shell_output("#{php_binary} -r 'echo hash_file(\"sha256\", \"composer.phar\");'")
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
     assert_equal "COMPOSER_PHAR_SHA256", composer_phar_sha256
 
     if COMPOSER_VERSION_MAJOR == 1 then
-      system "#{php_binary} -r '\$p = new Phar(\"./#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+      system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
       inreplace composer_php do |s|
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS

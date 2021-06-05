@@ -5,7 +5,7 @@ class Composer1Php72 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 5
+  revision 6
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -28,16 +28,16 @@ class Composer1Php72 < Formula
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
 
-    composer_setup_sha384 = shell_output("#{php_binary} -r 'echo hash_file(\"sha384\", \"#{composer_setup}\");'")
+    composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     assert_equal "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3", composer_setup_sha384
 
-    setup_check = shell_output("#{php_binary} #{composer_setup} --check --no-ansi")
-    assert_equal "All settings correct for using Composer", setup_check
+    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`
+    assert_equal "All settings correct for using Composer", composer_setup_check
 
-    composer_version = shell_output("#{php_binary} #{composer_phar} --version --no-ansi")
-    assert_match /^Composer version #{Regexp.escape(version)} /, composer_version
+    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
+    assert_match /^Composer version #{Regexp.escape(version)}( |$)/, composer_version
 
-    composer_phar_sha256 = shell_output("#{php_binary} -r 'echo hash_file(\"sha256\", \"#{composer_phar}\");'")
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
     assert_equal "6127ae192d3b56cd6758c7c72fe2ac6868ecc835dae1451a004aca10ab1e0700", composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
