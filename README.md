@@ -43,7 +43,7 @@ $ brew install sjorek/php/composer{1,2}-php{72,73,74,80}
 
 ### Status
 
-[![Build Status](https://img.shields.io/travis/sjorek/homebrew-php.svg)](https://travis-ci.org/sjorek/homebrew-php)
+[![Build Status](https://img.shields.io/travis/com/sjorek/homebrew-php.svg)](https://travis-ci.com/sjorek/homebrew-php)
 
 
 ### GitHub
