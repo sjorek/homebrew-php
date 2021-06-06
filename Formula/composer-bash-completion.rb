@@ -4,12 +4,13 @@ class ComposerBashCompletion < Formula
   url "https://github.com/sjorek/composer-bash-completion/archive/v0.3.1.tar.gz"
   sha256 "416aae5d6e61536badee132443871e4f8dff2193f35b95afa41754fbfd445eb9"
   license "MIT"
-  revision 0
+  revision 1
 
   bottle :unneeded
 
   depends_on "bash-completion@2"
-  depends_on "composer" => :optional
+  depends_on "sjorek/php/composer@1" => :optional
+  depends_on "sjorek/php/composer@2" => :optional
 
   def install
     inreplace "composer-completion.bash",
