@@ -5,7 +5,7 @@ class Composer2Php73 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.1"
-  revision 10
+  revision 11
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -18,8 +18,11 @@ class Composer2Php73 < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
+  option "with-bash-completion", "Install optional bash-completion integration"
+
   depends_on "php@7.3"
   depends_on "sjorek/php/composer@2"
+  depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
@@ -60,6 +63,28 @@ class Composer2Php73 < Formula
 
     lib.install composer_php
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+
+    if build.with? "bash-completion" then
+      composer_bash   = "#{buildpath}/#{name}.bash"
+      completion_bash = "#{HOMEBREW_PREFIX}/opt/composer-bash-completion/lib/composer-completion.bash"
+
+      script = <<~EOS
+        # composer completion                                       -*- shell-script -*-
+
+        COMPOSER_COMPLETION_PHP=${COMPOSER_COMPLETION_PHP:-#{php_binary}}
+        COMPOSER_COMPLETION_REGISTER=""
+        COMPOSER_COMPLETION_DETECTION=false
+
+        source #{completion_bash} && \
+            composer-completion-register "#{name}"
+
+        # ex: filetype=sh
+      EOS
+
+      File.write(composer_bash, script)
+
+      bash_completion.install composer_bash
+    end
   end
 
   test do
