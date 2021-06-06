@@ -7,27 +7,34 @@ provides bash-completion for the latter.
 
 1. Install [homebrew](https://brew.sh)
 2. Tap the homebrew-php repository
+3. Install the homebrew-php formulae you want
 
-## Example
+### Example
 
 ```console
-$ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-$ brew tap sjorek/php
-$ brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew tap sjorek/php
+
+# to install all composer-formulae at once:
+brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+
+# to install all composer-formulae with bash-completion support enabled:
+echo sjorek/php/composer{1,2}-php{72,73,74,80} | \
+    xargs -n1 -J% brew install % --with-bash-completion
 ```
 
 ## List of (currently) provided formulae
 
-    composer1-php72                1.10.22_11
-    composer1-php73                1.10.22_11
-    composer1-php74                1.10.22_11
-    composer1-php80                1.10.22_11
+    composer1-php72                1.10.22_12
+    composer1-php73                1.10.22_12
+    composer1-php74                1.10.22_12
+    composer1-php80                1.10.22_12
     composer@1                     1.10.22_9
 
-    composer2-php72                2.1.1_11
-    composer2-php73                2.1.1_11
-    composer2-php74                2.1.1_11
-    composer2-php80                2.1.1_11
+    composer2-php72                2.1.1_12
+    composer2-php73                2.1.1_12
+    composer2-php74                2.1.1_12
+    composer2-php80                2.1.1_12
     composer@2                     2.1.1_9
 
     composer-bash-completion       0.3.1_0

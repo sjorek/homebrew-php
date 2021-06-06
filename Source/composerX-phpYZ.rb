@@ -178,6 +178,16 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
         EOS
       end
     end
+
+    if false == build.with? "bash-completion" then
+      s += <<~EOS
+        Hint: #{name} has optional shell-completion support for bash version ≥ 4.x.
+
+        To enable bash-completion, run the installation with the following option:
+          brew install #{name} --with-bash-completion
+
+      EOS
+    end
   end
 
 end

@@ -5,7 +5,7 @@ class Composer2Php72 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.1"
-  revision 11
+  revision 12
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -177,6 +177,16 @@ class Composer2Php72 < Formula
 
         EOS
       end
+    end
+
+    if false == build.with? "bash-completion" then
+      s += <<~EOS
+        Hint: #{name} has optional shell-completion support for bash version ≥ 4.x.
+
+        To enable bash-completion, run the installation with the following option:
+          brew install #{name} --with-bash-completion
+
+      EOS
     end
   end
 
