@@ -30,7 +30,7 @@ $ brew install sjorek/php/composer{1,2}-php{72,73,74,80}
     composer2-php80                2.1.1_10
     composer@2                     2.1.1_9
 
-    composer-bash-completion       0.2.0
+    composer-bash-completion       0.3.1_0
 
 ## List of (currently) provided formulae aliases
 
