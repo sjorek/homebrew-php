@@ -1,2 +1,3 @@
 theme: jekyll-theme-cayman
 include: [README.md, CONTRIBUTING.md]
+exclude: [Library]
