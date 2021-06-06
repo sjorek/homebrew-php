@@ -51,25 +51,25 @@ jobs:
     - <<: *OSX_LATEST
       env:
       - >
-        BREW_NAME="composer-php72"
+        BREW_NAME="composer1-php72"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_LATEST
       env:
       - >
-        BREW_NAME="composer-php73"
+        BREW_NAME="composer1-php73"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_LATEST
       env:
       - >
-        BREW_NAME="composer-php74"
+        BREW_NAME="composer1-php74"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_LATEST
       env:
       - >
-        BREW_NAME="composer-php80"
+        BREW_NAME="composer1-php80"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_LATEST
@@ -116,25 +116,25 @@ jobs:
     - <<: *OSX_PREVIOUS
       env:
       - >
-        BREW_NAME="composer-php72"
+        BREW_NAME="composer1-php72"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_PREVIOUS
       env:
       - >
-        BREW_NAME="composer-php73"
+        BREW_NAME="composer1-php73"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_PREVIOUS
       env:
       - >
-        BREW_NAME="composer-php74"
+        BREW_NAME="composer1-php74"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_PREVIOUS
       env:
       - >
-        BREW_NAME="composer-php80"
+        BREW_NAME="composer1-php80"
         TEST_SCRIPT="${BREW_NAME} --version && (${BREW_NAME} diagnose || true)"
 
     - <<: *OSX_PREVIOUS
