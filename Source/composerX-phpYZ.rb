@@ -179,7 +179,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
       end
     end
 
-    if false == build.with? "bash-completion" then
+    if false == build.with?("bash-completion") then
       s += <<~EOS
         Hint: #{name} has optional shell-completion support for bash version ≥ 4.x.
 
