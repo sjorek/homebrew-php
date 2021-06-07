@@ -18,8 +18,11 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
+  option "with-bash-completion", "Install optional bash-completion integration"
+
   depends_on "php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
   depends_on "sjorek/php/composer@COMPOSER_VERSION_MAJOR"
+  depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
@@ -60,6 +63,28 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
     lib.install composer_php
     bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+
+    if build.with? "bash-completion" then
+      composer_bash   = "#{buildpath}/#{name}.bash"
+      completion_bash = "#{HOMEBREW_PREFIX}/opt/composer-bash-completion/lib/composer-completion.bash"
+
+      script = <<~EOS
+        # composer completion                                       -*- shell-script -*-
+
+        COMPOSER_COMPLETION_PHP=${COMPOSER_COMPLETION_PHP:-#{php_binary}}
+        COMPOSER_COMPLETION_REGISTER=""
+        COMPOSER_COMPLETION_DETECTION=false
+
+        source #{completion_bash} && \
+            composer-completion-register "#{name}"
+
+        # ex: filetype=sh
+      EOS
+
+      File.write(composer_bash, script)
+
+      bash_completion.install composer_bash
+    end
   end
 
   test do
@@ -152,6 +177,16 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
         EOS
       end
+    end
+
+    if false == build.with?("bash-completion") then
+      s += <<~EOS
+        Hint: #{name} has optional shell-completion support for bash version ≥ 4.x.
+
+        To enable bash-completion, run the installation with the following option:
+          brew install #{name} --with-bash-completion
+
+      EOS
     end
   end
 
