@@ -41,29 +41,27 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
     fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
-    if COMPOSER_VERSION_MAJOR == 1 then
-      system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
-      inreplace composer_php do |s|
+    inreplace composer_php do |s|
+      if COMPOSER_VERSION_MAJOR == 1 then
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
               putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
           }
         EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+      else
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, ''
       end
-
-      lib.install composer_phar
-      lib.install composer_php
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.php" => "composer"
-    else
-      lib.install composer_phar
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.phar" => "composer"
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
+
+    lib.install composer_phar
+    lib.install composer_php
+    lib.install composer_setup
+    bin.install "#{lib}/composer.php" => "composer"
   end
 
   test do

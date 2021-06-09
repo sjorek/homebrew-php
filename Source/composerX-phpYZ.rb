@@ -62,7 +62,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     end
 
     lib.install composer_php
-    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+    bin.install "#{lib}/#{name}.php" => "#{name}"
 
     if build.with? "bash-completion" then
       composer_bash   = "#{buildpath}/#{name}.bash"

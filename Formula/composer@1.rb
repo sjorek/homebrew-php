@@ -5,7 +5,7 @@ class ComposerAT1 < Formula
   sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
   version "1.10.22"
-  revision 9
+  revision 10
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -41,29 +41,27 @@ class ComposerAT1 < Formula
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
     fail "invalid checksum for composer.phar" unless "6127ae192d3b56cd6758c7c72fe2ac6868ecc835dae1451a004aca10ab1e0700" == composer_phar_sha256
 
-    if 1 == 1 then
-      system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
-      inreplace composer_php do |s|
+    inreplace composer_php do |s|
+      if 1 == 1 then
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
               putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
           }
         EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+      else
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, ''
       end
-
-      lib.install composer_phar
-      lib.install composer_php
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.php" => "composer"
-    else
-      lib.install composer_phar
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.phar" => "composer"
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
+
+    lib.install composer_phar
+    lib.install composer_php
+    lib.install composer_setup
+    bin.install "#{lib}/composer.php" => "composer"
   end
 
   test do
