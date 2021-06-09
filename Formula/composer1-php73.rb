@@ -5,7 +5,7 @@ class Composer1Php73 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 13
+  revision 14
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -62,7 +62,7 @@ class Composer1Php73 < Formula
     end
 
     lib.install composer_php
-    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+    bin.install "#{lib}/#{name}.php" => "#{name}"
 
     if build.with? "bash-completion" then
       composer_bash   = "#{buildpath}/#{name}.bash"

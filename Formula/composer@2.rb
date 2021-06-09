@@ -4,8 +4,8 @@ class ComposerAT2 < Formula
   url "https://getcomposer.org/installer"
   sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
   license "MIT"
-  version "2.1.1"
-  revision 9
+  version "2.1.2"
+  revision 10
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -39,31 +39,29 @@ class ComposerAT2 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "2dec01094a6bd571dcc0ed796b6e180aca3833646834b66eb743b7d66787a43d" == composer_phar_sha256
 
-    if 2 == 1 then
-      system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
-      inreplace composer_php do |s|
+    inreplace composer_php do |s|
+      if 2 == 1 then
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
               putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
           }
         EOS
-        s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
-        s.gsub! /^__HALT_COMPILER.*/, ""
+      else
+        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, ''
       end
-
-      lib.install composer_phar
-      lib.install composer_php
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.php" => "composer"
-    else
-      lib.install composer_phar
-      lib.install composer_setup
-      bin.install_symlink "#{lib}/composer.phar" => "composer"
+      s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
+      s.gsub! /^__HALT_COMPILER.*/, ""
     end
+
+    lib.install composer_phar
+    lib.install composer_php
+    lib.install composer_setup
+    bin.install "#{lib}/composer.php" => "composer"
   end
 
   test do

@@ -4,8 +4,8 @@ class Composer2Php73 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.1.1"
-  revision 13
+  version "2.1.2"
+  revision 14
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -41,7 +41,7 @@ class Composer2Php73 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "445a577f3d7966ed2327182380047a38179068ad1292f6b88de4e071920121ce" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "2dec01094a6bd571dcc0ed796b6e180aca3833646834b66eb743b7d66787a43d" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -62,7 +62,7 @@ class Composer2Php73 < Formula
     end
 
     lib.install composer_php
-    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+    bin.install "#{lib}/#{name}.php" => "#{name}"
 
     if build.with? "bash-completion" then
       composer_bash   = "#{buildpath}/#{name}.bash"
