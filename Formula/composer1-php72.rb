@@ -5,7 +5,7 @@ class Composer1Php72 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 15
+  revision 16
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -30,6 +30,8 @@ class Composer1Php72 < Formula
     composer_php    = "#{buildpath}/#{name}.php"
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
+    composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
+    composer_stub   = "#{HOMEBREW_PREFIX}/Cellar/#{name}/#{version}_#{revision}/lib/#{name}.php"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
@@ -48,8 +50,12 @@ class Composer1Php72 < Formula
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (isset($_SERVER['argv'][0]) && '#{composer_stub}' === $_SERVER['argv'][0]) {
+            $_SERVER['argv'][0] = '#{composer_phar}';
+        }
+
         if (false === getenv('COMPOSER_SCRIPT')) {
-            putenv('COMPOSER_SCRIPT=#{composer_phar}');
+            putenv('COMPOSER_SCRIPT=#{composer_script}');
         }
 
         if (false === getenv('COMPOSER_HOME')) {
@@ -67,7 +73,7 @@ class Composer1Php72 < Formula
     end
 
     lib.install composer_php
-    bin.install "#{lib}/#{name}.php" => "#{name}"
+    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
 
     if build.with? "bash-completion" then
       composer_bash   = "#{buildpath}/#{name}.bash"
