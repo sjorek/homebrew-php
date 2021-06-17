@@ -48,6 +48,10 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (false === getenv('COMPOSER_SCRIPT')) {
+            putenv('COMPOSER_SCRIPT=#{composer_phar}');
+        }
+
         if (false === getenv('COMPOSER_HOME')) {
             putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
         }
@@ -56,6 +60,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
             # @see https://github.com/composer/composer/pull/9898
             putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
         }
+
       EOS
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""

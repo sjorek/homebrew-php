@@ -5,7 +5,7 @@ class Composer1Php80 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.22"
-  revision 14
+  revision 15
 
   livecheck do
     url "https://github.com/composer/composer.git"
@@ -48,6 +48,10 @@ class Composer1Php80 < Formula
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (false === getenv('COMPOSER_SCRIPT')) {
+            putenv('COMPOSER_SCRIPT=#{composer_phar}');
+        }
+
         if (false === getenv('COMPOSER_HOME')) {
             putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
         }
@@ -56,6 +60,7 @@ class Composer1Php80 < Formula
             # @see https://github.com/composer/composer/pull/9898
             putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
         }
+
       EOS
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""
