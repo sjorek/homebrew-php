@@ -31,7 +31,6 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
-    composer_stub   = "#{HOMEBREW_PREFIX}/opt/#{name}/lib/#{name}.php"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
@@ -50,7 +49,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-        if (isset($_SERVER['argv'][0]) && realpath('#{composer_stub}') === $_SERVER['argv'][0]) {
+        if (isset($_SERVER['argv'][0]) && '#{composer_script}' === $_SERVER['argv'][0]) {
             $_SERVER['argv'][0] = '#{composer_phar}';
         }
 
