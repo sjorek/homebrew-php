@@ -30,6 +30,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     composer_php    = "#{buildpath}/#{name}.php"
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
+    composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
     fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
@@ -48,6 +49,14 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+        if (isset($_SERVER['argv'][0]) && '#{composer_script}' === $_SERVER['argv'][0]) {
+            $_SERVER['argv'][0] = '#{composer_phar}';
+        }
+
+        if (false === getenv('COMPOSER_SCRIPT')) {
+            putenv('COMPOSER_SCRIPT=#{composer_script}');
+        }
+
         if (false === getenv('COMPOSER_HOME')) {
             putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
         }
@@ -56,13 +65,14 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
             # @see https://github.com/composer/composer/pull/9898
             putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
         }
+
       EOS
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
 
     lib.install composer_php
-    bin.install "#{lib}/#{name}.php" => "#{name}"
+    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
 
     if build.with? "bash-completion" then
       composer_bash   = "#{buildpath}/#{name}.bash"
