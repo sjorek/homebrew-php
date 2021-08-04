@@ -31,11 +31,11 @@ echo sjorek/php/composer{1,2}-php{72,73,74,80} | \
     composer1-php80                1.10.22_18
     composer@1                     1.10.22_10
 
-    composer2-php72                2.1.3_4
-    composer2-php73                2.1.3_4
-    composer2-php74                2.1.3_4
-    composer2-php80                2.1.3_4
-    composer@2                     2.1.3_0
+    composer2-php72                2.1.5_0
+    composer2-php73                2.1.5_0
+    composer2-php74                2.1.5_0
+    composer2-php80                2.1.5_0
+    composer@2                     2.1.5_0
 
     composer-bash-completion       0.3.1_0
 
