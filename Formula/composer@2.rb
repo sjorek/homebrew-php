@@ -5,11 +5,11 @@ class ComposerAT2 < Formula
   sha256 "cc46dceb368b0668fb858e12876ecd18ea02e9a64cf401e802ecae6ae45dae0f"
   license "MIT"
   version "2.1.9"
-  revision 0
+  revision 1
 
   livecheck do
-    url "https://github.com/composer/composer.git"
-    regex(/^2\.[\d.]+$/i)
+    url "https://getcomposer.org/versions"
+    regex(/"2"[^\]]*"version": "(2(\.\d+)*)"/i)
   end
 
   bottle :unneeded

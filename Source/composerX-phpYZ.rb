@@ -8,8 +8,8 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
   revision FORMULA_REVISION
 
   livecheck do
-    url "https://github.com/composer/composer.git"
-    regex(/^COMPOSER_VERSION_MAJOR\.[\d.]+$/i)
+    url "https://getcomposer.org/versions"
+    regex(/"COMPOSER_VERSION_MAJOR"[^\]]*"version": "(COMPOSER_VERSION_MAJOR(\.\d+)*)"/i)
   end
 
   bottle :unneeded

@@ -5,11 +5,11 @@ class Composer2Php74 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.1.9"
-  revision 0
+  revision 1
 
   livecheck do
-    url "https://github.com/composer/composer.git"
-    regex(/^2\.[\d.]+$/i)
+    url "https://getcomposer.org/versions"
+    regex(/"2"[^\]]*"version": "(2(\.\d+)*)"/i)
   end
 
   bottle :unneeded
