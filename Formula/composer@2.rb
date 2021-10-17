@@ -2,9 +2,9 @@ class ComposerAT2 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
-  sha256 "df553aecf6cb5333f067568fd50310bfddce376505c9de013a35977789692366"
+  sha256 "cc46dceb368b0668fb858e12876ecd18ea02e9a64cf401e802ecae6ae45dae0f"
   license "MIT"
-  version "2.1.5"
+  version "2.1.9"
   revision 0
 
   livecheck do
@@ -28,7 +28,7 @@ class ComposerAT2 < Formula
     mv "installer", composer_setup
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
@@ -39,7 +39,7 @@ class ComposerAT2 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "be95557cc36eeb82da0f4340a469bad56b57f742d2891892dcb2f8b0179790ec" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
