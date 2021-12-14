@@ -16,10 +16,10 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/in
 brew tap sjorek/php
 
 # to install all composer-formulae at once:
-brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
 
 # to install all composer-formulae with bash-completion support enabled:
-echo sjorek/php/composer{1,2}-php{72,73,74,80} | \
+echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | \
     xargs -n1 -J% brew install % --with-bash-completion
 ```
 
