@@ -79,7 +79,10 @@ def generate_build_tasks composer_build_targets
 
     composer_build_target['targets'].map { |build_target|
 
-      build_target['versions'].map { |php_version|
+      build_target['versions'].map { |php_build|
+
+        php_version = php_build['version']
+        php_formula = php_build['formula']
 
         target  = build_target['source'].pathmap('%{^Source/,Formula/}X.rb')
             .gsub(/X/,  composer_version)
@@ -115,6 +118,7 @@ def generate_build_tasks composer_build_targets
               .gsub(/COMPOSER_PHAR_SHA256/,     composer['sha256'])
               .gsub(/COMPOSER_SETUP_SHA256/,    setup_sha256)
               .gsub(/COMPOSER_SETUP_SHA384/,    setup_sha384)
+              .gsub(/PHP_FORMULA/,              php_formula)
               .gsub(/PHP_VERSION_MAJOR/,        php_version.split('.')[0])
               .gsub(/PHP_VERSION_MINOR/,        php_version.split('.')[1])
               .gsub(/PHP_VERSION_PATCH/,        php_version.split('.')[2])
@@ -160,11 +164,41 @@ generate_build_tasks [
     'targets' => [
       {
         'source'   => 'Source/composer@X.rb',
-        'versions' => ['0.0.0']
+        'versions' => [
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          }
+        ]
       },
       {
         'source' => 'Source/composerX-phpYZ.rb',
-        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0']
+        'versions' => [
+          {
+            'formula' => 'sjorek/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'sjorek/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '8.1.0'
+          }
+        ]
       }
     ]
   },
@@ -173,11 +207,41 @@ generate_build_tasks [
     'targets' => [
       {
         'source'   => 'Source/composer@X.rb',
-        'versions' => ['0.0.0']
+        'versions' => [
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          }
+        ]
       },
       {
         'source' => 'Source/composerX-phpYZ.rb',
-        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0']
+        'versions' => [
+          {
+            'formula' => 'sjorek/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'sjorek/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '8.1.0'
+          }
+        ]
       }
     ]
   }

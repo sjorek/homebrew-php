@@ -25,26 +25,32 @@ echo sjorek/php/composer{1,2}-php{72,73,74,80} | \
 
 ## List of (currently) provided formulae
 
-    composer1-php72                1.10.23_1
-    composer1-php73                1.10.23_1
-    composer1-php74                1.10.23_1
-    composer1-php80                1.10.23_1
-    composer@1                     1.10.23_1
+    composer1-php72                1.10.24_1
+    composer1-php73                1.10.24_1
+    composer1-php74                1.10.24_0
+    composer1-php80                1.10.24_0
+    composer1-php81                1.10.24_0
+    composer@1                     1.10.24_0
 
-    composer2-php72                2.1.9_1
-    composer2-php73                2.1.9_1
-    composer2-php74                2.1.9_1
-    composer2-php80                2.1.9_1
-    composer@2                     2.1.9_1
+    composer2-php72                2.1.14_1
+    composer2-php73                2.1.14_1
+    composer2-php74                2.1.14_0
+    composer2-php80                2.1.14_0
+    composer2-php81                2.1.14_0
+    composer@2                     2.1.14_0
 
     composer-bash-completion       0.3.1_0
 
+    php@7.2                        7.2.34_5
+    php@7.3                        7.3.33_2
+
 ## List of (currently) provided formulae aliases
 
-    composer-php72                 composer1-php72
-    composer-php73                 composer1-php73
-    composer-php74                 composer1-php74
-    composer-php80                 composer1-php80
+    composer-php72                 composer2-php72
+    composer-php73                 composer2-php73
+    composer-php74                 composer2-php74
+    composer-php80                 composer2-php80
+    composer-php81                 composer2-php81
 
 ## Links
 

@@ -12,7 +12,7 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     regex(/"COMPOSER_VERSION_MAJOR"[^\]]*"version": "(COMPOSER_VERSION_MAJOR(\.\d+)*)"/i)
   end
 
-  bottle :unneeded
+  #bottle :unneeded
 
   keg_only :versioned_formula
 

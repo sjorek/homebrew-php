@@ -1,15 +1,15 @@
-class Composer2Php74 < Formula
-  desc "Dependency Manager for PHP - Version 2.x"
+class Composer1Php81 < Formula
+  desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.1.14"
+  version "1.10.24"
   revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"2"[^\]]*"version": "(2(\.\d+)*)"/i)
+    regex(/"1"[^\]]*"version": "(1(\.\d+)*)"/i)
   end
 
   #bottle :unneeded
@@ -20,16 +20,16 @@ class Composer2Php74 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "php@7.4"
-  depends_on "sjorek/php/composer@2"
+  depends_on "php@8.1"
+  depends_on "sjorek/php/composer@1"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@7.4/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.1/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
@@ -42,7 +42,7 @@ class Composer2Php74 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "d44a904520f9aaa766e8b4b05d2d9a766ad9a6f03fa1a48518224aad703061a4" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "542ce16add6fd5ecfb0049dd49a0214e69a966a602b42c215adb19438c13a890" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -108,7 +108,7 @@ class Composer2Php74 < Formula
           }
         ],
         "require": {
-          "php": "~7.4.0"
+          "php": "~8.1.0"
         },
         "autoload": {
           "psr-0": {
@@ -145,7 +145,7 @@ class Composer2Php74 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("7.4")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("8.1")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 
