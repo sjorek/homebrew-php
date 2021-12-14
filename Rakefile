@@ -4,7 +4,7 @@ require 'rake'
 
 Rake.application.options.trace_rules = true
 
-FORMULAE = Rake::FileList.new("Formula/composer*.rb") do |formula|
+FORMULAE = Rake::FileList.new("Formula/*.rb") do |formula|
   formula.exclude(/^dist\//)
   formula.exclude do |f|
     `git ls-files #{f}`.empty?

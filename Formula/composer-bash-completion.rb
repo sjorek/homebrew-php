@@ -4,9 +4,9 @@ class ComposerBashCompletion < Formula
   url "https://github.com/sjorek/composer-bash-completion/archive/v0.3.1.tar.gz"
   sha256 "416aae5d6e61536badee132443871e4f8dff2193f35b95afa41754fbfd445eb9"
   license "MIT"
-  revision 1
+  revision 2
 
-  bottle :unneeded
+  #bottle :unneeded
 
   depends_on "bash-completion@2"
   depends_on "sjorek/php/composer@1" => :optional
