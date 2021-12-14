@@ -1,18 +1,18 @@
-class Composer1Php80 < Formula
+class Composer1Php81 < Formula
   desc "Dependency Manager for PHP - Version 1.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "1.10.23"
-  revision 1
+  version "1.10.24"
+  revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
     regex(/"1"[^\]]*"version": "(1(\.\d+)*)"/i)
   end
 
-  bottle :unneeded
+  #bottle :unneeded
 
   #keg_only :versioned_formula
 
@@ -20,13 +20,13 @@ class Composer1Php80 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "php@8.0"
+  depends_on "php@8.1"
   depends_on "sjorek/php/composer@1"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.1/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
@@ -42,7 +42,7 @@ class Composer1Php80 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "2fc3ae370a979602a3bc2c950a38db02e51b4ca2072f7b8e15a518b443b835e7" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "542ce16add6fd5ecfb0049dd49a0214e69a966a602b42c215adb19438c13a890" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -108,7 +108,7 @@ class Composer1Php80 < Formula
           }
         ],
         "require": {
-          "php": "~8.0.0"
+          "php": "~8.1.0"
         },
         "autoload": {
           "psr-0": {
@@ -145,7 +145,7 @@ class Composer1Php80 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("8.0")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("8.1")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 

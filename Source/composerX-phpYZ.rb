@@ -20,7 +20,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
+  depends_on "PHP_FORMULA@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
   depends_on "sjorek/php/composer@COMPOSER_VERSION_MAJOR"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 

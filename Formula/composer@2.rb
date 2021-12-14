@@ -4,15 +4,15 @@ class ComposerAT2 < Formula
   url "https://getcomposer.org/installer"
   sha256 "cc46dceb368b0668fb858e12876ecd18ea02e9a64cf401e802ecae6ae45dae0f"
   license "MIT"
-  version "2.1.9"
-  revision 1
+  version "2.1.14"
+  revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
     regex(/"2"[^\]]*"version": "(2(\.\d+)*)"/i)
   end
 
-  bottle :unneeded
+  #bottle :unneeded
 
   keg_only :versioned_formula
 
@@ -39,7 +39,7 @@ class ComposerAT2 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "d44a904520f9aaa766e8b4b05d2d9a766ad9a6f03fa1a48518224aad703061a4" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
