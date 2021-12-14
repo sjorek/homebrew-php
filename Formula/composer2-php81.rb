@@ -1,18 +1,18 @@
-class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Formula
-  desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
+class Composer2Php80 < Formula
+  desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
-  revision FORMULA_REVISION
+  version "2.1.9"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"COMPOSER_VERSION_MAJOR"[^\]]*"version": "(COMPOSER_VERSION_MAJOR(\.\d+)*)"/i)
+    regex(/"2"[^\]]*"version": "(2(\.\d+)*)"/i)
   end
 
-  #bottle :unneeded
+  bottle :unneeded
 
   #keg_only :versioned_formula
 
@@ -20,20 +20,20 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
-  depends_on "sjorek/php/composer@COMPOSER_VERSION_MAJOR"
+  depends_on "php@8.0"
+  depends_on "sjorek/php/composer@2"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
@@ -42,7 +42,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -108,7 +108,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
           }
         ],
         "require": {
-          "php": "~PHP_VERSION_MAJOR.PHP_VERSION_MINOR.0"
+          "php": "~8.0.0"
         },
         "autoload": {
           "psr-0": {
@@ -145,7 +145,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("PHP_VERSION_MAJOR.PHP_VERSION_MINOR")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("8.0")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 

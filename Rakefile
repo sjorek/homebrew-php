@@ -164,7 +164,7 @@ generate_build_tasks [
       },
       {
         'source' => 'Source/composerX-phpYZ.rb',
-        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0']
+        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0', '8.1.0']
       }
     ]
   },
@@ -177,7 +177,7 @@ generate_build_tasks [
       },
       {
         'source' => 'Source/composerX-phpYZ.rb',
-        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0']
+        'versions' => ['7.2.0', '7.3.0', '7.4.0', '8.0.0', '8.1.0']
       }
     ]
   }
