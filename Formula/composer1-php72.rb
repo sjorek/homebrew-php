@@ -4,8 +4,8 @@ class Composer1Php72 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "1.10.24"
-  revision 1
+  version "1.10.25"
+  revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -42,7 +42,7 @@ class Composer1Php72 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "542ce16add6fd5ecfb0049dd49a0214e69a966a602b42c215adb19438c13a890" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "6b089bd8b78b00c3c15d7b13353fbcbdf16a3f5248203c9a3e76f13948f2de92" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
