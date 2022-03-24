@@ -13,6 +13,7 @@ provides bash-completion for the latter.
 
 ```console
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew tap shivammathur/php
 brew tap sjorek/php
 
 # to install all composer-formulae at once:
@@ -46,9 +47,6 @@ echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | \
     composer@2                     2.2.9_0
 
     composer-bash-completion       0.3.1_0
-
-    php@7.2                        7.2.34_5
-    php@7.3                        7.3.33_2
 
 ## List of (currently) provided formulae aliases
 
