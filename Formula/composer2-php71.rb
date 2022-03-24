@@ -1,4 +1,4 @@
-class Composer2Php81 < Formula
+class Composer2Php71 < Formula
   desc "Dependency Manager for PHP - Version 2.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
@@ -20,13 +20,13 @@ class Composer2Php81 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "shivammathur/php/php@8.1"
+  depends_on "shivammathur/php/php@7.1"
   depends_on "sjorek/php/composer@2"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.1/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@7.1/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
@@ -108,7 +108,7 @@ class Composer2Php81 < Formula
           }
         ],
         "require": {
-          "php": "~8.1.0"
+          "php": "~7.1.0"
         },
         "autoload": {
           "psr-0": {
@@ -145,7 +145,7 @@ class Composer2Php81 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("8.1")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("7.1")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 

@@ -4,8 +4,8 @@ class Composer2Php72 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.2.5"
-  revision 0
+  version "2.2.9"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -20,7 +20,7 @@ class Composer2Php72 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "sjorek/php/php@7.2"
+  depends_on "shivammathur/php/php@7.2"
   depends_on "sjorek/php/composer@2"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
@@ -42,7 +42,7 @@ class Composer2Php72 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "81ef304a70c957d6f05a7659f03b00eb50df6155195f51118459b2e49c96c3f3" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "48f9fdc9ad93904fee96550b45ae03a51f69718502ee855da894b4ad71d2dfe0" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 

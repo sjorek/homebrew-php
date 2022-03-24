@@ -179,23 +179,35 @@ generate_build_tasks [
         'source' => 'Source/composerX-phpYZ.rb',
         'versions' => [
           {
-            'formula' => 'sjorek/php/php',
+            'formula' => 'shivammathur/php/php',
+            'version' => '5.6.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
             'version' => '7.2.0'
           },
           {
-            'formula' => 'sjorek/php/php',
+            'formula' => 'shivammathur/php/php',
             'version' => '7.3.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '7.4.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '8.0.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '8.1.0'
           }
         ]
@@ -222,23 +234,35 @@ generate_build_tasks [
         'source' => 'Source/composerX-phpYZ.rb',
         'versions' => [
           {
-            'formula' => 'sjorek/php/php',
+            'formula' => 'shivammathur/php/php',
+            'version' => '5.6.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
             'version' => '7.2.0'
           },
           {
-            'formula' => 'sjorek/php/php',
+            'formula' => 'shivammathur/php/php',
             'version' => '7.3.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '7.4.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '8.0.0'
           },
           {
-            'formula' => 'php',
+            'formula' => 'shivammathur/php/php',
             'version' => '8.1.0'
           }
         ]
