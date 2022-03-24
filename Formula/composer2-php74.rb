@@ -5,7 +5,7 @@ class Composer2Php74 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.2.9"
-  revision 0
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -20,7 +20,7 @@ class Composer2Php74 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "php@7.4"
+  depends_on "shivammathur/php/php@7.4"
   depends_on "sjorek/php/composer@2"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 

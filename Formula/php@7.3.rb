@@ -15,6 +15,8 @@ class PhpAT73 < Formula
   conflicts_with "php@7.3",
     because: "the original package php@7.3 has been disabled in homebrew-core upstream - please uninstall it!"
 
+  disable! date: "2022-03-24", because: :does_not_build
+
   depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build
   depends_on "xz" => :build
