@@ -5,11 +5,11 @@ class Composer1Php80 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.25"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"1"[^\]]*"version": "(1(\.\d+)*)"/i)
+    regex(/"1" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
   end
 
   #bottle :unneeded

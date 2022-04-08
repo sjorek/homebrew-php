@@ -3,56 +3,61 @@
 The repository is for missing PHP-related homebrew, like `composer` and
 provides bash-completion for the latter.
 
-## Usage
+## Installation
 
 1. Install [homebrew](https://brew.sh)
-2. Tap the homebrew-php repository
-3. Install the homebrew-php formulae you want
+3. Tap the shivammathur/php repository
+3. Tap the sjorek/php repository
+4. Install the formulae you want
 
 ### Example
 
 ```console
+# Install [homebrew](https://brew.sh)
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Tap the shivammathur/php repository
 brew tap shivammathur/php
+
+# Tap the sjorek/php repository
 brew tap sjorek/php
 
-# to install all composer-formulae at once:
-brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
+# Install several composer-formulae with bash-completion support enabled, or …
+echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | xargs -n1 -J% brew install % --with-bash-completion
 
-# to install all composer-formulae with bash-completion support enabled:
-echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | \
-    xargs -n1 -J% brew install % --with-bash-completion
+# … install several composer-formulae at once without bash-completion support
+brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
 ```
 
 ## List of (currently) provided formulae
 
-    composer1-php56                1.10.25_1
-    composer1-php70                1.10.25_1
-    composer1-php71                1.10.25_1
-    composer1-php72                1.10.25_1
-    composer1-php73                1.10.25_1
-    composer1-php74                1.10.25_1
-    composer1-php80                1.10.25_1
-    composer1-php81                1.10.25_1
-    composer@1                     1.10.25_0
+    composer1-php56                1.10.25_2
+    composer1-php70                1.10.25_2
+    composer1-php71                1.10.25_2
+    composer1-php72                1.10.25_2
+    composer1-php73                1.10.25_2
+    composer1-php74                1.10.25_2
+    composer1-php80                1.10.25_2
+    composer1-php81                1.10.25_2
+    composer@1                     1.10.25_1
 
     composer2-php56                2.2.9_1
     composer2-php70                2.2.9_1
     composer2-php71                2.2.9_1
-    composer2-php72                2.2.9_1
-    composer2-php73                2.2.9_1
-    composer2-php74                2.2.9_1
-    composer2-php80                2.2.9_1
-    composer2-php81                2.2.9_1
-    composer@2                     2.2.9_0
+    composer2-php72                2.3.4_0
+    composer2-php73                2.3.4_0
+    composer2-php74                2.3.4_0
+    composer2-php80                2.3.4_0
+    composer2-php81                2.3.4_0
+    composer@2                     2.3.4_0
 
     composer-bash-completion       0.3.1_0
 
 ## List of (currently) provided formulae aliases
 
-    composer-php56                 composer2-php56
-    composer-php70                 composer2-php70
-    composer-php71                 composer2-php71
+    composer-php56                 composer1-php56
+    composer-php70                 composer1-php70
+    composer-php71                 composer1-php71
     composer-php72                 composer2-php72
     composer-php73                 composer2-php73
     composer-php74                 composer2-php74
