@@ -3,25 +3,30 @@
 The repository is for missing PHP-related homebrew, like `composer` and
 provides bash-completion for the latter.
 
-## Usage
+## Installation
 
 1. Install [homebrew](https://brew.sh)
-2. Tap the homebrew-php repository
-3. Install the homebrew-php formulae you want
+3. Tap the shivammathur/php repository
+3. Tap the sjorek/php repository
+4. Install the formulae you want
 
 ### Example
 
 ```console
+# Install [homebrew](https://brew.sh)
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Tap the shivammathur/php repository
 brew tap shivammathur/php
+
+# Tap the sjorek/php repository
 brew tap sjorek/php
 
-# to install all composer-formulae at once:
-brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
+# Install several composer-formulae with bash-completion support enabled, or …
+echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | xargs -n1 -J% brew install % --with-bash-completion
 
-# to install all composer-formulae with bash-completion support enabled:
-echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | \
-    xargs -n1 -J% brew install % --with-bash-completion
+# … install several composer-formulae at once without bash-completion support
+brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
 ```
 
 ## List of (currently) provided formulae
