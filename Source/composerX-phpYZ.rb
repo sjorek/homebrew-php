@@ -9,7 +9,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"COMPOSER_VERSION_MAJOR"[^\]]*"version": "(COMPOSER_VERSION_MAJOR(\.\d+)*)"/i)
+    regex(/"COMPOSER_VERSION_MAJOR" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
   end
 
   #bottle :unneeded

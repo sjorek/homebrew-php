@@ -16,7 +16,8 @@ class Composer2Php70 < Formula
 
   #keg_only :versioned_formula
 
-  #deprecate! date: "2022-11-28", because: :versioned_formula
+  deprecate! date: "2022-04-08", because: :does_not_build
+  disable! date: "2022-04-08", because: :does_not_build
 
   option "with-bash-completion", "Install optional bash-completion integration"
 

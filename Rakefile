@@ -233,18 +233,18 @@ generate_build_tasks [
       {
         'source' => 'Source/composerX-phpYZ.rb',
         'versions' => [
-          {
-            'formula' => 'shivammathur/php/php',
-            'version' => '5.6.0'
-          },
-          {
-            'formula' => 'shivammathur/php/php',
-            'version' => '7.0.0'
-          },
-          {
-            'formula' => 'shivammathur/php/php',
-            'version' => '7.1.0'
-          },
+          # {
+          #    'formula' => 'shivammathur/php/php',
+          #   'version' => '5.6.0'
+          # },
+          # {
+          #   'formula' => 'shivammathur/php/php',
+          #   'version' => '7.0.0'
+          # },
+          # {
+          #   'formula' => 'shivammathur/php/php',
+          #   'version' => '7.1.0'
+          # },
           {
             'formula' => 'shivammathur/php/php',
             'version' => '7.2.0'
