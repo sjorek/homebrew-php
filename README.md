@@ -51,7 +51,7 @@ brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
     composer2-php81                2.3.5_1
     composer@2                     2.3.5_2
 
-    composer-bash-completion       0.3.1_0
+    composer-bash-completion       1.0.1_0
 
 ## List of (currently) provided formulae aliases
 

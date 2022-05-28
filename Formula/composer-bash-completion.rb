@@ -1,8 +1,8 @@
 class ComposerBashCompletion < Formula
   desc "Composer shell completion for Bash"
   homepage "https://sjorek.github.io/composer-bash-completion/"
-  url "https://github.com/sjorek/composer-bash-completion/archive/v0.3.2.tar.gz"
-  sha256 "b7c1be85d408362e2dfca5e13dddb0b9d45064787f16495e5ebff75ad0208fe4"
+  url "https://github.com/sjorek/composer-bash-completion/archive/v1.0.1.tar.gz"
+  sha256 "544e8b7815992d84ac9d5cb6cedf612c89210898f6e5cb4539f555ae8758d698"
   license "MIT"
   revision 0
 
