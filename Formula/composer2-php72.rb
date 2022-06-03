@@ -4,8 +4,8 @@ class Composer2Php72 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.3.5"
-  revision 1
+  version "2.3.6"
+  revision 2
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -33,7 +33,7 @@ class Composer2Php72 < Formula
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
@@ -42,7 +42,7 @@ class Composer2Php72 < Formula
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "3b3b5a899c06a46aec280727bdf50aad14334f6bc40436ea76b07b650870d8f4" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "188e079d509156130d30204c9c8b3f00134dbbc6afadc2f37ed05d02646a47dc" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
