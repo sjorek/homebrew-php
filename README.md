@@ -80,6 +80,8 @@ brew install sjorek/php/composer{1,22,23}-php{72,73,74,80,81}
     composer2-php80                composer23-php80
     composer2-php81                composer23-php81
 
+    composer@2                     composer@23
+
 ## Links
 
 ### Status
