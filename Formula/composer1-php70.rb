@@ -1,15 +1,15 @@
 class Composer1Php70 < Formula
-  desc "Dependency Manager for PHP - Version 1.x"
+  desc "Dependency Manager for PHP - Version 1.10.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.26"
-  revision 4
+  revision 6
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"1" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
+    regex(/"1" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -38,11 +38,11 @@ class Composer1Php70 < Formula
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
-    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
-    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
-
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
     fail "invalid checksum for composer.phar" unless "cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4" == composer_phar_sha256
+
+    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
+    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -176,6 +176,21 @@ class Composer1Php70 < Formula
 
     if /^composer1-/.match?(name) then
       oldname = name.gsub(/^composer1-/, 'composer-')
+      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
+        s += <<~EOS
+          ATTENTION: The COMPOSER_HOME path-value has been renamed
+          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
+
+          Please update your composer-home path and run a diagnose afterwards:
+            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
+            #{name} diagnose
+
+        EOS
+      end
+    end
+
+    if /^composer23-/.match?(name) then
+      oldname = name.gsub(/^composer23-/, 'composer2-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
         s += <<~EOS
           ATTENTION: The COMPOSER_HOME path-value has been renamed

@@ -1,15 +1,15 @@
-class ComposerAT1 < Formula
-  desc "Dependency Manager for PHP - Version 1.10.x"
+class ComposerAT23 < Formula
+  desc "Dependency Manager for PHP - Version 2.3.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
-  version "1.10.26"
+  version "2.3.7"
   revision 2
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"1" \[\{[^\]\}]*"version": "([^"]+)"/i)
+    regex(/"2" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -36,7 +36,7 @@ class ComposerAT1 < Formula
     system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "3f2d46787d51070f922bf991aa08324566f726f186076c2a5e4e8b01a8ea3fd0" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
@@ -44,7 +44,7 @@ class ComposerAT1 < Formula
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      if 1 == 1 then
+      if 2 == 1 then
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
@@ -115,14 +115,14 @@ class ComposerAT1 < Formula
 
     s = <<~EOS
       Hint: “#{name}” is meant to be used in conjunction with
-      one or all of the sjorek/php/composer1-php* formulae.
+      one or all of the sjorek/php/composer23-php* formulae.
 
       To install several composer formulae at once run:
         brew install sjorek/php/composer{1,22,23}-php{72,73,74,80}
 
     EOS
 
-    if 1 == 1 then
+    if 2 == 1 then
       s += <<~EOS
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:
