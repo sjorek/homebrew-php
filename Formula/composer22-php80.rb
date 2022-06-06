@@ -1,15 +1,15 @@
-class Composer2Php80 < Formula
-  desc "Dependency Manager for PHP - Version 2.x"
+class Composer22Php80 < Formula
+  desc "Dependency Manager for PHP - Version 2.2.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.3.6"
-  revision 2
+  version "2.2.14"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"2" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
+    regex(/"2.2" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -21,15 +21,15 @@ class Composer2Php80 < Formula
   option "with-bash-completion", "Install optional bash-completion integration"
 
   depends_on "shivammathur/php/php@8.0"
-  depends_on "sjorek/php/composer@2"
+  depends_on "sjorek/php/composer@22"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
     php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@2/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@22/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@22/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
@@ -38,11 +38,11 @@ class Composer2Php80 < Formula
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
+    fail "invalid checksum for composer.phar" unless "84433f01bcd778f59ec150a1cdd4991c3d9b6cf74bcb7b6c18cdcd1e5efed9d4" == composer_phar_sha256
+
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
-
-    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "188e079d509156130d30204c9c8b3f00134dbbc6afadc2f37ed05d02646a47dc" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -176,6 +176,21 @@ class Composer2Php80 < Formula
 
     if /^composer1-/.match?(name) then
       oldname = name.gsub(/^composer1-/, 'composer-')
+      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
+        s += <<~EOS
+          ATTENTION: The COMPOSER_HOME path-value has been renamed
+          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
+
+          Please update your composer-home path and run a diagnose afterwards:
+            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
+            #{name} diagnose
+
+        EOS
+      end
+    end
+
+    if /^composer23-/.match?(name) then
+      oldname = name.gsub(/^composer23-/, 'composer2-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
         s += <<~EOS
           ATTENTION: The COMPOSER_HOME path-value has been renamed

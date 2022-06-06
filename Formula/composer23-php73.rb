@@ -1,15 +1,15 @@
-class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Formula
-  desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
+class Composer23Php73 < Formula
+  desc "Dependency Manager for PHP - Version 2.3.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
-  revision FORMULA_REVISION
+  version "2.3.7"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"COMPOSER_VERSION_MAJOR" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
+    regex(/"2" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -20,29 +20,29 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "PHP_FORMULA@PHP_VERSION_MAJOR.PHP_VERSION_MINOR"
-  depends_on "sjorek/php/composer@COMPOSER_VERSION_MAJOR"
+  depends_on "shivammathur/php/php@7.3"
+  depends_on "sjorek/php/composer@23"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@PHP_VERSION_MAJOR.PHP_VERSION_MINOR/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@7.3/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@COMPOSER_VERSION_MAJOR/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
+    fail "invalid checksum for composer.phar" unless "3f2d46787d51070f922bf991aa08324566f726f186076c2a5e4e8b01a8ea3fd0" == composer_phar_sha256
+
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
-
-    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
@@ -108,7 +108,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
           }
         ],
         "require": {
-          "php": "~PHP_VERSION_MAJOR.PHP_VERSION_MINOR.0"
+          "php": "~7.3.0"
         },
         "autoload": {
           "psr-0": {
@@ -145,7 +145,7 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("PHP_VERSION_MAJOR.PHP_VERSION_MINOR")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("7.3")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 
@@ -176,6 +176,21 @@ class ComposerCOMPOSER_VERSION_MAJORPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Form
 
     if /^composer1-/.match?(name) then
       oldname = name.gsub(/^composer1-/, 'composer-')
+      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
+        s += <<~EOS
+          ATTENTION: The COMPOSER_HOME path-value has been renamed
+          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
+
+          Please update your composer-home path and run a diagnose afterwards:
+            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
+            #{name} diagnose
+
+        EOS
+      end
+    end
+
+    if /^composer23-/.match?(name) then
+      oldname = name.gsub(/^composer23-/, 'composer2-')
       if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
         s += <<~EOS
           ATTENTION: The COMPOSER_HOME path-value has been renamed

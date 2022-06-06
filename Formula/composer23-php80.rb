@@ -1,15 +1,15 @@
-class Composer1Php80 < Formula
-  desc "Dependency Manager for PHP - Version 1.10.x"
+class Composer23Php80 < Formula
+  desc "Dependency Manager for PHP - Version 2.3.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "1.10.26"
-  revision 6
+  version "2.3.7"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"1" \[\{[^\]\}]*"version": "([^"]+)"/i)
+    regex(/"2" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -21,15 +21,15 @@ class Composer1Php80 < Formula
   option "with-bash-completion", "Install optional bash-completion integration"
 
   depends_on "shivammathur/php/php@8.0"
-  depends_on "sjorek/php/composer@1"
+  depends_on "sjorek/php/composer@23"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
     php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
+    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer.phar"
+    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer-setup.php"
     composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
@@ -39,7 +39,7 @@ class Composer1Php80 < Formula
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "3f2d46787d51070f922bf991aa08324566f726f186076c2a5e4e8b01a8ea3fd0" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)

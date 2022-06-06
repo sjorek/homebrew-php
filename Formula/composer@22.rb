@@ -1,15 +1,15 @@
-class ComposerATCOMPOSER_VERSION_MAJOR < Formula
-  desc "Dependency Manager for PHP - Version COMPOSER_VERSION_MAJOR.x"
+class ComposerAT22 < Formula
+  desc "Dependency Manager for PHP - Version 2.2.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
-  sha256 "COMPOSER_SETUP_SHA256"
+  sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
-  version "COMPOSER_VERSION_MAJOR.COMPOSER_VERSION_MINOR.COMPOSER_VERSION_PATCH"
-  revision FORMULA_REVISION
+  version "2.2.14"
+  revision 3
 
   livecheck do
     url "https://getcomposer.org/versions"
-    regex(/"COMPOSER_VERSION_MAJOR" \[\{[^\]\}]*"version": "(\d(\.\d+)*)"/i)
+    regex(/"2.2" \[\{[^\]\}]*"version": "([^"]+)"/i)
   end
 
   #bottle :unneeded
@@ -28,23 +28,23 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
     mv "installer", composer_setup
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "COMPOSER_SETUP_SHA384" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
+    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
+    fail "invalid checksum for composer.phar" unless "84433f01bcd778f59ec150a1cdd4991c3d9b6cf74bcb7b6c18cdcd1e5efed9d4" == composer_phar_sha256
+
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
-
-    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "COMPOSER_PHAR_SHA256" == composer_phar_sha256
 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      if COMPOSER_VERSION_MAJOR == 1 then
+      if 2 == 1 then
         s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR')) {
               # @see https://github.com/composer/composer/pull/9898
@@ -115,17 +115,14 @@ class ComposerATCOMPOSER_VERSION_MAJOR < Formula
 
     s = <<~EOS
       Hint: “#{name}” is meant to be used in conjunction with
-      one or all of the sjorek/php/composerCOMPOSER_VERSION_MAJOR-php* formulae.
+      one or all of the sjorek/php/composer22-php* formulae.
 
-      To install all composer version COMPOSER_VERSION_MAJOR formulae at once run:
-        brew install sjorek/php/composerCOMPOSER_VERSION_MAJOR-php{72,73,74,80}
-
-      To install all composer formulae at once run:
-        brew install sjorek/php/composer{1,2}-php{72,73,74,80}
+      To install several composer formulae at once run:
+        brew install sjorek/php/composer{1,22,23}-php{72,73,74,80}
 
     EOS
 
-    if COMPOSER_VERSION_MAJOR == 1 then
+    if 2 == 1 then
       s += <<~EOS
         When running “composer” the COMPOSER_* environment-variables are
         adjusted per default:

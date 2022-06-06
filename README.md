@@ -22,47 +22,67 @@ brew tap shivammathur/php
 # Tap the sjorek/php repository
 brew tap sjorek/php
 
-# Install several composer-formulae with bash-completion support enabled, or …
-echo sjorek/php/composer{1,2}-php{72,73,74,80,81} | xargs -n1 -J% brew install % --with-bash-completion
+# Install several composer-formulae WITH bash-completion support enabled, or …
+echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
+    xargs -n1 -d' ' -I'{}' brew install {} --with-bash-completion
 
-# … install several composer-formulae at once without bash-completion support
-brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
+# … install several composer-formulae at once WITHOUT bash-completion support
+echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
+    xargs -n1 -d' ' brew install
 ```
 
 ## List of (currently) provided formulae
 
-    composer1-php56                1.10.26_4
-    composer1-php70                1.10.26_4
-    composer1-php71                1.10.26_4
-    composer1-php72                1.10.26_4
-    composer1-php73                1.10.26_4
-    composer1-php74                1.10.26_4
-    composer1-php80                1.10.26_4
-    composer1-php81                1.10.26_4
-    composer@1                     1.10.26_3
+    composer1-php56                1.10.26_6
+    composer1-php70                1.10.26_6
+    composer1-php71                1.10.26_6
+    composer1-php72                1.10.26_6
+    composer1-php73                1.10.26_6
+    composer1-php74                1.10.26_6
+    composer1-php80                1.10.26_6
+    composer1-php81                1.10.26_6
+    composer@1                     1.10.26_2
 
-    composer2-php56                2.2.9_1
-    composer2-php70                2.2.9_1
-    composer2-php71                2.2.9_1
-    composer2-php72                2.3.6_2
-    composer2-php73                2.3.6_2
-    composer2-php74                2.3.6_2
-    composer2-php80                2.3.6_2
-    composer2-php81                2.3.6_2
-    composer@2                     2.3.6_3
+    composer22-php56               2.2.14_1
+    composer22-php70               2.2.14_1
+    composer22-php71               2.2.14_1
+    composer22-php72               2.2.14_1
+    composer22-php73               2.2.14_1
+    composer22-php74               2.2.14_1
+    composer22-php80               2.2.14_1
+    composer22-php81               2.2.14_1
+    composer@22                    2.2.14_3
+
+    composer23-php72               2.3.7_1
+    composer23-php73               2.3.7_1
+    composer23-php74               2.3.7_1
+    composer23-php80               2.3.7_1
+    composer23-php81               2.3.7_1
+    composer@23                    2.3.7_2
 
     composer-bash-completion       1.0.1_0
 
 ## List of (currently) provided formulae aliases
 
-    composer-php56                 composer1-php56
-    composer-php70                 composer1-php70
-    composer-php71                 composer1-php71
-    composer-php72                 composer2-php72
-    composer-php73                 composer2-php73
-    composer-php74                 composer2-php74
-    composer-php80                 composer2-php80
-    composer-php81                 composer2-php81
+    composer-php56                 composer22-php56
+    composer-php70                 composer22-php70
+    composer-php71                 composer22-php71
+    composer-php72                 composer23-php72
+    composer-php73                 composer23-php73
+    composer-php74                 composer23-php74
+    composer-php80                 composer23-php80
+    composer-php81                 composer23-php81
+
+    composer2-php56                composer22-php56
+    composer2-php70                composer22-php70
+    composer2-php71                composer22-php71
+    composer2-php72                composer23-php72
+    composer2-php73                composer23-php73
+    composer2-php74                composer23-php74
+    composer2-php80                composer23-php80
+    composer2-php81                composer23-php81
+
+    composer@2                     composer@23
 
 ## Links
 
@@ -87,8 +107,7 @@ brew install sjorek/php/composer{1,2}-php{72,73,74,80,81}
 
 ## Want more?
 
-There is a [virtual-environment composer-plugin](https://sjorek.github.io/composer-virtual-environment-plugin/)
-complementing these composer formulae. Are you preferring [macports](https://www.macports.org)? Then take a look
+Are you preferring [macports](https://www.macports.org)? Then take a look
 at the alternative [macports-php](https://sjorek.github.io/macports-php/) project.
 
 Cheers!
