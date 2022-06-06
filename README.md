@@ -22,11 +22,13 @@ brew tap shivammathur/php
 # Tap the sjorek/php repository
 brew tap sjorek/php
 
-# Install several composer-formulae with bash-completion support enabled, or …
-echo sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | xargs -n1 -J% brew install % --with-bash-completion
+# Install several composer-formulae WITH bash-completion support enabled, or …
+echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
+    xargs -n1 -d' ' -I'{}' brew install {} --with-bash-completion
 
-# … install several composer-formulae at once without bash-completion support
-brew install sjorek/php/composer{1,22,23}-php{72,73,74,80,81}
+# … install several composer-formulae at once WITHOUT bash-completion support
+echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
+    xargs -n1 -d' ' brew install
 ```
 
 ## List of (currently) provided formulae
