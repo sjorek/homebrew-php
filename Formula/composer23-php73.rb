@@ -5,7 +5,7 @@ class Composer23Php73 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.3.7"
-  revision 1
+  revision 2
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -49,12 +49,8 @@ class Composer23Php73 < Formula
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-        if (isset($_SERVER['argv'][0]) && '#{composer_script}' === $_SERVER['argv'][0]) {
-            $_SERVER['argv'][0] = '#{composer_phar}';
-        }
-
-        if (false === getenv('COMPOSER_SCRIPT')) {
-            putenv('COMPOSER_SCRIPT=#{composer_script}');
+        if (false === getenv('COMPOSER_PHAR')) {
+            putenv('COMPOSER_PHAR=#{composer_phar}');
         }
 
         if (false === getenv('COMPOSER_HOME')) {

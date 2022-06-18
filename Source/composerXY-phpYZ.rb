@@ -49,12 +49,8 @@ class ComposerCOMPOSER_VERSION_FORMULAPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Fo
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-        if (isset($_SERVER['argv'][0]) && '#{composer_script}' === $_SERVER['argv'][0]) {
-            $_SERVER['argv'][0] = '#{composer_phar}';
-        }
-
-        if (false === getenv('COMPOSER_SCRIPT')) {
-            putenv('COMPOSER_SCRIPT=#{composer_script}');
+        if (false === getenv('COMPOSER_PHAR')) {
+            putenv('COMPOSER_PHAR=#{composer_phar}');
         }
 
         if (false === getenv('COMPOSER_HOME')) {
