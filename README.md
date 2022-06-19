@@ -33,31 +33,31 @@ echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
 
 ## List of (currently) provided formulae
 
-    composer1-php56                1.10.26_7
-    composer1-php70                1.10.26_7
-    composer1-php71                1.10.26_7
-    composer1-php72                1.10.26_7
-    composer1-php73                1.10.26_7
-    composer1-php74                1.10.26_7
-    composer1-php80                1.10.26_7
-    composer1-php81                1.10.26_7
+    composer1-php56                1.10.26_9
+    composer1-php70                1.10.26_9
+    composer1-php71                1.10.26_9
+    composer1-php72                1.10.26_9
+    composer1-php73                1.10.26_9
+    composer1-php74                1.10.26_9
+    composer1-php80                1.10.26_9
+    composer1-php81                1.10.26_9
     composer@1                     1.10.26_2
 
-    composer22-php56               2.2.14_2
-    composer22-php70               2.2.14_2
-    composer22-php71               2.2.14_2
-    composer22-php72               2.2.14_2
-    composer22-php73               2.2.14_2
-    composer22-php74               2.2.14_2
-    composer22-php80               2.2.14_2
-    composer22-php81               2.2.14_2
+    composer22-php56               2.2.14_4
+    composer22-php70               2.2.14_4
+    composer22-php71               2.2.14_4
+    composer22-php72               2.2.14_4
+    composer22-php73               2.2.14_4
+    composer22-php74               2.2.14_4
+    composer22-php80               2.2.14_4
+    composer22-php81               2.2.14_4
     composer@22                    2.2.14_3
 
-    composer23-php72               2.3.7_2
-    composer23-php73               2.3.7_2
-    composer23-php74               2.3.7_2
-    composer23-php80               2.3.7_2
-    composer23-php81               2.3.7_2
+    composer23-php72               2.3.7_4
+    composer23-php73               2.3.7_4
+    composer23-php74               2.3.7_4
+    composer23-php80               2.3.7_4
+    composer23-php81               2.3.7_4
     composer@23                    2.3.7_2
 
     composer-bash-completion       1.0.3_0

@@ -5,7 +5,7 @@ class Composer1Php56 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.26"
-  revision 7
+  revision 9
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -49,17 +49,18 @@ class Composer1Php56 < Formula
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
       s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-        if (false === getenv('COMPOSER_PHAR')) {
-            putenv('COMPOSER_PHAR=#{composer_phar}');
+
+        if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
+            putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/#{name}'));
         }
 
-        if (false === getenv('COMPOSER_HOME')) {
-            putenv('COMPOSER_HOME=' . $_SERVER['HOME'] . '/.composer/#{name}');
+        // @see https://github.com/composer/composer/pull/9898
+        if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
+            putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
         }
 
-        if (false === getenv('COMPOSER_CACHE_DIR')) {
-            # @see https://github.com/composer/composer/pull/9898
-            putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
+        if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
+            putenv('COMPOSER_PHAR=' . ($_SERVER['COMPOSER_PHAR'] = $_ENV['COMPOSER_PHAR'] = '#{composer_phar}'));
         }
 
       EOS
