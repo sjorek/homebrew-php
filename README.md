@@ -60,7 +60,7 @@ echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
     composer23-php81               2.3.7_4
     composer@23                    2.3.7_2
 
-    composer-bash-completion       1.0.3_0
+    composer-bash-completion       1.0.4_0
 
 ## List of (currently) provided formulae aliases
 
