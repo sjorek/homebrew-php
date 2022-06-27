@@ -24,7 +24,7 @@ brew tap sjorek/php
 
 # Install several composer-formulae WITH bash-completion support enabled, or …
 echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
-    xargs -n1 -d' ' -I'{}' brew install {} --with-bash-completion
+    /usr/bin/xargs -n1 -I% brew install "%" --with-bash-completion
 
 # … install several composer-formulae at once WITHOUT bash-completion support
 echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
