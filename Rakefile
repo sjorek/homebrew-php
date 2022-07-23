@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'json'
 require 'rake'
@@ -9,7 +10,7 @@ BUILD_TARGETS = [
     'version' => '1',
     'targets' => [
       {
-        'source'   => 'Source/composer@XY.rb',
+        'source' => 'Source/composer@XY.rb',
         'versions' => [
           {
             'formula' => 'php',
@@ -64,7 +65,7 @@ BUILD_TARGETS = [
     'version' => '2.2',
     'targets' => [
       {
-        'source'   => 'Source/composer@XY.rb',
+        'source' => 'Source/composer@XY.rb',
         'versions' => [
           {
             'formula' => 'php',
@@ -119,7 +120,7 @@ BUILD_TARGETS = [
     'version' => '2.3',
     'targets' => [
       {
-        'source'   => 'Source/composer@XY.rb',
+        'source' => 'Source/composer@XY.rb',
         'versions' => [
           {
             'formula' => 'php',
@@ -158,29 +159,26 @@ BUILD_TARGETS = [
       }
     ]
   }
-]
+].freeze
 
 FORMULAE = []
 
 BUILD_TARGETS.map { |composer_build_target|
   composer_build_target['targets'].map { |build_target|
-
     composer_version = composer_build_target['version']
-
     build_target['versions'].map { |php_build|
-
       php_version = php_build['version']
-
-      target  = build_target['source'].pathmap('%{^Source/,Formula/}X.rb')
-          .gsub(/XY/, composer_version.split('.').slice(0,2).join())
-          .gsub(/YZ/, php_version.split('.').slice(0,2).join())
-
+      target = build_target['source'].pathmap('%{^Source/,Formula/}X.rb')
+                                     .gsub(/XY/, composer_version.split('.').slice(0, 2).join)
+                                     .gsub(/YZ/, php_version.split('.').slice(0, 2).join)
       php_build['target'] = target
 
       FORMULAE.push target
     }
   }
 }
+
+FORMULAE.freeze
 
 BREW_TAP_INSTALLED = 'dist/brew-tap-installed.json'
 BREW_TAP_OUTDATED  = 'dist/brew-tap-outdated.json'
@@ -192,7 +190,7 @@ task :installed => :all # @see ARGV usage in generate_build_tasks below
 task :outdated => :all # @see ARGV usage in generate_build_tasks below
 task :build => FORMULAE
 
-directory "dist"
+directory 'dist'
 
 file 'dist/composer-setup.sha384' => :dist do |t|
   sh "curl -s -o #{t.name} https://composer.github.io/installer.sig"
@@ -202,14 +200,28 @@ file 'dist/composer-setup.sha256' => :dist do |t|
   sh "php -r 'echo hash_file(\"sha256\", \"https://getcomposer.org/installer\");' >#{t.name}"
 end
 
-def generate_build_tasks composer_build_targets
+def generate_build_tasks(composer_build_targets)
 
-  installed_versions = if File.file?(BREW_TAP_INSTALLED) then JSON.parse(File.read(BREW_TAP_INSTALLED)) else [] end
-  outdated_versions  = if File.file?(BREW_TAP_OUTDATED) then JSON.parse(File.read(BREW_TAP_OUTDATED)) else [] end
-  composer_versions  = if File.file?(COMPOSER_VERSIONS) then JSON.parse(File.read(COMPOSER_VERSIONS)) else [] end
+  installed_versions = if File.file?(BREW_TAP_INSTALLED)
+                         JSON.parse(File.read(BREW_TAP_INSTALLED))
+                       else
+                         []
+                       end
+
+  outdated_versions  = if File.file?(BREW_TAP_OUTDATED)
+                         JSON.parse(File.read(BREW_TAP_OUTDATED))
+                       else
+                         []
+                       end
+
+  composer_versions  = if File.file?(COMPOSER_VERSIONS)
+                         JSON.parse(File.read(COMPOSER_VERSIONS))
+                       else
+                         []
+                       end
 
   task :clean do
-    rm_rf "dist"
+    rm_rf 'dist'
     installed_versions = []
     outdated_versions  = []
     composer_versions  = []
@@ -235,16 +247,15 @@ def generate_build_tasks composer_build_targets
   composer_build_targets.map { |composer_build_target|
 
     composer_version = composer_build_target['version']
-    composer_version_short = if composer_version == '2.2' then composer_version else composer_version.split('.')[0] end
-    composer_version_formula = composer_version.split('.').slice(0,2).join()
-
+    composer_version_short = composer_version == '2.2' ? composer_version : composer_version.split('.')[0]
+    composer_version_formula = composer_version.split('.').slice(0, 2).join
 
     file "dist/composer#{composer_version_formula}.sha256" => :dist do |t|
       sh "curl -s -o #{t.name} https://getcomposer.org/download/latest-#{composer_version_short}.x/composer.phar.sha256"
     end
 
     file "dist/composer#{composer_version_formula}.json" => [COMPOSER_VERSIONS, "dist/composer#{composer_version_formula}.sha256"] do |t|
-      composer = composer_versions[composer_version_short][0];
+      composer = composer_versions[composer_version_short][0]
       composer['sha256'] = File.read(t.sources[1])
       File.write(t.name, JSON.generate(composer))
       composer_versions[composer_version_formula] = composer
@@ -256,13 +267,13 @@ def generate_build_tasks composer_build_targets
 
         php_version = php_build['version']
         php_formula = php_build['formula']
-        target  = php_build['target']
+        target      = php_build['target']
 
         sources = [
-            build_target['source'],
-            "dist/composer#{composer_version_formula}.json",
-            'dist/composer-setup.sha256',
-            'dist/composer-setup.sha384'
+          build_target['source'],
+          "dist/composer#{composer_version_formula}.json",
+          'dist/composer-setup.sha256',
+          'dist/composer-setup.sha384'
         ]
         sources.push(BREW_TAP_INSTALLED) if ARGV.include? 'installed'
         sources.push(BREW_TAP_OUTDATED) if ARGV.include? 'outdated'
@@ -270,34 +281,34 @@ def generate_build_tasks composer_build_targets
         file target => sources do |t|
 
           name          = t.name.pathmap('%n')
-          formula       = if File.file?(t.name) then File.read(t.name) else '' end
+          formula       = File.file?(t.name) ? File.read(t.name) : ''
           setup_sha256  = File.read(t.sources[2])
           setup_sha384  = File.read(t.sources[3])
           composer      = composer_versions[composer_version_formula]
-          installed     = installed_versions.any? { |each| each["name"] == name }
-          outdated      = !File.file?(t.name) || outdated_versions.any? { |each| each["formula"] == name }
-          rebuild       = File.file?(t.name) || false == uptodate?(t.name, ['Rakefile', t.source])
-          revision      = if outdated then 0 else formula.match(/^ +revision +(\d+)$/).captures[0].to_i end
+          installed     = installed_versions.any? { |each| each['name'] == name }
+          outdated      = !File.file?(t.name) || outdated_versions.any? { |each| each['formula'] == name }
+          rebuild       = File.file?(t.name) || uptodate?(t.name, ['Rakefile', t.source]) == false
+          revision      = outdated ? 0 : formula.match(/^ +revision +(\d+)$/).captures[0].to_i
 
-          if outdated || rebuild then
+          if outdated || rebuild
 
             source = File.read(t.source)
-              .gsub(/COMPOSER_VERSION_MAJOR/,   composer['version'].split('.')[0])
-              .gsub(/COMPOSER_VERSION_MINOR/,   composer['version'].split('.')[1])
-              .gsub(/COMPOSER_VERSION_PATCH/,   composer['version'].split('.')[2])
-              .gsub(/COMPOSER_VERSION_SHORT/,   composer_version_short)
-              .gsub(/COMPOSER_VERSION_FORMULA/, composer_version_formula)
-              .gsub(/COMPOSER_PHAR_SHA256/,     composer['sha256'])
-              .gsub(/COMPOSER_SETUP_SHA256/,    setup_sha256)
-              .gsub(/COMPOSER_SETUP_SHA384/,    setup_sha384)
-              .gsub(/PHP_FORMULA/,              php_formula)
-              .gsub(/PHP_VERSION_MAJOR/,        php_version.split('.')[0])
-              .gsub(/PHP_VERSION_MINOR/,        php_version.split('.')[1])
-              .gsub(/PHP_VERSION_PATCH/,        php_version.split('.')[2])
-              .gsub(/FORMULA_REVISION/,         "#{revision}")
+                         .gsub(/COMPOSER_VERSION_MAJOR/,   composer['version'].split('.')[0])
+                         .gsub(/COMPOSER_VERSION_MINOR/,   composer['version'].split('.')[1])
+                         .gsub(/COMPOSER_VERSION_PATCH/,   composer['version'].split('.')[2])
+                         .gsub(/COMPOSER_VERSION_SHORT/,   composer_version_short)
+                         .gsub(/COMPOSER_VERSION_FORMULA/, composer_version_formula)
+                         .gsub(/COMPOSER_PHAR_SHA256/,     composer['sha256'])
+                         .gsub(/COMPOSER_SETUP_SHA256/,    setup_sha256)
+                         .gsub(/COMPOSER_SETUP_SHA384/,    setup_sha384)
+                         .gsub(/PHP_FORMULA/,              php_formula)
+                         .gsub(/PHP_VERSION_MAJOR/,        php_version.split('.')[0])
+                         .gsub(/PHP_VERSION_MINOR/,        php_version.split('.')[1])
+                         .gsub(/PHP_VERSION_PATCH/,        php_version.split('.')[2])
+                         .gsub(/FORMULA_REVISION/,         revision.to_s)
 
-            if source != formula then
-              if false == outdated then
+            if source != formula
+              if outdated == false
                 revision += 1
                 source = source.gsub(/^( +revision +)\d+$/, "\\1#{revision}")
               end
@@ -307,10 +318,10 @@ def generate_build_tasks composer_build_targets
 
             readme = File.read('README.md').gsub(/^( +#{name} +)[0-9._]+$/, "\\1#{composer['version']}_#{revision}")
             File.write('README.md', readme)
-            sh "git add README.md"
+            sh 'git add README.md'
           end
 
-          puts ""
+          puts ''
           puts "source     : #{t.source}"
           puts "target     : #{t.name}"
           puts "formula    : #{name}"
@@ -320,14 +331,11 @@ def generate_build_tasks composer_build_targets
           puts "installed? : #{installed}"
           puts "outdated?  : #{outdated}"
           puts "rebuild?   : #{rebuild}"
-          puts ""
-
+          puts ''
         end
-
       }
     }
   }
-
 end
 
 generate_build_tasks BUILD_TARGETS
