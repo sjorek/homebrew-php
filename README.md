@@ -8,7 +8,8 @@ provides bash-completion for the latter.
 1. Install [homebrew](https://brew.sh)
 3. Tap the shivammathur/php repository
 3. Tap the sjorek/php repository
-4. Install the formulae you want
+4. *IMPORTANT* Uninstall all php-formulae from homebrew/core first!
+5. Install the formulae you want
 
 ### Example
 
@@ -22,13 +23,15 @@ brew tap shivammathur/php
 # Tap the sjorek/php repository
 brew tap sjorek/php
 
+# Uninstall all homebrew/core/php* formulae
+( brew ls --full-name --formula -1 | grep -q -E "^php" ) && \
+    brew uninstall $( brew ls --full-name --formula -1 | grep -E "^php" )
+
 # Install several composer-formulae WITH bash-completion support enabled, or …
-echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
-    xargs -n1 -d' ' -I'{}' brew install {} --with-bash-completion
+brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81} --with-bash-completion
 
 # … install several composer-formulae at once WITHOUT bash-completion support
-echo -n sjorek/php/composer{1,22,23}-php{72,73,74,80,81} | \
-    xargs -n1 -d' ' brew install
+brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
 ```
 
 ## List of (currently) provided formulae
