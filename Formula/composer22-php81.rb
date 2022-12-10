@@ -4,8 +4,8 @@ class Composer22Php81 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.2.17"
-  revision 0
+  version "2.2.18"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -39,7 +39,7 @@ class Composer22Php81 < Formula
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "ec034d3d92c94ab63ebdf1a2bfa9f5e34cb08b043dae91958c6fcb2f47170cea" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "28a8d9740d615137a8c01d32aef9184db16f543fca36db038501a294d8e95b24" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
@@ -151,10 +151,10 @@ class Composer22Php81 < Formula
       When running “#{name}” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=~/.composer/#{name}
+        COMPOSER_HOME=${HOME}/.composer/#{name}
 
         # @see https://github.com/composer/composer/pull/9898
-        COMPOSER_CACHE_DIR=~/Library/Caches/composer
+        COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
 
       Of course, these variables can still be overriden by you.
 
@@ -163,42 +163,12 @@ class Composer22Php81 < Formula
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from “~/.composer/cache” to “~/Library/Caches/composer”.
+        from ${HOME}/.composer/cache to ${HOME}/Library/Caches/composer
 
         If you want to remove the old cache directory, run:
-          rm -rf ~/.composer/cache
+          rm -rf ${HOME}/.composer/cache
 
       EOS
-    end
-
-    if /^composer1-/.match?(name) then
-      oldname = name.gsub(/^composer1-/, 'composer-')
-      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<~EOS
-          ATTENTION: The COMPOSER_HOME path-value has been renamed
-          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
-
-          Please update your composer-home path and run a diagnose afterwards:
-            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
-            #{name} diagnose
-
-        EOS
-      end
-    end
-
-    if /^composer23-/.match?(name) then
-      oldname = name.gsub(/^composer23-/, 'composer2-')
-      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<~EOS
-          ATTENTION: The COMPOSER_HOME path-value has been renamed
-          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
-
-          Please update your composer-home path and run a diagnose afterwards:
-            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
-            #{name} diagnose
-
-        EOS
-      end
     end
 
     if false == build.with?("bash-completion") then

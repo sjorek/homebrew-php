@@ -151,10 +151,10 @@ class ComposerCOMPOSER_VERSION_FORMULAPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Fo
       When running “#{name}” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=~/.composer/#{name}
+        COMPOSER_HOME=${HOME}/.composer/#{name}
 
         # @see https://github.com/composer/composer/pull/9898
-        COMPOSER_CACHE_DIR=~/Library/Caches/composer
+        COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
 
       Of course, these variables can still be overriden by you.
 
@@ -163,42 +163,12 @@ class ComposerCOMPOSER_VERSION_FORMULAPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Fo
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from “~/.composer/cache” to “~/Library/Caches/composer”.
+        from ${HOME}/.composer/cache to ${HOME}/Library/Caches/composer
 
         If you want to remove the old cache directory, run:
-          rm -rf ~/.composer/cache
+          rm -rf ${HOME}/.composer/cache
 
       EOS
-    end
-
-    if /^composer1-/.match?(name) then
-      oldname = name.gsub(/^composer1-/, 'composer-')
-      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<~EOS
-          ATTENTION: The COMPOSER_HOME path-value has been renamed
-          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
-
-          Please update your composer-home path and run a diagnose afterwards:
-            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
-            #{name} diagnose
-
-        EOS
-      end
-    end
-
-    if /^composer23-/.match?(name) then
-      oldname = name.gsub(/^composer23-/, 'composer2-')
-      if Dir.exists?(ENV['HOME'] + "/.composer/#{oldname}") then
-        s += <<~EOS
-          ATTENTION: The COMPOSER_HOME path-value has been renamed
-          from “~/.composer/#{oldname}” to “~/.composer/#{name}”!
-
-          Please update your composer-home path and run a diagnose afterwards:
-            mv -v ~/.composer/#{oldname} ~/.composer/#{name}
-            #{name} diagnose
-
-        EOS
-      end
     end
 
     if false == build.with?("bash-completion") then

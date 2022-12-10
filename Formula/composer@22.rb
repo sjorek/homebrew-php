@@ -4,8 +4,8 @@ class ComposerAT22 < Formula
   url "https://getcomposer.org/installer"
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
-  version "2.2.17"
-  revision 0
+  version "2.2.18"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -36,7 +36,7 @@ class ComposerAT22 < Formula
     system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "ec034d3d92c94ab63ebdf1a2bfa9f5e34cb08b043dae91958c6fcb2f47170cea" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "28a8d9740d615137a8c01d32aef9184db16f543fca36db038501a294d8e95b24" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
@@ -118,7 +118,7 @@ class ComposerAT22 < Formula
       one or all of the sjorek/php/composer22-php* formulae.
 
       To install several composer formulae at once run:
-        brew install sjorek/php/composer{1,22,23}-php{72,73,74,80}
+        brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81,82}
 
     EOS
 
@@ -138,10 +138,10 @@ class ComposerAT22 < Formula
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from “~/.composer/cache” to “~/Library/Caches/composer”.
+        from ${HOME}/.composer/cache to /Library/Caches/composer.
 
         If you want to remove the old cache directory, run:
-          rm -rf ~/.composer/cache
+          rm -rf ${HOME}/.composer/cache
 
       EOS
     end

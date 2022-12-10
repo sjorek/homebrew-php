@@ -1,4 +1,4 @@
-class Composer23Php80 < Formula
+class Composer23Php82 < Formula
   desc "Dependency Manager for PHP - Version 2.3.x"
   homepage "https://getcomposer.org/"
   url "file:///dev/null"
@@ -20,13 +20,13 @@ class Composer23Php80 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "shivammathur/php/php@8.0"
+  depends_on "shivammathur/php/php@8.2"
   depends_on "sjorek/php/composer@23"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
-    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.0/bin/php"
+    php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.2/bin/php"
     composer_php    = "#{buildpath}/#{name}.php"
     composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer.phar"
     composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@23/lib/composer-setup.php"
@@ -105,7 +105,7 @@ class Composer23Php80 < Formula
           }
         ],
         "require": {
-          "php": "~8.0.0"
+          "php": "~8.2.0"
         },
         "autoload": {
           "psr-0": {
@@ -142,7 +142,7 @@ class Composer23Php80 < Formula
     EOS
 
     system "#{bin}/#{name}", "install"
-    assert_match /^HelloHomebrew from version #{Regexp.escape("8.0")}$/,
+    assert_match /^HelloHomebrew from version #{Regexp.escape("8.2")}$/,
       shell_output("#{bin}/#{name} -v run-script test")
   end
 

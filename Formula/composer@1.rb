@@ -5,7 +5,7 @@ class ComposerAT1 < Formula
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
   version "1.10.26"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -118,7 +118,7 @@ class ComposerAT1 < Formula
       one or all of the sjorek/php/composer1-php* formulae.
 
       To install several composer formulae at once run:
-        brew install sjorek/php/composer{1,22,23}-php{72,73,74,80}
+        brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81,82}
 
     EOS
 
@@ -138,10 +138,10 @@ class ComposerAT1 < Formula
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from “~/.composer/cache” to “~/Library/Caches/composer”.
+        from ${HOME}/.composer/cache to /Library/Caches/composer.
 
         If you want to remove the old cache directory, run:
-          rm -rf ~/.composer/cache
+          rm -rf ${HOME}/.composer/cache
 
       EOS
     end
