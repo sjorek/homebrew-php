@@ -5,7 +5,7 @@ class Composer1Php81 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "1.10.26"
-  revision 10
+  revision 18
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -20,62 +20,32 @@ class Composer1Php81 < Formula
 
   option "with-bash-completion", "Install optional bash-completion integration"
 
-  depends_on "shivammathur/php/php@8.1"
-  depends_on "sjorek/php/composer@1"
+  depends_on "sjorek/php/composer-php81@1"
   depends_on "sjorek/php/composer-bash-completion" if build.with? "bash-completion"
 
   def install
 
     php_binary      = "#{HOMEBREW_PREFIX}/opt/php@8.1/bin/php"
+    composer_binary = "#{HOMEBREW_PREFIX}/opt/composer-php81@1/bin/composer"
+    composer_proxy  = "#{__dir__}/../bin/proxy-binary.php"
     composer_php    = "#{buildpath}/#{name}.php"
-    composer_phar   = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer.phar"
-    composer_setup  = "#{HOMEBREW_PREFIX}/opt/composer@1/lib/composer-setup.php"
-    composer_script = "#{HOMEBREW_PREFIX}/bin/#{name}"
 
-    composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae" == composer_setup_sha384
-
-    composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
-    fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
-
-    composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4" == composer_phar_sha256
-
-    composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
-    fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
-
-    system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
+    FileUtils.copy(composer_proxy, composer_php)
 
     inreplace composer_php do |s|
       s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
-      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-
-        if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
-            putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/#{name}'));
-        }
-
-        // @see https://github.com/composer/composer/pull/9898
-        if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
-            putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
-        }
-
-        if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
-            putenv('COMPOSER_PHAR=' . ($_SERVER['COMPOSER_PHAR'] = $_ENV['COMPOSER_PHAR'] = '#{composer_phar}'));
-        }
-
-      EOS
-      s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
-      s.gsub! /^__HALT_COMPILER.*/, ""
+      s.gsub! /FORMULA_NAME/, name
+      s.gsub! /BIN_PATH/, composer_binary
     end
 
-    lib.install composer_php
-    bin.install_symlink "#{lib}/#{name}.php" => "#{name}"
+    bin.install "#{composer_php}" => "#{name}"
 
     if build.with? "bash-completion" then
+
       composer_bash   = "#{buildpath}/#{name}.bash"
       completion_bash = "#{HOMEBREW_PREFIX}/opt/composer-bash-completion/lib/composer-completion.bash"
 
-      script = <<~EOS
+      completion_script = <<~EOS
         # composer completion                                       -*- shell-script -*-
 
         COMPOSER_COMPLETION_PHP=${COMPOSER_COMPLETION_PHP:-#{php_binary}}
@@ -88,7 +58,7 @@ class Composer1Php81 < Formula
         # ex: filetype=sh
       EOS
 
-      File.write(composer_bash, script)
+      File.write(composer_bash, completion_script)
 
       bash_completion.install composer_bash
     end

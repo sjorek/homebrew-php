@@ -28,6 +28,47 @@ BUILD_TARGETS = [
         ]
       },
       {
+        'source' => 'Source/composer-phpYZ@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '5.6.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
+          }
+        ]
+      },
+      {
         'source' => 'Source/composerXY-phpYZ.rb',
         'versions' => [
           {
@@ -87,6 +128,47 @@ BUILD_TARGETS = [
           {
             'formula' => 'php',
             'version' => '0.0.0'
+          }
+        ]
+      },
+      {
+        'source' => 'Source/composer-phpYZ@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '5.6.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
           }
         ]
       },
@@ -154,6 +236,35 @@ BUILD_TARGETS = [
         ]
       },
       {
+        'source' => 'Source/composer-phpYZ@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
+          }
+        ]
+      },
+      {
         'source' => 'Source/composerXY-phpYZ.rb',
         'versions' => [
           {
@@ -201,6 +312,35 @@ BUILD_TARGETS = [
           {
             'formula' => 'php',
             'version' => '0.0.0'
+          }
+        ]
+      },
+      {
+        'source' => 'Source/composer-phpYZ@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
           }
         ]
       },
