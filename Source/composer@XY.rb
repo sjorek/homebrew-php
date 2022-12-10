@@ -118,7 +118,7 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
       one or all of the sjorek/php/composerCOMPOSER_VERSION_FORMULA-php* formulae.
 
       To install several composer formulae at once run:
-        brew install sjorek/php/composer{1,22,23}-php{72,73,74,80}
+        brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81,82}
 
     EOS
 
@@ -138,10 +138,10 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
     if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from “~/.composer/cache” to “~/Library/Caches/composer”.
+        from ${HOME}/.composer/cache to /Library/Caches/composer.
 
         If you want to remove the old cache directory, run:
-          rm -rf ~/.composer/cache
+          rm -rf ${HOME}/.composer/cache
 
       EOS
     end
