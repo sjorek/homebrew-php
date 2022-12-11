@@ -5,7 +5,7 @@ class ComposerAT1 < Formula
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
   version "1.10.26"
-  revision 3
+  revision 6
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -44,16 +44,29 @@ class ComposerAT1 < Formula
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      if 1 == 1 then
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-          if (false === getenv('COMPOSER_CACHE_DIR')) {
+      composer_stub = <<~EOS
+
+        if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
+            putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/composer1-php'));
+        }
+
+        if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
+            putenv('COMPOSER_PHAR=' . ($_SERVER['COMPOSER_PHAR'] = $_ENV['COMPOSER_PHAR'] = '#{composer_phar}'));
+        }
+
+      EOS
+
+      if !OS.linux? then
+        composer_stub += <<~EOS
+          if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
               # @see https://github.com/composer/composer/pull/9898
-              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
+              putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
           }
+
         EOS
-      else
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, ''
       end
+
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, composer_stub
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
@@ -120,22 +133,26 @@ class ComposerAT1 < Formula
       To install several composer formulae at once run:
         brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81,82}
 
+      When running “composer” the COMPOSER_* environment-variables are
+      adjusted per default:
+
+      COMPOSER_HOME=${HOME}/.composer/composer1-php
     EOS
 
-    if 1 == 1 then
+    if !OS.linux? then
       s += <<~EOS
-        When running “composer” the COMPOSER_* environment-variables are
-        adjusted per default:
-
           # @see https://github.com/composer/composer/pull/9898
-          COMPOSER_CACHE_DIR=~/Library/Caches/composer
-
-        Of course, these variables can still be overriden by you.
-
+          COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
       EOS
     end
 
-    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    s += <<~EOS
+
+      Of course, these variables can still be overriden by you.
+
+    EOS
+
+    if !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
         from ${HOME}/.composer/cache to /Library/Caches/composer.
@@ -145,6 +162,7 @@ class ComposerAT1 < Formula
 
       EOS
     end
+
     s
   end
 

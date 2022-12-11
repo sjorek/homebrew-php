@@ -5,7 +5,7 @@ class ComposerPhp82AT23 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.3.10"
-  revision 1
+  revision 4
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -45,16 +45,11 @@ class ComposerPhp82AT23 < Formula
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
-      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+
+      composer_stub = <<~EOS
 
         if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
             putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/composer23-php82'));
-        }
-
-        // @see https://github.com/composer/composer/pull/9898
-        if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
-            putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
         }
 
         if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
@@ -62,6 +57,19 @@ class ComposerPhp82AT23 < Formula
         }
 
       EOS
+
+      if !OS.linux? then
+        composer_stub += <<~EOS
+          if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
+              # @see https://github.com/composer/composer/pull/9898
+              putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
+          }
+
+        EOS
+      end
+
+      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, composer_stub
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
@@ -127,19 +135,26 @@ class ComposerPhp82AT23 < Formula
       When running “composer” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=${HOME}/.composer/composer23-php82
+      COMPOSER_HOME=${HOME}/.composer/composer23-php82
+    EOS
 
-        # @see https://github.com/composer/composer/pull/9898
-        COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
+    if !OS.linux? then
+      s += <<~EOS
+          # @see https://github.com/composer/composer/pull/9898
+          COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
+      EOS
+    end
+
+    s += <<~EOS
 
       Of course, these variables can still be overriden by you.
 
     EOS
 
-    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    if !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from ${HOME}/.composer/cache to ${HOME}/Library/Caches/composer
+        from ${HOME}/.composer/cache to /Library/Caches/composer.
 
         If you want to remove the old cache directory, run:
           rm -rf ${HOME}/.composer/cache
@@ -147,6 +162,7 @@ class ComposerPhp82AT23 < Formula
       EOS
     end
 
+    s
   end
 
 end
