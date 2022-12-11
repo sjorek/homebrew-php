@@ -117,29 +117,7 @@ class ComposerCOMPOSER_VERSION_FORMULAPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Fo
   end
 
   def caveats
-    s = <<~EOS
-      When running “#{name}” the COMPOSER_* environment-variables are
-      adjusted per default:
-
-        COMPOSER_HOME=${HOME}/.composer/#{name}
-
-        # @see https://github.com/composer/composer/pull/9898
-        COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
-
-      Of course, these variables can still be overriden by you.
-
-    EOS
-
-    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
-      s += <<~EOS
-        ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from ${HOME}/.composer/cache to ${HOME}/Library/Caches/composer
-
-        If you want to remove the old cache directory, run:
-          rm -rf ${HOME}/.composer/cache
-
-      EOS
-    end
+    s = ''
 
     if false == build.with?("bash-completion") then
       s += <<~EOS
@@ -150,6 +128,8 @@ class ComposerCOMPOSER_VERSION_FORMULAPhpPHP_VERSION_MAJORPHP_VERSION_MINOR < Fo
 
       EOS
     end
+
+    s
   end
 
 end

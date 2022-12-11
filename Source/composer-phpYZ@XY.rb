@@ -45,16 +45,11 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
-      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
+
+      composer_stub = <<~EOS
 
         if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
             putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/composerCOMPOSER_VERSION_FORMULA-phpPHP_VERSION_MAJORPHP_VERSION_MINOR'));
-        }
-
-        // @see https://github.com/composer/composer/pull/9898
-        if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
-            putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
         }
 
         if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
@@ -62,6 +57,19 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
         }
 
       EOS
+
+      if COMPOSER_VERSION_MAJOR == 1 && !OS.linux? then
+        composer_stub += <<~EOS
+          if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
+              # @see https://github.com/composer/composer/pull/9898
+              putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
+          }
+
+        EOS
+      end
+
+      s.gsub! /^#!\/usr\/bin\/env php/, "#!#{php_binary}"
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, composer_stub
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{composer_phar}"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
@@ -128,18 +136,25 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
       adjusted per default:
 
         COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-phpPHP_VERSION_MAJORPHP_VERSION_MINOR
+    EOS
 
-        # @see https://github.com/composer/composer/pull/9898
-        COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
+    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? then
+      s += <<~EOS
+          # @see https://github.com/composer/composer/pull/9898
+          COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
+      EOS
+    end
+
+    s += <<~EOS
 
       Of course, these variables can still be overriden by you.
 
     EOS
 
-    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
-        from ${HOME}/.composer/cache to ${HOME}/Library/Caches/composer
+        from ${HOME}/.composer/cache to /Library/Caches/composer.
 
         If you want to remove the old cache directory, run:
           rm -rf ${HOME}/.composer/cache
@@ -147,6 +162,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
       EOS
     end
 
+    s
   end
 
 end

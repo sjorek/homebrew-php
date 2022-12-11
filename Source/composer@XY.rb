@@ -44,16 +44,29 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
     system "#{php_binary} -r '\$p = new Phar(\"#{composer_phar}\", 0, \"composer.phar\"); echo \$p->getStub();' >#{composer_php}"
 
     inreplace composer_php do |s|
-      if COMPOSER_VERSION_MAJOR == 1 then
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, <<~EOS
-          if (false === getenv('COMPOSER_CACHE_DIR')) {
+      composer_stub = <<~EOS
+
+        if (false === getenv('COMPOSER_HOME') && !isset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME'])) {
+            putenv('COMPOSER_HOME=' . ($_SERVER['COMPOSER_HOME'] = $_ENV['COMPOSER_HOME'] = $_SERVER['HOME'] . '/.composer/composerCOMPOSER_VERSION_FORMULA-php'));
+        }
+
+        if (false === getenv('COMPOSER_PHAR') && !isset($_SERVER['COMPOSER_PHAR'], $_ENV['COMPOSER_PHAR'])) {
+            putenv('COMPOSER_PHAR=' . ($_SERVER['COMPOSER_PHAR'] = $_ENV['COMPOSER_PHAR'] = '#{composer_phar}'));
+        }
+
+      EOS
+
+      if COMPOSER_VERSION_MAJOR == 1 && !OS.linux? then
+        composer_stub += <<~EOS
+          if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
               # @see https://github.com/composer/composer/pull/9898
-              putenv('COMPOSER_CACHE_DIR=' . $_SERVER['HOME'] . '/Library/Caches/composer');
+              putenv('COMPOSER_CACHE_DIR=' . ($_SERVER['COMPOSER_CACHE_DIR'] = $_ENV['COMPOSER_CACHE_DIR'] = $_SERVER['HOME'] . '/Library/Caches/composer'));
           }
+
         EOS
-      else
-        s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, ''
       end
+
+      s.gsub! /^Phar::mapPhar\('composer\.phar'\);/, composer_stub
       s.gsub! /phar:\/\/composer\.phar/, "phar://#{lib}/composer.phar"
       s.gsub! /^__HALT_COMPILER.*/, ""
     end
@@ -120,22 +133,26 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
       To install several composer formulae at once run:
         brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81,82}
 
+      When running “composer” the COMPOSER_* environment-variables are
+      adjusted per default:
+
+        COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-php
     EOS
 
-    if COMPOSER_VERSION_MAJOR == 1 then
+    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? then
       s += <<~EOS
-        When running “composer” the COMPOSER_* environment-variables are
-        adjusted per default:
-
           # @see https://github.com/composer/composer/pull/9898
-          COMPOSER_CACHE_DIR=~/Library/Caches/composer
-
-        Of course, these variables can still be overriden by you.
-
+          COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
       EOS
     end
 
-    if Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    s += <<~EOS
+
+      Of course, these variables can still be overriden by you.
+
+    EOS
+
+    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
         from ${HOME}/.composer/cache to /Library/Caches/composer.
@@ -145,6 +162,7 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
 
       EOS
     end
+
     s
   end
 
