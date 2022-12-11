@@ -36,17 +36,17 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.26_4
+    composer@1                     1.10.26_5
 
-    composer-php56@1               1.10.26_2
-    composer-php70@1               1.10.26_2
-    composer-php71@1               1.10.26_2
-    composer-php72@1               1.10.26_2
-    composer-php73@1               1.10.26_2
-    composer-php74@1               1.10.26_2
-    composer-php80@1               1.10.26_2
-    composer-php81@1               1.10.26_2
-    composer-php82@1               1.10.26_2
+    composer-php56@1               1.10.26_3
+    composer-php70@1               1.10.26_3
+    composer-php71@1               1.10.26_3
+    composer-php72@1               1.10.26_3
+    composer-php73@1               1.10.26_3
+    composer-php74@1               1.10.26_3
+    composer-php80@1               1.10.26_3
+    composer-php81@1               1.10.26_3
+    composer-php82@1               1.10.26_3
 
     composer1-php56                1.10.26_19
     composer1-php70                1.10.26_19
@@ -58,17 +58,17 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
     composer1-php81                1.10.26_19
     composer1-php82                1.10.26_10
 
-    composer@22                    2.2.18_2
+    composer@22                    2.2.18_3
 
-    composer-php56@22              2.2.18_2
-    composer-php70@22              2.2.18_2
-    composer-php71@22              2.2.18_2
-    composer-php72@22              2.2.18_2
-    composer-php73@22              2.2.18_2
-    composer-php74@22              2.2.18_2
-    composer-php80@22              2.2.18_2
-    composer-php81@22              2.2.18_2
-    composer-php82@22              2.2.18_2
+    composer-php56@22              2.2.18_3
+    composer-php70@22              2.2.18_3
+    composer-php71@22              2.2.18_3
+    composer-php72@22              2.2.18_3
+    composer-php73@22              2.2.18_3
+    composer-php74@22              2.2.18_3
+    composer-php80@22              2.2.18_3
+    composer-php81@22              2.2.18_3
+    composer-php82@22              2.2.18_3
 
     composer22-php56               2.2.18_10
     composer22-php70               2.2.18_10
@@ -80,14 +80,14 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
     composer22-php81               2.2.18_10
     composer22-php82               2.2.18_10
 
-    composer@23                    2.3.10_2
+    composer@23                    2.3.10_3
 
-    composer-php72@23              2.3.10_2
-    composer-php73@23              2.3.10_2
-    composer-php74@23              2.3.10_2
-    composer-php80@23              2.3.10_2
-    composer-php81@23              2.3.10_2
-    composer-php82@23              2.3.10_2
+    composer-php72@23              2.3.10_3
+    composer-php73@23              2.3.10_3
+    composer-php74@23              2.3.10_3
+    composer-php80@23              2.3.10_3
+    composer-php81@23              2.3.10_3
+    composer-php82@23              2.3.10_3
 
     composer23-php72               2.3.10_10
     composer23-php73               2.3.10_10
@@ -96,14 +96,14 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
     composer23-php81               2.3.10_10
     composer23-php82               2.3.10_10
 
-    composer@24                    2.4.4_2
+    composer@24                    2.4.4_3
 
-    composer-php72@24              2.4.4_2
-    composer-php73@24              2.4.4_2
-    composer-php74@24              2.4.4_2
-    composer-php80@24              2.4.4_2
-    composer-php81@24              2.4.4_2
-    composer-php82@24              2.4.4_2
+    composer-php72@24              2.4.4_3
+    composer-php73@24              2.4.4_3
+    composer-php74@24              2.4.4_3
+    composer-php80@24              2.4.4_3
+    composer-php81@24              2.4.4_3
+    composer-php82@24              2.4.4_3
 
     composer24-php72               2.4.4_10
     composer24-php73               2.4.4_10

@@ -5,7 +5,7 @@ class ComposerAT24 < Formula
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
   version "2.4.4"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -136,7 +136,7 @@ class ComposerAT24 < Formula
       When running “composer” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=${HOME}/.composer/composer24-php
+      COMPOSER_HOME=${HOME}/.composer/composer24-php
     EOS
 
     if 2 == 1  && !OS.linux? then

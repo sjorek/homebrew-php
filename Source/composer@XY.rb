@@ -136,7 +136,7 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
       When running “composer” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-php
+      COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-php
     EOS
 
     if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? then

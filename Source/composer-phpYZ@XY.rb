@@ -135,7 +135,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
       When running “composer” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-phpPHP_VERSION_MAJORPHP_VERSION_MINOR
+      COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-phpPHP_VERSION_MAJORPHP_VERSION_MINOR
     EOS
 
     if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? then

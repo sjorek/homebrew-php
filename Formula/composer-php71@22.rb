@@ -5,7 +5,7 @@ class ComposerPhp71AT22 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.2.18"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -135,7 +135,7 @@ class ComposerPhp71AT22 < Formula
       When running “composer” the COMPOSER_* environment-variables are
       adjusted per default:
 
-        COMPOSER_HOME=${HOME}/.composer/composer22-php71
+      COMPOSER_HOME=${HOME}/.composer/composer22-php71
     EOS
 
     if 2 == 1  && !OS.linux? then
