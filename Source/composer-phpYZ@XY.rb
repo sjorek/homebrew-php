@@ -58,7 +58,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
 
       EOS
 
-      if COMPOSER_VERSION_MAJOR == 1 && !OS.linux? then
+      if !OS.linux? then
         composer_stub += <<~EOS
           if (false === getenv('COMPOSER_CACHE_DIR') && !isset($_SERVER['COMPOSER_CACHE_DIR'], $_ENV['COMPOSER_CACHE_DIR'])) {
               # @see https://github.com/composer/composer/pull/9898
@@ -138,7 +138,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
       COMPOSER_HOME=${HOME}/.composer/composerCOMPOSER_VERSION_FORMULA-phpPHP_VERSION_MAJORPHP_VERSION_MINOR
     EOS
 
-    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? then
+    if !OS.linux? then
       s += <<~EOS
           # @see https://github.com/composer/composer/pull/9898
           COMPOSER_CACHE_DIR=${HOME}/Library/Caches/composer
@@ -151,7 +151,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
 
     EOS
 
-    if COMPOSER_VERSION_MAJOR == 1  && !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    if !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
         from ${HOME}/.composer/cache to /Library/Caches/composer.
