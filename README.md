@@ -28,10 +28,10 @@ brew tap sjorek/php
     brew uninstall $( brew ls --full-name --formula -1 | grep -E "^php" )
 
 # Install several composer-formulae WITH bash-completion support enabled, or …
-brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81} --with-bash-completion
+brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82} --with-bash-completion
 
 # … install several composer-formulae at once WITHOUT bash-completion support
-brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
+brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82}
 ```
 
 ## List of (currently) provided formulae
@@ -112,6 +112,22 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
     composer24-php81               2.4.4_10
     composer24-php82               2.4.4_10
 
+    composer@25                    2.5.1_0
+
+    composer-php72@25              2.5.1_0
+    composer-php73@25              2.5.1_0
+    composer-php74@25              2.5.1_0
+    composer-php80@25              2.5.1_0
+    composer-php81@25              2.5.1_0
+    composer-php82@25              2.5.1_0
+
+    composer25-php72               2.5.1_0
+    composer25-php73               2.5.1_0
+    composer25-php74               2.5.1_0
+    composer25-php80               2.5.1_0
+    composer25-php81               2.5.1_0
+    composer25-php82               2.5.1_0
+
     composer-bash-completion       1.0.4_0
 
 ## List of (currently) provided formulae aliases
@@ -119,22 +135,22 @@ brew install sjorek/php/composer{1,22,23,24}-php{72,73,74,80,81}
     composer-php56                 composer22-php56
     composer-php70                 composer22-php70
     composer-php71                 composer22-php71
-    composer-php72                 composer23-php72
-    composer-php73                 composer23-php73
-    composer-php74                 composer23-php74
-    composer-php80                 composer23-php80
-    composer-php81                 composer23-php81
+    composer-php72                 composer25-php72
+    composer-php73                 composer25-php73
+    composer-php74                 composer25-php74
+    composer-php80                 composer25-php80
+    composer-php81                 composer25-php81
 
     composer2-php56                composer22-php56
     composer2-php70                composer22-php70
     composer2-php71                composer22-php71
-    composer2-php72                composer23-php72
-    composer2-php73                composer23-php73
-    composer2-php74                composer23-php74
-    composer2-php80                composer23-php80
-    composer2-php81                composer23-php81
+    composer2-php72                composer25-php72
+    composer2-php73                composer25-php73
+    composer2-php74                composer25-php74
+    composer2-php80                composer25-php80
+    composer2-php81                composer25-php81
 
-    composer@2                     composer@23
+    composer@2                     composer@25
 
 ## Links
 
