@@ -5,7 +5,7 @@ class ComposerAT1 < Formula
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
   version "1.10.26"
-  revision 6
+  revision 7
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -17,6 +17,8 @@ class ComposerAT1 < Formula
   keg_only :versioned_formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
+
+  depends_on "shivammathur/php/php" => [:build, :test]
 
   def install
 

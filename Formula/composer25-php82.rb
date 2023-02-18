@@ -4,8 +4,8 @@ class Composer25Php82 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.5.1"
-  revision 0
+  version "2.5.4"
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"

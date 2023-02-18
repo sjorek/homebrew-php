@@ -3,6 +3,7 @@
 require 'net/http'
 require 'json'
 require 'rake'
+require 'digest'
 
 Rake.application.options.trace_rules = true
 
@@ -492,7 +493,8 @@ file 'dist/composer-setup.sha384' => :dist do |t|
 end
 
 file 'dist/composer-setup.sha256' => :dist do |t|
-  sh "php -r 'echo hash_file(\"sha256\", \"https://getcomposer.org/installer\");' >#{t.name}"
+  # sh "php -r 'echo hash_file(\"sha256\", \"https://getcomposer.org/installer\");' >#{t.name}"
+  File.write(t.name, Digest::SHA256.hexdigest(Net::HTTP.get(URI("https://getcomposer.org/installer"))))
 end
 
 def generate_build_tasks(composer_build_targets)

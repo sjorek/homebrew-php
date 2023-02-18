@@ -36,7 +36,7 @@ brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82}
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.26_6
+    composer@1                     1.10.26_7
 
     composer-php56@1               1.10.26_4
     composer-php70@1               1.10.26_4
@@ -58,29 +58,29 @@ brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82}
     composer1-php81                1.10.26_19
     composer1-php82                1.10.26_10
 
-    composer@22                    2.2.18_4
+    composer@22                    2.2.21_6
 
-    composer-php56@22              2.2.18_4
-    composer-php70@22              2.2.18_4
-    composer-php71@22              2.2.18_4
-    composer-php72@22              2.2.18_4
-    composer-php73@22              2.2.18_4
-    composer-php74@22              2.2.18_4
-    composer-php80@22              2.2.18_4
-    composer-php81@22              2.2.18_4
-    composer-php82@22              2.2.18_4
+    composer-php56@22              2.2.21_5
+    composer-php70@22              2.2.21_5
+    composer-php71@22              2.2.21_5
+    composer-php72@22              2.2.21_5
+    composer-php73@22              2.2.21_5
+    composer-php74@22              2.2.21_5
+    composer-php80@22              2.2.21_5
+    composer-php81@22              2.2.21_5
+    composer-php82@22              2.2.21_5
 
-    composer22-php56               2.2.18_10
-    composer22-php70               2.2.18_10
-    composer22-php71               2.2.18_10
-    composer22-php72               2.2.18_10
-    composer22-php73               2.2.18_10
-    composer22-php74               2.2.18_10
-    composer22-php80               2.2.18_10
-    composer22-php81               2.2.18_10
-    composer22-php82               2.2.18_10
+    composer22-php56               2.2.21_11
+    composer22-php70               2.2.21_11
+    composer22-php71               2.2.21_11
+    composer22-php72               2.2.21_11
+    composer22-php73               2.2.21_11
+    composer22-php74               2.2.21_11
+    composer22-php80               2.2.21_11
+    composer22-php81               2.2.21_11
+    composer22-php82               2.2.21_11
 
-    composer@23                    2.3.10_4
+    composer@23                    2.3.10_5
 
     composer-php72@23              2.3.10_4
     composer-php73@23              2.3.10_4
@@ -96,7 +96,7 @@ brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82}
     composer23-php81               2.3.10_10
     composer23-php82               2.3.10_10
 
-    composer@24                    2.4.4_4
+    composer@24                    2.4.4_5
 
     composer-php72@24              2.4.4_4
     composer-php73@24              2.4.4_4
@@ -112,21 +112,21 @@ brew install sjorek/php/composer{1,22,23,24,25}-php{72,73,74,80,81,82}
     composer24-php81               2.4.4_10
     composer24-php82               2.4.4_10
 
-    composer@25                    2.5.1_0
+    composer@25                    2.5.4_2
 
-    composer-php72@25              2.5.1_0
-    composer-php73@25              2.5.1_0
-    composer-php74@25              2.5.1_0
-    composer-php80@25              2.5.1_0
-    composer-php81@25              2.5.1_0
-    composer-php82@25              2.5.1_0
+    composer-php72@25              2.5.4_1
+    composer-php73@25              2.5.4_1
+    composer-php74@25              2.5.4_1
+    composer-php80@25              2.5.4_1
+    composer-php81@25              2.5.4_1
+    composer-php82@25              2.5.4_1
 
-    composer25-php72               2.5.1_0
-    composer25-php73               2.5.1_0
-    composer25-php74               2.5.1_0
-    composer25-php80               2.5.1_0
-    composer25-php81               2.5.1_0
-    composer25-php82               2.5.1_0
+    composer25-php72               2.5.4_1
+    composer25-php73               2.5.4_1
+    composer25-php74               2.5.4_1
+    composer25-php80               2.5.4_1
+    composer25-php81               2.5.4_1
+    composer25-php82               2.5.4_1
 
     composer-bash-completion       1.0.4_0
 

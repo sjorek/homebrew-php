@@ -4,8 +4,8 @@ class ComposerAT25 < Formula
   url "https://getcomposer.org/installer"
   sha256 "f0b0b57181bb740bab692ab66567a51480b99ebde864f2fe9d21f77f558fa690"
   license "MIT"
-  version "2.5.1"
-  revision 0
+  version "2.5.4"
+  revision 2
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -17,6 +17,8 @@ class ComposerAT25 < Formula
   keg_only :versioned_formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
+
+  depends_on "shivammathur/php/php" => [:build, :test]
 
   def install
 
@@ -36,7 +38,7 @@ class ComposerAT25 < Formula
     system "#{php_binary} #{composer_setup} --install-dir=#{buildpath} --version=#{version} --no-ansi --quiet"
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "f1b94fee11a5bd6a1aae5d77c8da269df27c705fcc806ebf4c8c2e6fa8645c20" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "91ce6cbf9463eae86ae9d5c21d42faa601a519f3fbb2b623a55ee24678079bd3" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)

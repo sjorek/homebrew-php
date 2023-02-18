@@ -18,6 +18,8 @@ class ComposerATCOMPOSER_VERSION_FORMULA < Formula
 
   #deprecate! date: "2022-11-28", because: :versioned_formula
 
+  depends_on "shivammathur/php/php" => [:build, :test]
+
   def install
 
     php_binary      = '/usr/bin/env php'
