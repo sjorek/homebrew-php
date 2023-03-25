@@ -603,6 +603,13 @@ def generate_build_tasks(composer_build_targets)
           rebuild       = File.file?(t.name) || uptodate?(t.name, ['Rakefile', t.source]) == false
           revision      = outdated ? 0 : formula.match(/^ +revision +(\d+)$/).captures[0].to_i
 
+          has_install  = formula.match(/fail "invalid checksum for composer-installer" unless "([^"]+)" == composer_setup_sha384/)
+
+          if has_install
+            setup_sha384_actual = has_install.captures[0].to_s
+            outdated = true unless setup_sha384 == setup_sha384_actual
+          end
+
           if outdated || rebuild
 
             source = File.read(t.source)
