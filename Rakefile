@@ -379,8 +379,8 @@ BUILD_TARGETS = [
   {
     'version' => '2.5',
     'version_short' => '2',
-    'versions_url' => 'https://getcomposer.org/versions',
-    'sha256_url' => 'https://getcomposer.org/download/latest-2.x/composer.phar.sha256',
+    'versions_url' => 'archive/composer25.json',
+    'sha256_url' => 'archive/composer25.sha256',
     'archive' => false,
     'targets' => [
       {
