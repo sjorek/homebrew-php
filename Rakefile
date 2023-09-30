@@ -681,13 +681,20 @@ def generate_build_tasks(composer_build_targets)
           installed     = installed_versions.any? { |each| each['name'] == name }
           outdated      = !File.file?(t.name) || outdated_versions.any? { |each| each['formula'] == name }
           rebuild       = File.file?(t.name) || uptodate?(t.name, ['Rakefile', t.source]) == false
-          revision      = outdated ? 0 : formula.match(/^ +revision +(\d+)$/).captures[0].to_i
+          revision      = 0
 
-          has_install  = formula.match(/fail "invalid checksum for composer-installer" unless "([^"]+)" == composer_setup_sha384/)
+          unless formula == ''
+            outdated ||= formula.match(/^ +version +"([^"]+)"$/).captures[0].to_s != composer['version']
+            revision = formula.match(/^ +revision +(\d+)$/).captures[0].to_i unless outdated
+          end
 
-          if has_install
-            setup_sha384_actual = has_install.captures[0].to_s
-            outdated = true unless setup_sha384 == setup_sha384_actual
+          unless outdated
+            has_install = formula.match(/fail "invalid checksum for composer-installer" unless "([^"]+)" == composer_setup_sha384/)
+
+            if has_install
+              setup_sha384_actual = has_install.captures[0].to_s
+              outdated = true unless setup_sha384 == setup_sha384_actual
+            end
           end
 
           if outdated || rebuild
