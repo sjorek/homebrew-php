@@ -4,8 +4,8 @@ class Composer1Php70 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "1.10.26"
-  revision 19
+  version "1.10.27"
+  revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
