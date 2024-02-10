@@ -60,29 +60,29 @@ brew install sjorek/php/composer{1,22,26}-php{72,73,74,80,81,82,83}
     composer1-php82                1.10.27_0
     composer1-php83                1.10.27_0
 
-    composer@22                    2.2.22_0
+    composer@22                    2.2.23_0
 
-    composer-php56@22              2.2.22_0
-    composer-php70@22              2.2.22_0
-    composer-php71@22              2.2.22_0
-    composer-php72@22              2.2.22_0
-    composer-php73@22              2.2.22_0
-    composer-php74@22              2.2.22_0
-    composer-php80@22              2.2.22_0
-    composer-php81@22              2.2.22_0
-    composer-php82@22              2.2.22_0
-    composer-php83@22              2.2.22_0
+    composer-php56@22              2.2.23_0
+    composer-php70@22              2.2.23_0
+    composer-php71@22              2.2.23_0
+    composer-php72@22              2.2.23_0
+    composer-php73@22              2.2.23_0
+    composer-php74@22              2.2.23_0
+    composer-php80@22              2.2.23_0
+    composer-php81@22              2.2.23_0
+    composer-php82@22              2.2.23_0
+    composer-php83@22              2.2.23_0
 
-    composer22-php56               2.2.22_0
-    composer22-php70               2.2.22_0
-    composer22-php71               2.2.22_0
-    composer22-php72               2.2.22_0
-    composer22-php73               2.2.22_0
-    composer22-php74               2.2.22_0
-    composer22-php80               2.2.22_0
-    composer22-php81               2.2.22_0
-    composer22-php82               2.2.22_0
-    composer22-php83               2.2.22_0
+    composer22-php56               2.2.23_0
+    composer22-php70               2.2.23_0
+    composer22-php71               2.2.23_0
+    composer22-php72               2.2.23_0
+    composer22-php73               2.2.23_0
+    composer22-php74               2.2.23_0
+    composer22-php80               2.2.23_0
+    composer22-php81               2.2.23_0
+    composer22-php82               2.2.23_0
+    composer22-php83               2.2.23_0
 
     composer@23                    2.3.10_5
 
@@ -150,6 +150,24 @@ brew install sjorek/php/composer{1,22,26}-php{72,73,74,80,81,82,83}
     composer26-php82               2.6.6_0
     composer26-php83               2.6.6_0
 
+    composer@27                    2.7.1_0
+
+    composer-php72@27              2.7.1_0
+    composer-php73@27              2.7.1_0
+    composer-php74@27              2.7.1_0
+    composer-php80@27              2.7.1_0
+    composer-php81@27              2.7.1_0
+    composer-php82@27              2.7.1_0
+    composer-php83@27              2.7.1_0
+
+    composer27-php72               2.7.1_0
+    composer27-php73               2.7.1_0
+    composer27-php74               2.7.1_0
+    composer27-php80               2.7.1_0
+    composer27-php81               2.7.1_0
+    composer27-php82               2.7.1_0
+    composer27-php83               2.7.1_0
+
     composer-bash-completion       1.0.4_0
 
 ## List of (currently) provided formulae aliases
@@ -157,26 +175,26 @@ brew install sjorek/php/composer{1,22,26}-php{72,73,74,80,81,82,83}
     composer-php56                 composer22-php56
     composer-php70                 composer22-php70
     composer-php71                 composer22-php71
-    composer-php72                 composer26-php72
-    composer-php73                 composer26-php73
-    composer-php74                 composer26-php74
-    composer-php80                 composer26-php80
-    composer-php81                 composer26-php81
-    composer-php82                 composer26-php82
-    composer-php83                 composer26-php83
+    composer-php72                 composer27-php72
+    composer-php73                 composer27-php73
+    composer-php74                 composer27-php74
+    composer-php80                 composer27-php80
+    composer-php81                 composer27-php81
+    composer-php82                 composer27-php82
+    composer-php83                 composer27-php83
 
     composer2-php56                composer22-php56
     composer2-php70                composer22-php70
     composer2-php71                composer22-php71
-    composer2-php72                composer26-php72
-    composer2-php73                composer26-php73
-    composer2-php74                composer26-php74
-    composer2-php80                composer26-php80
-    composer2-php81                composer26-php81
-    composer2-php82                composer26-php82
-    composer2-php83                composer26-php83
+    composer2-php72                composer27-php72
+    composer2-php73                composer27-php73
+    composer2-php74                composer27-php74
+    composer2-php80                composer27-php80
+    composer2-php81                composer27-php81
+    composer2-php82                composer27-php82
+    composer2-php83                composer27-php83
 
-    composer@2                     composer@26
+    composer@2                     composer@27
 
 ## Links
 
