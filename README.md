@@ -36,145 +36,145 @@ brew install sjorek/php/composer{1,22,27}-php{72,73,74,80,81,82,83}
 
 ## List of (currently) provided formulae
 
-    composer@1                     1.10.27_0
+    composer@1                     1.10.27
 
-    composer-php56@1               1.10.27_0
-    composer-php70@1               1.10.27_0
-    composer-php71@1               1.10.27_0
-    composer-php72@1               1.10.27_0
-    composer-php73@1               1.10.27_0
-    composer-php74@1               1.10.27_0
-    composer-php80@1               1.10.27_0
-    composer-php81@1               1.10.27_0
-    composer-php82@1               1.10.27_0
-    composer-php83@1               1.10.27_0
+    composer-php56@1               1.10.27
+    composer-php70@1               1.10.27
+    composer-php71@1               1.10.27
+    composer-php72@1               1.10.27
+    composer-php73@1               1.10.27
+    composer-php74@1               1.10.27
+    composer-php80@1               1.10.27
+    composer-php81@1               1.10.27
+    composer-php82@1               1.10.27
+    composer-php83@1               1.10.27
 
-    composer1-php56                1.10.27_0
-    composer1-php70                1.10.27_0
-    composer1-php71                1.10.27_0
-    composer1-php72                1.10.27_0
-    composer1-php73                1.10.27_0
-    composer1-php74                1.10.27_0
-    composer1-php80                1.10.27_0
-    composer1-php81                1.10.27_0
-    composer1-php82                1.10.27_0
-    composer1-php83                1.10.27_0
+    composer1-php56                1.10.27
+    composer1-php70                1.10.27
+    composer1-php71                1.10.27
+    composer1-php72                1.10.27
+    composer1-php73                1.10.27
+    composer1-php74                1.10.27
+    composer1-php80                1.10.27
+    composer1-php81                1.10.27
+    composer1-php82                1.10.27
+    composer1-php83                1.10.27
 
-    composer@22                    2.2.23_0
+    composer@22                    2.2.23
 
-    composer-php56@22              2.2.23_0
-    composer-php70@22              2.2.23_0
-    composer-php71@22              2.2.23_0
-    composer-php72@22              2.2.23_0
-    composer-php73@22              2.2.23_0
-    composer-php74@22              2.2.23_0
-    composer-php80@22              2.2.23_0
-    composer-php81@22              2.2.23_0
-    composer-php82@22              2.2.23_0
-    composer-php83@22              2.2.23_0
+    composer-php56@22              2.2.23
+    composer-php70@22              2.2.23
+    composer-php71@22              2.2.23
+    composer-php72@22              2.2.23
+    composer-php73@22              2.2.23
+    composer-php74@22              2.2.23
+    composer-php80@22              2.2.23
+    composer-php81@22              2.2.23
+    composer-php82@22              2.2.23
+    composer-php83@22              2.2.23
 
-    composer22-php56               2.2.23_0
-    composer22-php70               2.2.23_0
-    composer22-php71               2.2.23_0
-    composer22-php72               2.2.23_0
-    composer22-php73               2.2.23_0
-    composer22-php74               2.2.23_0
-    composer22-php80               2.2.23_0
-    composer22-php81               2.2.23_0
-    composer22-php82               2.2.23_0
-    composer22-php83               2.2.23_0
+    composer22-php56               2.2.23
+    composer22-php70               2.2.23
+    composer22-php71               2.2.23
+    composer22-php72               2.2.23
+    composer22-php73               2.2.23
+    composer22-php74               2.2.23
+    composer22-php80               2.2.23
+    composer22-php81               2.2.23
+    composer22-php82               2.2.23
+    composer22-php83               2.2.23
 
-    composer@23                    2.3.10_5
+    composer@23                    2.3.10
 
-    composer-php72@23              2.3.10_4
-    composer-php73@23              2.3.10_4
-    composer-php74@23              2.3.10_4
-    composer-php80@23              2.3.10_4
-    composer-php81@23              2.3.10_4
-    composer-php82@23              2.3.10_4
-    composer-php83@23              2.3.10_0
+    composer-php72@23              2.3.10
+    composer-php73@23              2.3.10
+    composer-php74@23              2.3.10
+    composer-php80@23              2.3.10
+    composer-php81@23              2.3.10
+    composer-php82@23              2.3.10
+    composer-php83@23              2.3.10
 
-    composer23-php72               2.3.10_10
-    composer23-php73               2.3.10_10
-    composer23-php74               2.3.10_10
-    composer23-php80               2.3.10_10
-    composer23-php81               2.3.10_10
-    composer23-php82               2.3.10_10
-    composer23-php83               2.3.10_0
+    composer23-php72               2.3.10
+    composer23-php73               2.3.10
+    composer23-php74               2.3.10
+    composer23-php80               2.3.10
+    composer23-php81               2.3.10
+    composer23-php82               2.3.10
+    composer23-php83               2.3.10
 
-    composer@24                    2.4.4_5
+    composer@24                    2.4.4
 
-    composer-php72@24              2.4.4_4
-    composer-php73@24              2.4.4_4
-    composer-php74@24              2.4.4_4
-    composer-php80@24              2.4.4_4
-    composer-php81@24              2.4.4_4
-    composer-php82@24              2.4.4_4
-    composer-php83@24              2.4.4_0
+    composer-php72@24              2.4.4
+    composer-php73@24              2.4.4
+    composer-php74@24              2.4.4
+    composer-php80@24              2.4.4
+    composer-php81@24              2.4.4
+    composer-php82@24              2.4.4
+    composer-php83@24              2.4.4
 
-    composer24-php72               2.4.4_10
-    composer24-php73               2.4.4_10
-    composer24-php74               2.4.4_10
-    composer24-php80               2.4.4_10
-    composer24-php81               2.4.4_10
-    composer24-php82               2.4.4_10
-    composer24-php83               2.4.4_0
+    composer24-php72               2.4.4
+    composer24-php73               2.4.4
+    composer24-php74               2.4.4
+    composer24-php80               2.4.4
+    composer24-php81               2.4.4
+    composer24-php82               2.4.4
+    composer24-php83               2.4.4
 
-    composer@25                    2.5.8_1
+    composer@25                    2.5.8
 
-    composer-php72@25              2.5.8_0
-    composer-php73@25              2.5.8_0
-    composer-php74@25              2.5.8_0
-    composer-php80@25              2.5.8_0
-    composer-php81@25              2.5.8_0
-    composer-php82@25              2.5.8_0
-    composer-php83@25              2.5.8_0
+    composer-php72@25              2.5.8
+    composer-php73@25              2.5.8
+    composer-php74@25              2.5.8
+    composer-php80@25              2.5.8
+    composer-php81@25              2.5.8
+    composer-php82@25              2.5.8
+    composer-php83@25              2.5.8
 
-    composer25-php72               2.5.8_0
-    composer25-php73               2.5.8_0
-    composer25-php74               2.5.8_0
-    composer25-php80               2.5.8_0
-    composer25-php81               2.5.8_0
-    composer25-php82               2.5.8_0
-    composer25-php83               2.5.8_0
+    composer25-php72               2.5.8
+    composer25-php73               2.5.8
+    composer25-php74               2.5.8
+    composer25-php80               2.5.8
+    composer25-php81               2.5.8
+    composer25-php82               2.5.8
+    composer25-php83               2.5.8
 
-    composer@26                    2.6.6_0
+    composer@26                    2.6.6
 
-    composer-php72@26              2.6.6_0
-    composer-php73@26              2.6.6_0
-    composer-php74@26              2.6.6_0
-    composer-php80@26              2.6.6_0
-    composer-php81@26              2.6.6_0
-    composer-php82@26              2.6.6_0
-    composer-php83@26              2.6.6_0
+    composer-php72@26              2.6.6
+    composer-php73@26              2.6.6
+    composer-php74@26              2.6.6
+    composer-php80@26              2.6.6
+    composer-php81@26              2.6.6
+    composer-php82@26              2.6.6
+    composer-php83@26              2.6.6
 
-    composer26-php72               2.6.6_0
-    composer26-php73               2.6.6_0
-    composer26-php74               2.6.6_0
-    composer26-php80               2.6.6_0
-    composer26-php81               2.6.6_0
-    composer26-php82               2.6.6_0
-    composer26-php83               2.6.6_0
+    composer26-php72               2.6.6
+    composer26-php73               2.6.6
+    composer26-php74               2.6.6
+    composer26-php80               2.6.6
+    composer26-php81               2.6.6
+    composer26-php82               2.6.6
+    composer26-php83               2.6.6
 
-    composer@27                    2.7.1_0
+    composer@27                    2.7.1
 
-    composer-php72@27              2.7.1_0
-    composer-php73@27              2.7.1_0
-    composer-php74@27              2.7.1_0
-    composer-php80@27              2.7.1_0
-    composer-php81@27              2.7.1_0
-    composer-php82@27              2.7.1_0
-    composer-php83@27              2.7.1_0
+    composer-php72@27              2.7.1
+    composer-php73@27              2.7.1
+    composer-php74@27              2.7.1
+    composer-php80@27              2.7.1
+    composer-php81@27              2.7.1
+    composer-php82@27              2.7.1
+    composer-php83@27              2.7.1
 
-    composer27-php72               2.7.1_0
-    composer27-php73               2.7.1_0
-    composer27-php74               2.7.1_0
-    composer27-php80               2.7.1_0
-    composer27-php81               2.7.1_0
-    composer27-php82               2.7.1_0
-    composer27-php83               2.7.1_0
+    composer27-php72               2.7.1
+    composer27-php73               2.7.1
+    composer27-php74               2.7.1
+    composer27-php80               2.7.1
+    composer27-php81               2.7.1
+    composer27-php82               2.7.1
+    composer27-php83               2.7.1
 
-    composer-bash-completion       1.0.4_0
+    composer-bash-completion       1.0.4
 
 ## List of (currently) provided formulae aliases
 

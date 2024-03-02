@@ -859,7 +859,8 @@ def generate_build_tasks(composer_build_targets)
               sh "git add #{t.name}"
             end
 
-            readme = File.read('README.md').gsub(/^( +#{name} +)[0-9._]+$/, "\\1#{composer['version']}_#{revision}")
+            #readme = File.read('README.md').gsub(/^( +#{name} +)[0-9._]+$/, "\\1#{composer['version']}_#{revision}")
+            readme = File.read('README.md').gsub(/^( +#{name} +)[0-9.]+$/, "\\1#{composer['version']}")
             File.write('README.md', readme)
             sh 'git add README.md'
           end
