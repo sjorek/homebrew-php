@@ -4,7 +4,7 @@ class Composer27Php80 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.7.1"
+  version "2.7.2"
   revision 0
 
   livecheck do
