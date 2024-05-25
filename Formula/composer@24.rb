@@ -5,7 +5,7 @@ class ComposerAT24 < Formula
   sha256 "8586e7c8ce2839946a253a9ca3284e525245c1f82d8bd1e221cef88a59d00a75"
   license "MIT"
   version "2.4.4"
-  revision 6
+  revision 7
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -154,7 +154,7 @@ class ComposerAT24 < Formula
 
     EOS
 
-    if !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    if !OS.linux? && Dir.exist?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
         from ${HOME}/.composer/cache to /Library/Caches/composer.

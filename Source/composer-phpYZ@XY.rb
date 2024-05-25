@@ -151,7 +151,7 @@ class ComposerPhpPHP_VERSION_MAJORPHP_VERSION_MINORATCOMPOSER_VERSION_FORMULA < 
 
     EOS
 
-    if !OS.linux? && Dir.exists?(ENV['HOME'] + "/.composer/cache") then
+    if !OS.linux? && Dir.exist?(ENV['HOME'] + "/.composer/cache") then
       s += <<~EOS
         ATTENTION: The COMPOSER_CACHE_DIR path-value has been renamed
         from ${HOME}/.composer/cache to /Library/Caches/composer.
