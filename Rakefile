@@ -70,6 +70,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -115,6 +119,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -182,6 +190,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -227,6 +239,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -282,6 +298,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -315,6 +335,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -370,6 +394,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -403,6 +431,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -458,6 +490,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -491,6 +527,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -546,6 +586,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -579,6 +623,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
@@ -634,6 +682,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       },
@@ -667,6 +719,10 @@ BUILD_TARGETS = [
           {
             'formula' => 'shivammathur/php/php',
             'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
           }
         ]
       }
