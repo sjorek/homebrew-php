@@ -4,8 +4,8 @@ class ComposerPhp82AT22 < Formula
   url "file:///dev/null"
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
-  version "2.2.23"
-  revision 2
+  version "2.2.24"
+  revision 0
 
   livecheck do
     url "https://getcomposer.org/versions"
@@ -37,7 +37,7 @@ class ComposerPhp82AT22 < Formula
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
 
     composer_phar_sha256 = `#{php_binary} -r 'echo hash_file("sha256", "#{composer_phar}");'`
-    fail "invalid checksum for composer.phar" unless "060ff6b6b8bfb60a943c94954cc4e8bf3e780ff33ecd7c7d9eb2f43241f39740" == composer_phar_sha256
+    fail "invalid checksum for composer.phar" unless "b0c383b1f430a80a74c006f20199d1e0226848a0a90afa5c0a7d01fb90ee9075" == composer_phar_sha256
 
     composer_version = `#{php_binary} #{composer_phar} --version --no-ansi`
     fail "invalid version for composer.phar" unless /^Composer version #{Regexp.escape(version)}( |$)/.match?(composer_version)
