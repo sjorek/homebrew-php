@@ -28,10 +28,10 @@ brew tap sjorek/php
     brew uninstall $( brew ls --full-name --formula -1 | grep -E "^php" )
 
 # Install several composer-formulae WITH bash-completion support enabled, or …
-brew install sjorek/php/composer{1,22,27}-php{72,73,74,80,81,82,83,84} --with-bash-completion
+brew install sjorek/php/composer{1,22,28}-php{72,73,74,80,81,82,83,84} --with-bash-completion
 
 # … install several composer-formulae at once WITHOUT bash-completion support
-brew install sjorek/php/composer{1,22,27}-php{72,73,74,80,81,82,83,84}
+brew install sjorek/php/composer{1,22,28}-php{72,73,74,80,81,82,83,84}
 ```
 
 ## List of (currently) provided formulae
@@ -187,6 +187,26 @@ brew install sjorek/php/composer{1,22,27}-php{72,73,74,80,81,82,83,84}
     composer27-php82               2.7.9
     composer27-php83               2.7.9
     composer27-php84               2.7.9
+
+    composer@28                    2.8.1
+
+    composer-php72@28              2.8.1
+    composer-php73@28              2.8.1
+    composer-php74@28              2.8.1
+    composer-php80@28              2.8.1
+    composer-php81@28              2.8.1
+    composer-php82@28              2.8.1
+    composer-php83@28              2.8.1
+    composer-php84@28              2.8.1
+
+    composer28-php72               2.8.1
+    composer28-php73               2.8.1
+    composer28-php74               2.8.1
+    composer28-php80               2.8.1
+    composer28-php81               2.8.1
+    composer28-php82               2.8.1
+    composer28-php83               2.8.1
+    composer28-php84               2.8.1
 
     composer-bash-completion       1.0.4
 

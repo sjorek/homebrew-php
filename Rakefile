@@ -635,6 +635,102 @@ BUILD_TARGETS = [
   {
     'version' => '2.7',
     'version_short' => '2',
+    'versions_url' => 'archive/composer27.json',
+    'sha256_url' => 'archive/composer27.sha256',
+    'archive' => false,
+    'targets' => [
+      {
+        'source' => 'Source/composer@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          },
+          {
+            'formula' => 'php',
+            'version' => '0.0.0'
+          }
+        ]
+      },
+      {
+        'source' => 'Source/composer-phpYZ@XY.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
+          }
+        ]
+      },
+      {
+        'source' => 'Source/composerXY-phpYZ.rb',
+        'versions' => [
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '7.4.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.0.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.1.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.2.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.3.0'
+          },
+          {
+            'formula' => 'shivammathur/php/php',
+            'version' => '8.4.0'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'version' => '2.8',
+    'version_short' => '2',
     'versions_url' => 'https://getcomposer.org/versions',
     'sha256_url' => 'https://getcomposer.org/download/latest-2.x/composer.phar.sha256',
     'archive' => true,
