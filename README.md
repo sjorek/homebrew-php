@@ -62,31 +62,31 @@ brew install sjorek/php/composer{1,22,28}-php{72,73,74,80,81,82,83,84}
     composer1-php83                1.10.27
     composer1-php84                1.10.27
 
-    composer@22                    2.2.24
+    composer@22                    2.2.25
 
-    composer-php56@22              2.2.24
-    composer-php70@22              2.2.24
-    composer-php71@22              2.2.24
-    composer-php72@22              2.2.24
-    composer-php73@22              2.2.24
-    composer-php74@22              2.2.24
-    composer-php80@22              2.2.24
-    composer-php81@22              2.2.24
-    composer-php82@22              2.2.24
-    composer-php83@22              2.2.24
-    composer-php84@22              2.2.24
+    composer-php56@22              2.2.25
+    composer-php70@22              2.2.25
+    composer-php71@22              2.2.25
+    composer-php72@22              2.2.25
+    composer-php73@22              2.2.25
+    composer-php74@22              2.2.25
+    composer-php80@22              2.2.25
+    composer-php81@22              2.2.25
+    composer-php82@22              2.2.25
+    composer-php83@22              2.2.25
+    composer-php84@22              2.2.25
 
-    composer22-php56               2.2.24
-    composer22-php70               2.2.24
-    composer22-php71               2.2.24
-    composer22-php72               2.2.24
-    composer22-php73               2.2.24
-    composer22-php74               2.2.24
-    composer22-php80               2.2.24
-    composer22-php81               2.2.24
-    composer22-php82               2.2.24
-    composer22-php83               2.2.24
-    composer22-php84               2.2.24
+    composer22-php56               2.2.25
+    composer22-php70               2.2.25
+    composer22-php71               2.2.25
+    composer22-php72               2.2.25
+    composer22-php73               2.2.25
+    composer22-php74               2.2.25
+    composer22-php80               2.2.25
+    composer22-php81               2.2.25
+    composer22-php82               2.2.25
+    composer22-php83               2.2.25
+    composer22-php84               2.2.25
 
     composer@23                    2.3.10
 
@@ -188,25 +188,25 @@ brew install sjorek/php/composer{1,22,28}-php{72,73,74,80,81,82,83,84}
     composer27-php83               2.7.9
     composer27-php84               2.7.9
 
-    composer@28                    2.8.1
+    composer@28                    2.8.5
 
-    composer-php72@28              2.8.1
-    composer-php73@28              2.8.1
-    composer-php74@28              2.8.1
-    composer-php80@28              2.8.1
-    composer-php81@28              2.8.1
-    composer-php82@28              2.8.1
-    composer-php83@28              2.8.1
-    composer-php84@28              2.8.1
+    composer-php72@28              2.8.5
+    composer-php73@28              2.8.5
+    composer-php74@28              2.8.5
+    composer-php80@28              2.8.5
+    composer-php81@28              2.8.5
+    composer-php82@28              2.8.5
+    composer-php83@28              2.8.5
+    composer-php84@28              2.8.5
 
-    composer28-php72               2.8.1
-    composer28-php73               2.8.1
-    composer28-php74               2.8.1
-    composer28-php80               2.8.1
-    composer28-php81               2.8.1
-    composer28-php82               2.8.1
-    composer28-php83               2.8.1
-    composer28-php84               2.8.1
+    composer28-php72               2.8.5
+    composer28-php73               2.8.5
+    composer28-php74               2.8.5
+    composer28-php80               2.8.5
+    composer28-php81               2.8.5
+    composer28-php82               2.8.5
+    composer28-php83               2.8.5
+    composer28-php84               2.8.5
 
     composer-bash-completion       1.0.4
 
