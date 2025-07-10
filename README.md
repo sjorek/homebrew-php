@@ -188,25 +188,25 @@ brew install sjorek/php/composer{1,22,28}-php{72,73,74,80,81,82,83,84}
     composer27-php83               2.7.9
     composer27-php84               2.7.9
 
-    composer@28                    2.8.6
+    composer@28                    2.8.9
 
-    composer-php72@28              2.8.6
-    composer-php73@28              2.8.6
-    composer-php74@28              2.8.6
-    composer-php80@28              2.8.6
-    composer-php81@28              2.8.6
-    composer-php82@28              2.8.6
-    composer-php83@28              2.8.6
-    composer-php84@28              2.8.6
+    composer-php72@28              2.8.9
+    composer-php73@28              2.8.9
+    composer-php74@28              2.8.9
+    composer-php80@28              2.8.9
+    composer-php81@28              2.8.9
+    composer-php82@28              2.8.9
+    composer-php83@28              2.8.9
+    composer-php84@28              2.8.9
 
-    composer28-php72               2.8.6
-    composer28-php73               2.8.6
-    composer28-php74               2.8.6
-    composer28-php80               2.8.6
-    composer28-php81               2.8.6
-    composer28-php82               2.8.6
-    composer28-php83               2.8.6
-    composer28-php84               2.8.6
+    composer28-php72               2.8.9
+    composer28-php73               2.8.9
+    composer28-php74               2.8.9
+    composer28-php80               2.8.9
+    composer28-php81               2.8.9
+    composer28-php82               2.8.9
+    composer28-php83               2.8.9
+    composer28-php84               2.8.9
 
     composer-bash-completion       1.0.4
 
