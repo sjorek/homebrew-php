@@ -2,7 +2,7 @@ class ComposerAT1 < Formula
   desc "Dependency Manager for PHP - Version 1.10.x"
   homepage "https://getcomposer.org/"
   url "https://getcomposer.org/installer"
-  sha256 "084c2335a5f067184811ff393e459218f21c8a9ae940b0fc0f935f022f78f136"
+  sha256 "aad0c40a36d9938664f5a34eb2ed39dbc1021792f9706dbcb9cd6d8001227c99"
   license "MIT"
   version "1.10.27"
   revision 2
@@ -30,7 +30,7 @@ class ComposerAT1 < Formula
     mv "installer", composer_setup
 
     composer_setup_sha384 = `#{php_binary} -r 'echo hash_file("sha384", "#{composer_setup}");'`
-    fail "invalid checksum for composer-installer" unless "ed0feb545ba87161262f2d45a633e34f591ebb3381f2e0063c345ebea4d228dd0043083717770234ec00c5a9f9593792" == composer_setup_sha384
+    fail "invalid checksum for composer-installer" unless "c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47" == composer_setup_sha384
 
     composer_setup_check = `#{php_binary} #{composer_setup} --check --no-ansi`.strip
     fail composer_setup_check unless "All settings correct for using Composer" == composer_setup_check
