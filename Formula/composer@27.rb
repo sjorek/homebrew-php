@@ -5,7 +5,7 @@ class ComposerAT27 < Formula
   sha256 "aad0c40a36d9938664f5a34eb2ed39dbc1021792f9706dbcb9cd6d8001227c99"
   license "MIT"
   version "2.7.9"
-  revision 0
+  revision 1
 
   livecheck do
     url "https://getcomposer.org/versions"

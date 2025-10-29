@@ -5,7 +5,7 @@ class ComposerPhp74AT24 < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   license "MIT"
   version "2.4.4"
-  revision 6
+  revision 7
 
   livecheck do
     url "https://getcomposer.org/versions"
